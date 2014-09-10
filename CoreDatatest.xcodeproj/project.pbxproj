@@ -22,6 +22,9 @@
 		766E2C8319A7288100B27131 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766E2C6719A7288100B27131 /* CoreData.framework */; };
 		766E2C8B19A7288100B27131 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 766E2C8919A7288100B27131 /* InfoPlist.strings */; };
 		766E2C8D19A7288100B27131 /* CoreDatatestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 766E2C8C19A7288100B27131 /* CoreDatatestTests.m */; };
+		766E2C9C19A8718400B27131 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 766E2C9B19A8718400B27131 /* Storyboard.storyboard */; };
+		766E2C9F19A8720F00B27131 /* ResisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 766E2C9E19A8720F00B27131 /* ResisterViewController.m */; };
+		766E2CA219A9DDBD00B27131 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 766E2CA119A9DDBD00B27131 /* Account.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,12 @@
 		766E2C8819A7288100B27131 /* CoreDatatestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreDatatestTests-Info.plist"; sourceTree = "<group>"; };
 		766E2C8A19A7288100B27131 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		766E2C8C19A7288100B27131 /* CoreDatatestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDatatestTests.m; sourceTree = "<group>"; };
+		766E2C9B19A8718400B27131 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard.storyboard; path = ../Storyboard.storyboard; sourceTree = "<group>"; };
+		766E2C9D19A8720F00B27131 /* ResisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResisterViewController.h; sourceTree = "<group>"; };
+		766E2C9E19A8720F00B27131 /* ResisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResisterViewController.m; sourceTree = "<group>"; };
+		766E2CA019A9DDBD00B27131 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
+		766E2CA119A9DDBD00B27131 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
+		76E27AFD19C035D500C66A1C /* CoreDatatest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CoreDatatest.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +124,12 @@
 		766E2C6919A7288100B27131 /* CoreDatatest */ = {
 			isa = PBXGroup;
 			children = (
-				766E2C7219A7288100B27131 /* CoreDatatestAppDelegate.h */,
-				766E2C7319A7288100B27131 /* CoreDatatestAppDelegate.m */,
+				76E27AFD19C035D500C66A1C /* CoreDatatest.entitlements */,
+				766E2C9B19A8718400B27131 /* Storyboard.storyboard */,
+				766E2C9D19A8720F00B27131 /* ResisterViewController.h */,
+				766E2C9E19A8720F00B27131 /* ResisterViewController.m */,
+				766E2CA019A9DDBD00B27131 /* Account.h */,
+				766E2CA119A9DDBD00B27131 /* Account.m */,
 				766E2C7819A7288100B27131 /* Images.xcassets */,
 				766E2C7519A7288100B27131 /* CoreDatatest.xcdatamodeld */,
 				766E2C6A19A7288100B27131 /* Supporting Files */,
@@ -127,6 +140,8 @@
 		766E2C6A19A7288100B27131 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				766E2C7219A7288100B27131 /* CoreDatatestAppDelegate.h */,
+				766E2C7319A7288100B27131 /* CoreDatatestAppDelegate.m */,
 				766E2C6B19A7288100B27131 /* CoreDatatest-Info.plist */,
 				766E2C6C19A7288100B27131 /* InfoPlist.strings */,
 				766E2C6F19A7288100B27131 /* main.m */,
@@ -201,6 +216,14 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Private;
 				TargetAttributes = {
+					766E2C5D19A7288100B27131 = {
+						DevelopmentTeam = S6HARCQ4K6;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
 					766E2C7D19A7288100B27131 = {
 						TestTargetID = 766E2C5D19A7288100B27131;
 					};
@@ -231,6 +254,7 @@
 			files = (
 				766E2C6E19A7288100B27131 /* InfoPlist.strings in Resources */,
 				766E2C7919A7288100B27131 /* Images.xcassets in Resources */,
+				766E2C9C19A8718400B27131 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +275,8 @@
 			files = (
 				766E2C7019A7288100B27131 /* main.m in Sources */,
 				766E2C7419A7288100B27131 /* CoreDatatestAppDelegate.m in Sources */,
+				766E2C9F19A8720F00B27131 /* ResisterViewController.m in Sources */,
+				766E2CA219A9DDBD00B27131 /* Account.m in Sources */,
 				766E2C7719A7288100B27131 /* CoreDatatest.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,10 +396,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = CoreDatatest/CoreDatatest.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDatatest/CoreDatatest-Prefix.pch";
 				INFOPLIST_FILE = "CoreDatatest/CoreDatatest-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -383,10 +414,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = CoreDatatest/CoreDatatest.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDatatest/CoreDatatest-Prefix.pch";
 				INFOPLIST_FILE = "CoreDatatest/CoreDatatest-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -450,6 +486,7 @@
 				766E2C9219A7288100B27131 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		766E2C9319A7288100B27131 /* Build configuration list for PBXNativeTarget "CoreDatatestTests" */ = {
 			isa = XCConfigurationList;
@@ -458,6 +495,7 @@
 				766E2C9519A7288100B27131 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
