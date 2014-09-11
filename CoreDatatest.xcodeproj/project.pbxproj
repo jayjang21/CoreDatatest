@@ -25,6 +25,7 @@
 		766E2C9C19A8718400B27131 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 766E2C9B19A8718400B27131 /* Storyboard.storyboard */; };
 		766E2C9F19A8720F00B27131 /* ResisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 766E2C9E19A8720F00B27131 /* ResisterViewController.m */; };
 		766E2CA219A9DDBD00B27131 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 766E2CA119A9DDBD00B27131 /* Account.m */; };
+		76E27B0019C122A300C66A1C /* AttendanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E27AFF19C122A300C66A1C /* AttendanceViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		766E2CA019A9DDBD00B27131 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
 		766E2CA119A9DDBD00B27131 /* Account.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Account.m; sourceTree = "<group>"; };
 		76E27AFD19C035D500C66A1C /* CoreDatatest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CoreDatatest.entitlements; sourceTree = "<group>"; };
+		76E27AFE19C122A300C66A1C /* AttendanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceViewController.h; sourceTree = "<group>"; };
+		76E27AFF19C122A300C66A1C /* AttendanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 			children = (
 				76E27AFD19C035D500C66A1C /* CoreDatatest.entitlements */,
 				766E2C9B19A8718400B27131 /* Storyboard.storyboard */,
+				76E27AFE19C122A300C66A1C /* AttendanceViewController.h */,
+				76E27AFF19C122A300C66A1C /* AttendanceViewController.m */,
 				766E2C9D19A8720F00B27131 /* ResisterViewController.h */,
 				766E2C9E19A8720F00B27131 /* ResisterViewController.m */,
 				766E2CA019A9DDBD00B27131 /* Account.h */,
@@ -278,6 +283,7 @@
 				766E2C9F19A8720F00B27131 /* ResisterViewController.m in Sources */,
 				766E2CA219A9DDBD00B27131 /* Account.m in Sources */,
 				766E2C7719A7288100B27131 /* CoreDatatest.xcdatamodeld in Sources */,
+				76E27B0019C122A300C66A1C /* AttendanceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

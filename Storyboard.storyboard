@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="Qjb-O7-rrr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="mE2-eC-boU">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Resister View Controller-->
+        <!--Resister View Controller - Register/Update Account-->
         <scene sceneID="lKj-RB-G1w">
             <objects>
                 <viewController id="Qjb-O7-rrr" customClass="ResisterViewController" sceneMemberID="viewController">
@@ -54,7 +54,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5b7-Vh-c4a">
-                                <rect key="frame" x="356" y="918" width="56" height="30"/>
+                                <rect key="frame" x="354" y="918" width="56" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Resister">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -161,7 +161,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wjb-GL-mJu">
-                                <rect key="frame" x="488" y="918" width="30" height="30"/>
+                                <rect key="frame" x="461" y="918" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Find">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -183,6 +183,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Register/Update Account" id="u71-Q4-rrv"/>
                     <connections>
                         <outlet property="addressTextField" destination="T9r-Zv-g3A" id="QUa-0N-MCc"/>
                         <outlet property="dateOfBirthButton" destination="ihH-6E-aVT" id="CY2-AT-se1"/>
@@ -203,7 +204,62 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qyI-fZ-fkt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-118" y="-93"/>
+            <point key="canvasLocation" x="1576" y="559"/>
+        </scene>
+        <!--Attendance View Controller - Attendance-->
+        <scene sceneID="lky-sL-lWW">
+            <objects>
+                <viewController id="27m-J0-JFA" customClass="AttendanceViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2mf-3g-uAM"/>
+                        <viewControllerLayoutGuide type="bottom" id="4js-Wl-biI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eEa-rc-wPS">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eC6-ui-xbb">
+                                <rect key="frame" x="38" y="87" width="692" height="663"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iHj-1k-jt0">
+                                <rect key="frame" x="337" y="901" width="94" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Reading">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startStopReadingButtonPressed:" destination="27m-J0-JFA" eventType="touchUpInside" id="SRd-Mv-YDJ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vuw-Mf-MDE">
+                                <rect key="frame" x="363" y="792" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please press 'Start Reading Button' to start reading QRCode." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPK-cY-88z">
+                                <rect key="frame" x="145" y="821" width="471" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Attendance" id="moA-Gb-0rC"/>
+                    <navigationItem key="navigationItem" id="QIc-0W-GX9"/>
+                    <connections>
+                        <outlet property="currentStatusLabel" destination="pPK-cY-88z" id="E7X-eU-iZ4"/>
+                        <outlet property="qRCodeImageView" destination="eC6-ui-xbb" id="RuF-5f-E2h"/>
+                        <outlet property="qRCodeInformationLabel" destination="vuw-Mf-MDE" id="JDB-QQ-xse"/>
+                        <outlet property="startStopReadingButton" destination="iHj-1k-jt0" id="oDn-yq-mUU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VWl-cO-fnw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1576" y="1761"/>
         </scene>
         <!--Resister View Controller-->
         <scene sceneID="Ch1-oe-gB0">
@@ -274,7 +330,26 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bqX-IK-gcD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="735" y="90"/>
+            <point key="canvasLocation" x="437" y="-662"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="f4x-mJ-AzV">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="mE2-eC-boU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="47S-CX-an1">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="27m-J0-JFA" kind="relationship" relationship="viewControllers" id="ABm-4t-SsS"/>
+                        <segue destination="Qjb-O7-rrr" kind="relationship" relationship="viewControllers" id="uik-4L-e48"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JxA-Ua-O3d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="602" y="559"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
