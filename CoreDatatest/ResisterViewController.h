@@ -40,15 +40,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *recentTestDateLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *qrImageView;
 
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;// do we need this?
 
 - (IBAction)registerationDateButtonTapped:(id)sender;
 - (IBAction)payDateButtonTapped:(id)sender;
 - (IBAction)dateOfBirthButtonTapped:(id)sender;
 - (IBAction)recentTestDateButtonTapped:(id)sender;
-
-@property (weak, nonatomic) IBOutlet UIButton *registerButton;// do we need this?
-
 
 
 - (IBAction)updateAccount:(id)sender;
@@ -56,5 +55,7 @@
 - (IBAction)registerAccount:(id)sender;
 //- (IBAction)returnToMainView:(id)sender;
 
+
+- (IBAction)handleGenerateButtonPressed:(id)sender;
 
 @end

@@ -79,6 +79,8 @@
     self.recentTestDateLabel.text = self.currentDateInString;
    
     
+    self.qrImageView.hidden = YES;
+    
 
     //made a NSString *currentDateInString and put the current date in string, using +date and -description method. Used *currentDateInString to set the labels in the four date text with the current date.
     
@@ -209,6 +211,8 @@
         
         self.profileImageView.image = currentAccount.profileImage;
     }
+    
+    self.qrImageView.hidden = YES;
 }
 
 - (IBAction)registerAccount:(id)sender
@@ -497,8 +501,131 @@
     
     cameraUI.delegate = delegate;
     
-    [controller presentModalViewController: cameraUI animated: YES];
+    [controller presentViewController:cameraUI animated:YES completion:nil];
+    //[controller presentModalViewController: cameraUI animated: YES ];
     return YES;
+}
+
+#pragma mark - QR Code Generation
+
+- (IBAction)handleGenerateButtonPressed:(id)sender {
+    // Disable the UI
+    //[self setUIElementsAsEnabled:NO];
+    //[self.stringTextField resignFirstResponder];
+    
+    // Get the string
+    NSString *stringToEncode = self.iDTextField.text;
+    
+    if([stringToEncode isEqualToString:@""])
+        return;
+    
+    // Generate the image
+    CIImage *qrCode = [self createQRForString:stringToEncode];
+    
+    // Convert to an UIImage
+    UIImage *qrCodeImg = [self createNonInterpolatedUIImageFromCIImage:qrCode withScale:2*[[UIScreen mainScreen] scale]];
+    
+    
+    
+    UIImage* mergedImage = [self mergeImage:_profileImageView.image withSecondImage:qrCodeImg];
+    
+    // And push the image on to the screen
+    self.qrImageView.image = mergedImage;
+    self.qrImageView.hidden = NO;
+    
+    // Re-enable the UI
+    //[self setUIElementsAsEnabled:YES];
+}
+
+
+- (CIImage *)createQRForString:(NSString *)qrString
+{
+    // Need to convert the string to a UTF-8 encoded NSData object
+    NSData *stringData = [qrString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    // Create the filter
+    CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    // Set the message content and error-correction level
+    [qrFilter setValue:stringData forKey:@"inputMessage"];
+    [qrFilter setValue:@"H" forKey:@"inputCorrectionLevel"];
+    
+    // Send the image back
+    return qrFilter.outputImage;
+}
+
+- (UIImage *)createNonInterpolatedUIImageFromCIImage:(CIImage *)image withScale:(CGFloat)scale
+{
+    // Render the CIImage into a CGImage
+    CGImageRef cgImage = [[CIContext contextWithOptions:nil] createCGImage:image fromRect:image.extent];
+    
+    // Now we'll rescale using CoreGraphics
+    UIGraphicsBeginImageContext(CGSizeMake(image.extent.size.width * scale, image.extent.size.width * scale));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    // We don't want to interpolate (since we've got a pixel-correct image)
+    CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+    CGContextDrawImage(context, CGContextGetClipBoundingBox(context), cgImage);
+    // Get the image out
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    // Tidy up
+    UIGraphicsEndImageContext();
+    CGImageRelease(cgImage);
+    return scaledImage;
+}
+
+- (UIImage*) mergeImage:(UIImage*)firstImage withSecondImage:(UIImage*)secondImage
+{
+    
+    if(secondImage == nil)
+        return nil;
+    
+    CGSize imageSize = CGSizeMake(400,800);
+    
+    CGSize size = CGSizeMake(imageSize.width, imageSize.height);
+    
+    UIGraphicsBeginImageContextWithOptions(size, self.view.alpha, 0.0);
+    
+    if(firstImage)
+        [firstImage drawInRect:CGRectMake(10, 10, 380, 380)];
+    
+    if(secondImage)
+        [secondImage drawInRect:CGRectMake(10, 400, 380, 380)];
+    
+    UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return mergedImage;
+
+}
+
+- (UIImage*) mergeImage
+{
+    UIImage *firstImage = _profileImageView.image;
+    UIImage *secondImage = _qrImageView.image;
+    
+    return [self mergeImage:firstImage withSecondImage:secondImage];
+    
+    
+    /*
+    CGSize imageSize = CGSizeMake(400,800);
+    
+    CGSize size = CGSizeMake(imageSize.width, imageSize.height);
+    
+    UIGraphicsBeginImageContextWithOptions(size, self.view.alpha, 0.0);
+    
+    
+    [firstImage drawInRect:CGRectMake(10, 10, 380, 380)];
+    [secondImage drawInRect:CGRectMake(10, 400, 380, 380)];
+    
+    UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return mergedImage;
+    //UIImageView *newImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, framedImage.size.width,framedImage.size.height)];
+    //newImageView.image = imageC;
+    //newImageView.contentMode = UIViewContentModeScaleAspectFill;
+     */
 }
 
 @end

@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface AttendanceViewController : UIViewController
+@interface AttendanceViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate>
 {
     BOOL isReading;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *qRCodeImageView;
+@property (weak, nonatomic) IBOutlet UIView *viewPreview;
 @property (weak, nonatomic) IBOutlet UILabel *qRCodeInformationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentStatusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *startStopReadingButton;
