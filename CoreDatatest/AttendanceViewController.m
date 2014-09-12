@@ -94,11 +94,22 @@
     isReading = !isReading;
 }
 
+- (AVCaptureDevice *)frontCamera {
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices) {
+        if ([device position] == AVCaptureDevicePositionFront) {
+            return device;
+        }
+    }
+    return nil;
+}
+
 -(BOOL) initializeQRCode
 {
     NSError *error;
+
     
-    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDevice *captureDevice = [self frontCamera]; //[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
     

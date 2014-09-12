@@ -509,7 +509,8 @@
 {
     
     bool result = NO;
-    if ([self AccountIDAlreadyExists]) {
+    //if ([self AccountIDAlreadyExists])
+    {
         CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
         NSManagedObjectContext *context = [appDelegate managedObjectContext];
