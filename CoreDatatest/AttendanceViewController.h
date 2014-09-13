@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SCShapeView.h"
+#import "Account.h"
+#import "Attendance.h"
 
 @interface AttendanceViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate>
 {

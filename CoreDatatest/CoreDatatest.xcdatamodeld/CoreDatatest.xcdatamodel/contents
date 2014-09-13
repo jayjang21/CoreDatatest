@@ -12,7 +12,12 @@
         <attribute name="recentTestDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="registerationDate" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
+    <entity name="Attendance" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="iD" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Account" positionX="-63" positionY="-27" width="128" height="203"/>
+        <element name="Attendance" positionX="-63" positionY="45" width="128" height="83"/>
     </elements>
 </model>

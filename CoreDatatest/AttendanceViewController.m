@@ -7,13 +7,17 @@
 //
 
 #import "AttendanceViewController.h"
-#import "SCShapeView.h"
+
+
 
 @interface AttendanceViewController ()
 {
     SCShapeView *_boundingBox;
     NSTimer *_boxHideTimer;
 }
+
+@property (strong, nonatomic) NSString *currentDateInString;
+@property (strong, nonatomic) NSString *currentTime;
 
 @property (strong, nonatomic) AVCaptureSession *captureSession;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *videoPreviewLayer;
@@ -72,6 +76,26 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (NSString *) currentDateInString
+{
+    _currentDateInString = [Account convertedNSStringFromNSDate:[NSDate date]];
+    return _currentDateInString;
+}
+
+- (NSString *) currentTime
+{
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    [timeFormatter setDateFormat:@"HH:mm:ss"];
+    NSString *timeString = [timeFormatter stringFromDate:[NSDate date]];
+    
+    _currentTime = timeString;
+    return _currentDateInString;
+    
+}
+
+
+
 
 - (IBAction)startStopReadingButtonPressed:(id)sender
 {
@@ -228,7 +252,7 @@
             //[_startStopReadingButton setTitle:@"Start Reading!" forState:UIControlStateNormal];
             //[_qRCodeInformationLabel performSelectorOnMainThread:@selector(setText:) withObject:[transformed stringValue] waitUntilDone:NO];
 
-            
+            [self saveAttendanceRecord];
             
             // Start the timer which will hide the overlay
             [self startOverlayHideTimer];
@@ -254,6 +278,17 @@
     else{
         [_audioPlayer prepareToPlay];
     }
+}
+
+- (void) saveAttendanceRecord
+{
+    Attendance *currentAttendance = [[Attendance alloc] init];
+    
+    currentAttendance.iD = _qRCodeInformationLabel.text;
+    currentAttendance.dateNSString = self.currentDateInString;
+    currentAttendance.time = self.currentTime;
+    
+    [currentAttendance saveAttendanceInformation];
 }
 
 #pragma mark - Utility Methods
