@@ -200,6 +200,10 @@
 
 - (BOOL) AccountIDAlreadyExists
 {
+    
+    return [Account AccountAlreadyExists:self.iD];
+    
+    /*
     CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
@@ -219,12 +223,42 @@
     NSError *error;
     NSArray *chosenEntities = [context executeFetchRequest:request error:&error];//where does NSError *error go?
     
-    if ([chosenEntities count] != 0) {
+    if ([chosenEntities count] > 0) {
         return YES;
     }
 
     return NO;
+     */
 
+}
+
++ (BOOL) AccountAlreadyExists:(NSString*)inputID
+{
+    CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Account" inManagedObjectContext:context]];
+    
+    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", inputID]];
+    
+    //NSManagedObject *matches = nil;
+    
+    NSError *error;
+    NSArray *chosenEntities = [context executeFetchRequest:request error:&error];//where does NSError *error go?
+    
+    if ([chosenEntities count] > 0) {
+        return YES;
+    }
+    
+    return NO;
+    
 }
 
 - (BOOL) AllInputsExceptIDAreSuitable
@@ -279,7 +313,7 @@
 + (NSDate *) convertedNSDateFromDateString: (NSString *)dateString
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     NSDate *convertedDate = [dateFormatter dateFromString:dateString];
     
@@ -289,7 +323,7 @@
 + (NSString *) convertedNSStringFromNSDate: (NSDate *)date
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     NSString *convertedString = [dateFormatter stringFromDate:date];
     
@@ -360,7 +394,7 @@
 }
 
 
--(void) updateAllAccountInformation
+-(BOOL) updateAllAccountInformation
 {
     //[self updateAccountInformationWithAttribute:@"name"];
     //[self updateAccountInformationWithAttribute:@"phone"];
@@ -372,9 +406,11 @@
     //[self updateAccountInformationWithAttribute:@"payDateNSString"];
     
     
-    [self updateAccountInformation];
+    BOOL result = [self updateAccountInformation];
     
     [self saveAccountProfileImage];
+    
+    return result;
 }
 
 - (BOOL) updateAccountInformation

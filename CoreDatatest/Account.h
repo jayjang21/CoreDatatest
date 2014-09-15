@@ -37,9 +37,9 @@
 - (BOOL) saveAllAccountInformation;
 - (BOOL) updateAccountInformationWithAttribute:(NSString *)attributeName;
 - (BOOL) bringAllAccountInformationFromAccountID;
-- (void) updateAllAccountInformation;
+- (BOOL) updateAllAccountInformation;
 
-
++ (BOOL) AccountAlreadyExists:(NSString*)inputID;
 
 
 @end

@@ -197,7 +197,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Register/Update Account" id="u71-Q4-rrv"/>
+                    <tabBarItem key="tabBarItem" title="Register/Update Account" image="register.png" id="u71-Q4-rrv">
+                        <inset key="imageInsets" minX="6" minY="10" maxX="6" maxY="10"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="addressTextField" destination="T9r-Zv-g3A" id="QUa-0N-MCc"/>
                         <outlet property="dateOfBirthButton" destination="ihH-6E-aVT" id="CY2-AT-se1"/>
@@ -268,7 +270,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Attendance" id="moA-Gb-0rC"/>
+                    <tabBarItem key="tabBarItem" title="Attendance" image="attendance.png" id="moA-Gb-0rC">
+                        <inset key="imageInsets" minX="6" minY="10" maxX="6" maxY="10"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="QIc-0W-GX9"/>
                     <connections>
                         <outlet property="currentStatusLabel" destination="pPK-cY-88z" id="E7X-eU-iZ4"/>
@@ -373,6 +377,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <point key="canvasLocation" x="602" y="559"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="attendance.png" width="52" height="52"/>
+        <image name="register.png" width="51" height="52"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

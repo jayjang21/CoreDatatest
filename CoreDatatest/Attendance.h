@@ -14,10 +14,15 @@
 @property (strong, nonatomic) NSString *dateNSString;
 @property (strong, nonatomic) NSString *iD;
 @property (strong, nonatomic) NSString *time;
-@property (strong, nonatomic) NSArray *dateAndTime;
+@property (strong, nonatomic) NSMutableArray *dateArray;
+@property (strong, nonatomic) NSMutableArray *timeArray;
+//output dateAndTime
 
 - (BOOL) saveAttendanceInformation;
-- (BOOL) bringAllDateTimeAndNameFromAttendanceIDAndYearMonth;
+- (BOOL) bringAllDateTimeAndNameFromAttendanceIDAndYear: (NSString *) inputYear AndMonth: (NSString *) inputMonth;
 
++ (BOOL) saveAttendanceInformation:(NSString*)inputID withDate:(NSString*)inputDate withTime:(NSString*)inputTime;
+
++ (BOOL) bringAllDateTimeFromAttendance:(NSString*)inputID withYear:(NSString *) inputYear withMonth: (NSString *) inputMonth;
 
 @end

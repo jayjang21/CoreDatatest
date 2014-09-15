@@ -10,7 +10,9 @@
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
-@interface ResisterViewController ()
+#import <MessageUI/MFMailComposeViewController.h>
+
+@interface ResisterViewController () <MFMailComposeViewControllerDelegate>
 
 //@property (strong, nonatomic) NSString *iD;
 //@property (strong, nonatomic) NSString *name;
@@ -183,7 +185,17 @@
     currentAccount.profileImagePath = [NSString stringWithFormat: @"Documents/%@.jpg", currentAccount.iD];
     currentAccount.profileImage = self.profileImageView.image;
     
-    [currentAccount updateAllAccountInformation];
+    BOOL result = [currentAccount updateAllAccountInformation];
+    
+    if(result) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Registered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Registered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+
 }
 
 - (IBAction)findAcocuntWithID:(id)sender
@@ -211,8 +223,14 @@
         
         self.profileImageView.image = currentAccount.profileImage;
     }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Not Found" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
     
     self.qrImageView.hidden = YES;
+    
+
 }
 
 - (IBAction)registerAccount:(id)sender
@@ -231,7 +249,13 @@
     currentAccount.profileImagePath = [NSString stringWithFormat: @"Documents/%@.jpg", currentAccount.iD];
     currentAccount.profileImage = self.profileImageView.image;
     
-    [currentAccount saveAllAccountInformation];
+    BOOL result = [currentAccount saveAllAccountInformation];
+    
+    if(result) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Registered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+    }
+    
 }
 
 
@@ -529,9 +553,11 @@
     
     UIImage* mergedImage = [self mergeImage:_profileImageView.image withSecondImage:qrCodeImg];
     
+    
+    [self sendEmailWithImage:mergedImage];
     // And push the image on to the screen
-    self.qrImageView.image = mergedImage;
-    self.qrImageView.hidden = NO;
+    //self.qrImageView.image = mergedImage;
+    //self.qrImageView.hidden = NO;
     
     // Re-enable the UI
     //[self setUIElementsAsEnabled:YES];
@@ -582,10 +608,24 @@
     
     CGSize size = CGSizeMake(imageSize.width, imageSize.height);
     
-    UIGraphicsBeginImageContextWithOptions(size, self.view.alpha, 0.0);
+    //UIGraphicsBeginImageContextWithOptions(size, self.view.alpha, 1.0);
+    
+    UIGraphicsBeginImageContextWithOptions(size, YES, 1.0);
+    
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    CGContextClearRect(contextRef, CGRectMake(0, 0, 400, 800));
+    CGContextSetRGBFillColor(contextRef, 1, 1, 1, 1);
+    CGContextSetRGBStrokeColor(contextRef, 0, 0, 0, 0.5);
+    
+    CGContextFillRect(contextRef,CGRectMake(0, 0, 400, 800));
+    
+    NSString *title = [NSString stringWithFormat: @"%@ : %@",self.iDTextField.text, self.nameTextField.text];
+    //[title drawAtPoint:CGPointMake(10,5) withAttributes:nil];
+    [title drawAtPoint:CGPointMake(10, 5)
+          withAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:40], NSForegroundColorAttributeName:[UIColor blackColor] }];
     
     if(firstImage)
-        [firstImage drawInRect:CGRectMake(10, 10, 380, 380)];
+        [firstImage drawInRect:CGRectMake(50, 50, 300, 340)];
     
     if(secondImage)
         [secondImage drawInRect:CGRectMake(10, 400, 380, 380)];
@@ -626,6 +666,61 @@
     //newImageView.image = imageC;
     //newImageView.contentMode = UIViewContentModeScaleAspectFill;
      */
+}
+
+-(void)sendEmailWithImage:(UIImage*) image
+{
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    
+    NSString *subject = [NSString stringWithFormat:@"Member Card(QR Code) : %@", self.iDTextField.text];
+     
+    [picker setSubject:subject];
+    
+    // Set up recipients
+    // NSArray *toRecipients = [NSArray arrayWithObject:@"first@example.com"];
+    // NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com", @"third@example.com", nil];
+    // NSArray *bccRecipients = [NSArray arrayWithObject:@"fourth@example.com"];
+    
+    // [picker setToRecipients:toRecipients];
+    // [picker setCcRecipients:ccRecipients];
+    // [picker setBccRecipients:bccRecipients];
+    
+    // Attach an image to the email
+    UIImage *coolImage = image;
+    NSData *myData = UIImagePNGRepresentation(coolImage);
+    [picker addAttachmentData:myData mimeType:@"image/png" fileName:@"coolImage.png"];
+    
+    // Fill out the email body text
+    NSString *emailBody = @"";
+    [picker setMessageBody:emailBody isHTML:NO];
+    
+    [self presentViewController:picker animated:YES completion:nil];
+    
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    // Notifies users about errors associated with the interface
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Result: canceled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Result: saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Result: sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Result: failed");
+            break;
+        default:
+            NSLog(@"Result: not sent");
+            break;
+    }
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

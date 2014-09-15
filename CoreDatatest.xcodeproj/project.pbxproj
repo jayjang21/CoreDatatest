@@ -27,6 +27,8 @@
 		766E2C9F19A8720F00B27131 /* ResisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 766E2C9E19A8720F00B27131 /* ResisterViewController.m */; };
 		766E2CA219A9DDBD00B27131 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 766E2CA119A9DDBD00B27131 /* Account.m */; };
 		76E27B0019C122A300C66A1C /* AttendanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E27AFF19C122A300C66A1C /* AttendanceViewController.m */; };
+		8E394B5519C6E436005F8A22 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E394B5419C6E436005F8A22 /* register.png */; };
+		8E394B5719C6E548005F8A22 /* attendance.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E394B5619C6E548005F8A22 /* attendance.png */; };
 		8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8E42CF1519C23DE100D34E07 /* beep.mp3 */; };
 		8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42CF1819C2442400D34E07 /* SCShapeView.m */; };
 /* End PBXBuildFile section */
@@ -70,6 +72,8 @@
 		76E27AFD19C035D500C66A1C /* CoreDatatest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CoreDatatest.entitlements; sourceTree = "<group>"; };
 		76E27AFE19C122A300C66A1C /* AttendanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceViewController.h; sourceTree = "<group>"; };
 		76E27AFF19C122A300C66A1C /* AttendanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceViewController.m; sourceTree = "<group>"; };
+		8E394B5419C6E436005F8A22 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
+		8E394B5619C6E548005F8A22 /* attendance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attendance.png; sourceTree = "<group>"; };
 		8E42CF1519C23DE100D34E07 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		8E42CF1719C2442400D34E07 /* SCShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCShapeView.h; sourceTree = "<group>"; };
 		8E42CF1819C2442400D34E07 /* SCShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCShapeView.m; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 		766E2C6A19A7288100B27131 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8E394B5619C6E548005F8A22 /* attendance.png */,
+				8E394B5419C6E436005F8A22 /* register.png */,
 				8E42CF1519C23DE100D34E07 /* beep.mp3 */,
 				766E2C7219A7288100B27131 /* CoreDatatestAppDelegate.h */,
 				766E2C7319A7288100B27131 /* CoreDatatestAppDelegate.m */,
@@ -272,6 +278,8 @@
 			files = (
 				766E2C6E19A7288100B27131 /* InfoPlist.strings in Resources */,
 				766E2C7919A7288100B27131 /* Images.xcassets in Resources */,
+				8E394B5719C6E548005F8A22 /* attendance.png in Resources */,
+				8E394B5519C6E436005F8A22 /* register.png in Resources */,
 				8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */,
 				766E2C9C19A8718400B27131 /* Storyboard.storyboard in Resources */,
 			);

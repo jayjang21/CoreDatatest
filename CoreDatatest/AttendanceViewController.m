@@ -14,6 +14,7 @@
 {
     SCShapeView *_boundingBox;
     NSTimer *_boxHideTimer;
+    NSTimer *_QRPauseTimer;
 }
 
 @property (strong, nonatomic) NSString *currentDateInString;
@@ -46,6 +47,8 @@
     _captureSession = nil;
     
     isReading = NO;
+    
+    [self loadBeepSound];
     
     [self initializeQRCode];
     /*
@@ -90,7 +93,7 @@
     NSString *timeString = [timeFormatter stringFromDate:[NSDate date]];
     
     _currentTime = timeString;
-    return _currentDateInString;
+    return _currentTime;
     
 }
 
@@ -110,7 +113,7 @@
         
         if ([self startReadingQRCode]) {
             self.qRCodeInformationLabel.text = @"";
-            self.currentStatusLabel.text = @"Your attendance has been recorded successfully!";
+            //self.currentStatusLabel.text = @"Your attendance has been recorded successfully!";
             [self.startStopReadingButton setTitle:@"Stop Reading!" forState:UIControlStateNormal];
         }
     }
@@ -121,7 +124,9 @@
 - (AVCaptureDevice *)frontCamera {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     for (AVCaptureDevice *device in devices) {
-        if ([device position] == AVCaptureDevicePositionFront) {
+        if ([device position] == AVCaptureDevicePositionFront)
+        //if ([device position] == AVCaptureDevicePositionBack)
+        {
             return device;
         }
     }
@@ -248,7 +253,10 @@
             
             [_qRCodeInformationLabel setText:[transformed stringValue] ];
             
-            //[self stopReadingQRCode];
+            [self stopReadingQRCode];
+            
+            [self startQRResumeTimer];
+            
             //[_startStopReadingButton setTitle:@"Start Reading!" forState:UIControlStateNormal];
             //[_qRCodeInformationLabel performSelectorOnMainThread:@selector(setText:) withObject:[transformed stringValue] waitUntilDone:NO];
 
@@ -288,11 +296,50 @@
     currentAttendance.dateNSString = self.currentDateInString;
     currentAttendance.time = self.currentTime;
     
-    [currentAttendance saveAttendanceInformation];
+    BOOL result = [currentAttendance saveAttendanceInformation];
+    
+    NSString *resultstr;
+    if(result) {
+        resultstr = [NSString stringWithFormat:@"ID : %@ - %@ - %@", currentAttendance.iD, currentAttendance.dateNSString, currentAttendance.time];
+    }
+    else {
+        resultstr = [NSString stringWithFormat:@"Already Attended"];
+    }
+    
+    self.self.currentStatusLabel.text = resultstr;
+    
+    if(result) {
+         NSLog(@"Attendance Saved : %@ - %@ - %@", currentAttendance.iD, currentAttendance.dateNSString, currentAttendance.time);
+    }
+    else {
+        NSLog(@"Attendance Already Saved");
+    }
 }
 
 #pragma mark - Utility Methods
-- (void)startOverlayHideTimer
+
+- (void) startQRResumeTimer
+{
+    // Cancel it if we're already running
+    if(_QRPauseTimer) {
+        [_QRPauseTimer invalidate];
+    }
+    
+    // Restart it to hide the overlay when it fires
+    _QRPauseTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                     target:self
+                                                   selector:@selector(resumeQRCode:)
+                                                   userInfo:nil
+                                                    repeats:NO];
+}
+
+- (void)resumeQRCode:(id)sender
+{
+    [self startReadingQRCode];
+}
+
+
+- (void) startOverlayHideTimer
 {
     // Cancel it if we're already running
     if(_boxHideTimer) {
