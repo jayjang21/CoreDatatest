@@ -188,11 +188,11 @@
     BOOL result = [currentAccount updateAllAccountInformation];
     
     if(result) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Registered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
     else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Registered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Failed to update" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
 
@@ -224,7 +224,7 @@
         self.profileImageView.image = currentAccount.profileImage;
     }
     else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Not Found" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Not Found" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
     
@@ -252,7 +252,7 @@
     BOOL result = [currentAccount saveAllAccountInformation];
     
     if(result) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Registered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Registered" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
     
@@ -437,7 +437,7 @@
 
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     self.datePickingPickedDate = [dateFormatter stringFromDate:datePicker.date];
     //self.datePickingResultLabel.text = [[NSString stringWithFormat:@"%@: ", self.datePickingDateKind ] stringByAppendingString:self.datePickingPickedDate];
     
@@ -470,7 +470,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
+    //whenever alert view's buttons are clicked, this function is called. for now I just disabled 'otherbutton' for the alert views that don't need to come into this if statement, but in the future I might need to make booleans to make sure.
     if(buttonIndex == 1) {
         
         UIDatePicker *picker = [alertView valueForKey:@"accessoryView"];
