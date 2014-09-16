@@ -261,7 +261,7 @@
     
 }
 
-- (BOOL) AllInputsExceptIDAreSuitable
+- (BOOL) iDAndNameInputsAreSuitable
 {
     
     if ([self.iD  isEqualToString: @""]) {
@@ -341,7 +341,7 @@
     BOOL result = NO;
     if (![self AccountIDAlreadyExists]){
     
-        if ([self AllInputsExceptIDAreSuitable]) {
+        if ([self iDAndNameInputsAreSuitable]) {
         
             CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
@@ -421,7 +421,7 @@
 - (BOOL) updateAccountInformation
 {
     BOOL result = NO;
-    if ([self AllInputsExceptIDAreSuitable]) {
+    if ([self iDAndNameInputsAreSuitable]) {
         
         
         CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -481,7 +481,7 @@
 - (BOOL) updateAccountInformationWithAttribute:(NSString *)attributeName
 {
     BOOL result = NO;
-    if ([self AllInputsExceptIDAreSuitable]) {
+    if ([self iDAndNameInputsAreSuitable]) {
     
     
     CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];

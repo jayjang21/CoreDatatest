@@ -12,7 +12,15 @@
 
 #import <MessageUI/MFMailComposeViewController.h>
 
+static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
+static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
+static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
+static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 264;
+static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 352;
+CGFloat animatedDistance;
+
 @interface ResisterViewController () <MFMailComposeViewControllerDelegate>
+
 
 //@property (strong, nonatomic) NSString *iD;
 //@property (strong, nonatomic) NSString *name;
@@ -66,7 +74,17 @@
     [self.profileImageView addGestureRecognizer : doubleTap];
     [self.profileImageView addGestureRecognizer : singleTap];
     
-
+    
+    [self.iDTextField setKeyboardType:UIKeyboardTypeNumberPad];
+    [self.emailTextField setKeyboardType:UIKeyboardTypeEmailAddress];//UIKeyboardTypeEmailAddress is the same as UIKeyboardTypeNumberPad.
+    [self.phoneTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+    
+    
+    [self.iDTextField setDelegate:self];
+    [self.nameTextField setDelegate:self];
+    [self.phoneTextField setDelegate:self];
+    [self.addressTextField setDelegate:self];
+    [self.emailTextField setDelegate:self];
     
     //self.registerationDateButton.titleLabel.text = @"Hello";
    
@@ -168,10 +186,28 @@
     return _currentDateInString;
 }
 
-
+- (IBAction)resetAllInputs:(id)sender
+{
+    //clear all texts
+    self.iDTextField.text = @"";
+    self.nameTextField.text = @"";
+    self.phoneTextField.text = @"";
+    self.addressTextField.text = @"";
+    self.emailTextField.text = @"";
+    
+    //reset all date to currentDateInString
+    self.registerationDateLabel.text = self.currentDateInString;
+    self.payDateLabel.text = self.currentDateInString;
+    self.dateOfBirthLabel.text = self.currentDateInString;
+    self.recentTestDateLabel.text = self.currentDateInString;
+    
+    //clear the ImageView
+    self.profileImageView.image = nil;
+    
+}
 - (IBAction)updateAccount:(id)sender
 {
-    Account *currentAccount = [[Account alloc] init];   
+    Account *currentAccount = [[Account alloc] init];
     
     currentAccount.iD = self.iDTextField.text;
     currentAccount.name = self.nameTextField.text;
@@ -289,6 +325,8 @@
     //self.datePickingContainerView.hidden = NO;
     [self datePickingShowAlertView];
 }
+
+
 
 - (IBAction)payDateButtonTapped:(id)sender
 {
@@ -501,7 +539,62 @@
      */
 }
 
+-(BOOL) textFieldShouldBeginEditing:(UITextField*)textField
+{
+    
+    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    /*CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+    CGFloat numerator =  midline - viewRect.origin.y  - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
+    CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION)
+    * viewRect.size.height;
+    CGFloat heightFraction = numerator / denominator;
+    if (heightFraction < 0.0)
+    {
+        heightFraction = 0.0;
+    }
+    else if (heightFraction > 1.0)
+    {
+        heightFraction = 1.0;
+    }
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (orientation == UIInterfaceOrientationPortrait ||
+        orientation == UIInterfaceOrientationPortraitUpsideDown)
+    {
+        animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
+    }
+    else
+    {
+        animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
+    }*/
+    if ((textFieldRect.origin.y + textFieldRect.size.height) >= (viewRect.size.height - PORTRAIT_KEYBOARD_HEIGHT)) {
+        animatedDistance = PORTRAIT_KEYBOARD_HEIGHT;
+    } else {
+        animatedDistance = 0;
+    }
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y -= animatedDistance;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    [self.view setFrame:viewFrame];
+    [UIView commitAnimations];
+    return YES;
 
+}
+
+- (BOOL) textFieldShouldEndEditing:(UITextField*)textField
+{
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y += animatedDistance;
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    [self.view setFrame:viewFrame];
+    [UIView commitAnimations];
+    return YES;
+}
 
 - (BOOL) startCameraControllerFromViewController: (UIViewController*) controller
                                    usingDelegate: (id <UIImagePickerControllerDelegate,

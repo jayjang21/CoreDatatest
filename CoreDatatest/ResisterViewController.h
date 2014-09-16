@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "Account.h"
 
-@interface ResisterViewController : UIViewController  <UIAlertViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
+@interface ResisterViewController : UIViewController  <UIAlertViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
 
 {
     UIPopoverController *popoverController;
@@ -49,7 +49,7 @@
 - (IBAction)dateOfBirthButtonTapped:(id)sender;
 - (IBAction)recentTestDateButtonTapped:(id)sender;
 
-
+- (IBAction)resetAllInputs:(id)sender;
 - (IBAction)updateAccount:(id)sender;
 - (IBAction)findAcocuntWithID:(id)sender;
 - (IBAction)registerAccount:(id)sender;
