@@ -69,6 +69,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self startReadingQRCode];
+    
+    self.qRCodeInformationLabel.text = @"";
+    self.currentStatusLabel.text = @"Waiting for QR code ...";
+    [self.startStopReadingButton setTitle:@"Stop Reading!" forState: UIControlStateNormal];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self stopReadingQRCode];
+}
 /*
 #pragma mark - Navigation
 
@@ -113,7 +131,7 @@
         
         if ([self startReadingQRCode]) {
             self.qRCodeInformationLabel.text = @"";
-            //self.currentStatusLabel.text = @"Your attendance has been recorded successfully!";
+            self.currentStatusLabel.text = @"Waiting for QR code ...";
             [self.startStopReadingButton setTitle:@"Stop Reading!" forState:UIControlStateNormal];
         }
     }

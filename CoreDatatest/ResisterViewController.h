@@ -58,4 +58,5 @@
 
 - (IBAction)handleGenerateButtonPressed:(id)sender;
 
+-(IBAction)textFieldReturn:(id)sender;
 @end

@@ -723,6 +723,11 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+-(IBAction)textFieldReturn:(id)sender
+{
+    [sender resignFirstResponder];
+}
+
 @end
 
 
