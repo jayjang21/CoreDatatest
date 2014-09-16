@@ -264,6 +264,10 @@
 - (BOOL) AllInputsExceptIDAreSuitable
 {
     
+    if ([self.iD  isEqualToString: @""]) {
+        NSLog(@"nothing is written in 'name'");
+        return NO;
+    }
     
     if ([self.name  isEqualToString: @""]) {
         NSLog(@"nothing is written in 'name'");
@@ -271,6 +275,7 @@
     }
     
 
+    /*
     //bool bNumeric = true;
     for(int i=0; i< self.phone.length; i++) {
         //NSString * newString = [self.phone substringWithRange:NSMakeRange(i, 1)];
@@ -283,7 +288,7 @@
             return NO;
         }
     }
-    
+    */
     //if(!bNumeric) {
         
     //}
@@ -294,15 +299,15 @@
     //    return NO;
     //}
     
-    if ([self.address isEqualToString:@""]) {
-        NSLog(@"nothing is written in 'address'");
-        return NO;
-    }
+    //if ([self.address isEqualToString:@""]) {
+    //    NSLog(@"nothing is written in 'address'");
+    //    return NO;
+    //}
     
-    if ([self.email isEqualToString:@""]) {
-        NSLog(@"nothing is written in 'email'");
-        return NO;
-    }
+    //if ([self.email isEqualToString:@""]) {
+    //    NSLog(@"nothing is written in 'email'");
+    //    return NO;
+    //}
     
 
     

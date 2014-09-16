@@ -255,6 +255,10 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Registered" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Failed to Register" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
     
 }
 
@@ -604,7 +608,7 @@
     if(secondImage == nil)
         return nil;
     
-    CGSize imageSize = CGSizeMake(400,800);
+    CGSize imageSize = CGSizeMake(400,600);
     
     CGSize size = CGSizeMake(imageSize.width, imageSize.height);
     
@@ -613,11 +617,11 @@
     UIGraphicsBeginImageContextWithOptions(size, YES, 1.0);
     
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    CGContextClearRect(contextRef, CGRectMake(0, 0, 400, 800));
+    CGContextClearRect(contextRef, CGRectMake(0, 0, 400, 600));
     CGContextSetRGBFillColor(contextRef, 1, 1, 1, 1);
     CGContextSetRGBStrokeColor(contextRef, 0, 0, 0, 0.5);
     
-    CGContextFillRect(contextRef,CGRectMake(0, 0, 400, 800));
+    CGContextFillRect(contextRef,CGRectMake(0, 0, 400, 600));
     
     NSString *title = [NSString stringWithFormat: @"%@ : %@",self.iDTextField.text, self.nameTextField.text];
     //[title drawAtPoint:CGPointMake(10,5) withAttributes:nil];
@@ -625,10 +629,10 @@
           withAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:40], NSForegroundColorAttributeName:[UIColor blackColor] }];
     
     if(firstImage)
-        [firstImage drawInRect:CGRectMake(50, 50, 300, 340)];
+        [firstImage drawInRect:CGRectMake(100, 50, 200, 210)];
     
     if(secondImage)
-        [secondImage drawInRect:CGRectMake(10, 400, 380, 380)];
+        [secondImage drawInRect:CGRectMake(30, 260, 340, 340)];
     
     UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -670,7 +674,16 @@
 
 -(void)sendEmailWithImage:(UIImage*) image
 {
+    
+    if (![MFMailComposeViewController canSendMail])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Failed to Send Email. Register Email Address at Setting." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
     MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    
+    
     picker.mailComposeDelegate = self;
     
     NSString *subject = [NSString stringWithFormat:@"Member Card(QR Code) : %@", self.iDTextField.text];
@@ -678,11 +691,11 @@
     [picker setSubject:subject];
     
     // Set up recipients
-    // NSArray *toRecipients = [NSArray arrayWithObject:@"first@example.com"];
+     NSArray *toRecipients = [NSArray arrayWithObject:@"kwonpyo@naver.com"];
     // NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com", @"third@example.com", nil];
     // NSArray *bccRecipients = [NSArray arrayWithObject:@"fourth@example.com"];
     
-    // [picker setToRecipients:toRecipients];
+     [picker setToRecipients:toRecipients];
     // [picker setCcRecipients:ccRecipients];
     // [picker setBccRecipients:bccRecipients];
     
@@ -720,7 +733,10 @@
             NSLog(@"Result: not sent");
             break;
     }
-    [self dismissModalViewControllerAnimated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    //[self dismissModalViewControllerAnimated:YES];
 }
 
 -(IBAction)textFieldReturn:(id)sender
