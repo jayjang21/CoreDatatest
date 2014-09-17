@@ -19,6 +19,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 264;
 static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 352;
 CGFloat animatedDistance;
 
+
+
 @interface ResisterViewController () <MFMailComposeViewControllerDelegate>
 
 
@@ -35,7 +37,7 @@ CGFloat animatedDistance;
 @property (strong, nonatomic) NSString *currentDateInString;
 @property (strong, nonatomic) NSString *datePickingPickedDate;
 @property (strong, nonatomic) NSString *datePickingDateKind;
-
+@property (strong, nonatomic) id justTappedTextField;
 
 @end
 
@@ -98,6 +100,7 @@ CGFloat animatedDistance;
     self.dateOfBirthLabel.text = self.currentDateInString;
     self.recentTestDateLabel.text = self.currentDateInString;
    
+    
     
     self.qrImageView.hidden = YES;
     
@@ -542,8 +545,8 @@ CGFloat animatedDistance;
 -(BOOL) textFieldShouldBeginEditing:(UITextField*)textField
 {
     
-    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    
+    //textFieldRect.size.height += 0.5;
     /*CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
     CGFloat numerator =  midline - viewRect.origin.y  - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
     CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION)
@@ -567,12 +570,34 @@ CGFloat animatedDistance;
     {
         animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
     }*/
-    if ((textFieldRect.origin.y + textFieldRect.size.height) >= (viewRect.size.height - PORTRAIT_KEYBOARD_HEIGHT)) {
-        animatedDistance = PORTRAIT_KEYBOARD_HEIGHT;
+    
+    //reseting the view and the keyboard
+    
+    
+    CGRect viewFrame = self.view.frame;
+    viewFrame.origin.y  = 0;
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    [self.view setFrame:viewFrame];
+    [UIView commitAnimations];
+    
+    //begining to calculate the animation
+    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    
+    CGFloat textFieldBottomLine = textFieldRect.origin.y + (textFieldRect.size.height + 10);
+    CGFloat keyboardBttomLine = viewRect.size.height - PORTRAIT_KEYBOARD_HEIGHT;
+    
+    
+    if (textFieldBottomLine >= keyboardBttomLine) {
+        
+        animatedDistance = textFieldBottomLine - keyboardBttomLine;
+        
     } else {
         animatedDistance = 0;
     }
-    CGRect viewFrame = self.view.frame;
+    
     viewFrame.origin.y -= animatedDistance;
     
     [UIView beginAnimations:nil context:NULL];
@@ -580,19 +605,27 @@ CGFloat animatedDistance;
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     [self.view setFrame:viewFrame];
     [UIView commitAnimations];
+
+    self.justTappedTextField = textField.copy;
     return YES;
 
 }
 
 - (BOOL) textFieldShouldEndEditing:(UITextField*)textField
 {
+    
+    if ([textField.copy isEqual:self.justTappedTextField]) {
     CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += animatedDistance;
+    viewFrame.origin.y = 0;
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     [self.view setFrame:viewFrame];
     [UIView commitAnimations];
+        
+    }
+    
+    [textField setSelected:NO];
     return YES;
 }
 
