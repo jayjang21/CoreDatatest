@@ -21,6 +21,9 @@
 
 @property (nonatomic, strong) UIPopoverController *popoverController;
 
+@property (strong, nonatomic) IBOutlet UIButton *nextButton;
+@property (strong, nonatomic) IBOutlet UIButton *prevButton;
+
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePickingDatePicker;
 
 @property (weak, nonatomic) IBOutlet UITextField *iDTextField;
