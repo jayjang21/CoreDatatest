@@ -40,6 +40,6 @@
 - (BOOL) updateAllAccountInformation;
 
 + (BOOL) AccountAlreadyExists:(NSString*)inputID;
-
++ (NSArray*) bringAllAccount;
 
 @end

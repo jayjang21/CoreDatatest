@@ -29,6 +29,11 @@
 		76E27B0019C122A300C66A1C /* AttendanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E27AFF19C122A300C66A1C /* AttendanceViewController.m */; };
 		8E394B5519C6E436005F8A22 /* register.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E394B5419C6E436005F8A22 /* register.png */; };
 		8E394B5719C6E548005F8A22 /* attendance.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E394B5619C6E548005F8A22 /* attendance.png */; };
+		8E394BE619CB97C9005F8A22 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BE519CB97C9005F8A22 /* libxml2.dylib */; };
+		8E394BE919CB9850005F8A22 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BE719CB9850005F8A22 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8E394BED19CBC3D2005F8A22 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BEC19CBC3D2005F8A22 /* DropboxSDK.framework */; };
+		8E394BEF19CBC3DA005F8A22 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BEE19CBC3DA005F8A22 /* Security.framework */; };
+		8E394BF119CBC3E2005F8A22 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */; };
 		8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8E42CF1519C23DE100D34E07 /* beep.mp3 */; };
 		8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42CF1819C2442400D34E07 /* SCShapeView.m */; };
 /* End PBXBuildFile section */
@@ -74,6 +79,13 @@
 		76E27AFF19C122A300C66A1C /* AttendanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceViewController.m; sourceTree = "<group>"; };
 		8E394B5419C6E436005F8A22 /* register.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register.png; sourceTree = "<group>"; };
 		8E394B5619C6E548005F8A22 /* attendance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = attendance.png; sourceTree = "<group>"; };
+		8E394BE519CB97C9005F8A22 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		8E394BE719CB9850005F8A22 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		8E394BE819CB9850005F8A22 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		8E394BEA19CBC380005F8A22 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = "../../iPhoneTest/dropbox-ios-sdk-1.3.13/DropboxSDK.framework"; sourceTree = "<group>"; };
+		8E394BEC19CBC3D2005F8A22 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
+		8E394BEE19CBC3DA005F8A22 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8E42CF1519C23DE100D34E07 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		8E42CF1719C2442400D34E07 /* SCShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCShapeView.h; sourceTree = "<group>"; };
 		8E42CF1819C2442400D34E07 /* SCShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCShapeView.m; sourceTree = "<group>"; };
@@ -84,6 +96,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E394BF119CBC3E2005F8A22 /* QuartzCore.framework in Frameworks */,
+				8E394BEF19CBC3DA005F8A22 /* Security.framework in Frameworks */,
+				8E394BED19CBC3D2005F8A22 /* DropboxSDK.framework in Frameworks */,
+				8E394BE619CB97C9005F8A22 /* libxml2.dylib in Frameworks */,
 				766E2C6419A7288100B27131 /* CoreGraphics.framework in Frameworks */,
 				766E2C6819A7288100B27131 /* CoreData.framework in Frameworks */,
 				766E2C6619A7288100B27131 /* UIKit.framework in Frameworks */,
@@ -127,6 +143,11 @@
 		766E2C6019A7288100B27131 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */,
+				8E394BEE19CBC3DA005F8A22 /* Security.framework */,
+				8E394BEC19CBC3D2005F8A22 /* DropboxSDK.framework */,
+				8E394BEA19CBC380005F8A22 /* DropboxSDK.framework */,
+				8E394BE519CB97C9005F8A22 /* libxml2.dylib */,
 				766E2C6119A7288100B27131 /* Foundation.framework */,
 				766E2C6319A7288100B27131 /* CoreGraphics.framework */,
 				766E2C6519A7288100B27131 /* UIKit.framework */,
@@ -139,6 +160,10 @@
 		766E2C6919A7288100B27131 /* CoreDatatest */ = {
 			isa = PBXGroup;
 			children = (
+				766E2C7219A7288100B27131 /* CoreDatatestAppDelegate.h */,
+				766E2C7319A7288100B27131 /* CoreDatatestAppDelegate.m */,
+				8E394BE719CB9850005F8A22 /* GDataXMLNode.m */,
+				8E394BE819CB9850005F8A22 /* GDataXMLNode.h */,
 				76E27AFD19C035D500C66A1C /* CoreDatatest.entitlements */,
 				766E2C9B19A8718400B27131 /* Storyboard.storyboard */,
 				8E42CF1719C2442400D34E07 /* SCShapeView.h */,
@@ -164,8 +189,6 @@
 				8E394B5619C6E548005F8A22 /* attendance.png */,
 				8E394B5419C6E436005F8A22 /* register.png */,
 				8E42CF1519C23DE100D34E07 /* beep.mp3 */,
-				766E2C7219A7288100B27131 /* CoreDatatestAppDelegate.h */,
-				766E2C7319A7288100B27131 /* CoreDatatestAppDelegate.m */,
 				766E2C6B19A7288100B27131 /* CoreDatatest-Info.plist */,
 				766E2C6C19A7288100B27131 /* InfoPlist.strings */,
 				766E2C6F19A7288100B27131 /* main.m */,
@@ -305,6 +328,7 @@
 				766E2C9F19A8720F00B27131 /* ResisterViewController.m in Sources */,
 				8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */,
 				766E2CA219A9DDBD00B27131 /* Account.m in Sources */,
+				8E394BE919CB9850005F8A22 /* GDataXMLNode.m in Sources */,
 				766E2C7719A7288100B27131 /* CoreDatatest.xcdatamodeld in Sources */,
 				764418E019C3BCEE00C8E0E5 /* Attendance.m in Sources */,
 				76E27B0019C122A300C66A1C /* AttendanceViewController.m in Sources */,
@@ -429,10 +453,21 @@
 				CODE_SIGN_ENTITLEMENTS = CoreDatatest/CoreDatatest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/daesik/Documents/Personal/iPhoneTest/dropbox-ios-sdk-1.3.13",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDatatest/CoreDatatest-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "CoreDatatest/CoreDatatest-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -448,10 +483,21 @@
 				CODE_SIGN_ENTITLEMENTS = CoreDatatest/CoreDatatest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/daesik/Documents/Personal/iPhoneTest/dropbox-ios-sdk-1.3.13",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDatatest/CoreDatatest-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "CoreDatatest/CoreDatatest-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;

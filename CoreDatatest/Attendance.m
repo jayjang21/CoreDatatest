@@ -283,6 +283,25 @@
     return result;
 }
 
+
++ (NSArray*) bringAllAttendance
+{
+    CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Attendance" inManagedObjectContext:context]];
+    
+    NSError *error;
+    NSArray *chosenEntities = [context executeFetchRequest:request
+                                                     error:&error]; //only possible in NSArray?
+    
+    return chosenEntities;
+}
+
 + (BOOL) bringAllDateTimeFromAttendance:(NSString*)inputID withYear:(NSString *) inputYear withMonth: (NSString *) inputMonth dateArray:(NSMutableArray **)dArray timeArray:(NSMutableArray**)tArray;
 {
     

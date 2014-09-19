@@ -454,7 +454,7 @@
 
                 [theEntity setValue: [Account convertedNSDateFromDateString:self.payDateNSString] forKey:@"payDate"];
 
-            //No need to update profileImagePath because it has ID and can not be updated
+                [theEntity setValue: self.profileImagePath  forKey:@"profileImagePath"];
             
             //[object valueForKey:@"name"];
             
@@ -521,7 +521,10 @@
         else if ([attributeName isEqualToString:@"payDateNSString"]){
             [theEntity setValue: [Account convertedNSDateFromDateString:self.payDateNSString] forKey:@"payDate"];
         }
-        //No need to update profileImagePath because it has ID and can not be updated
+        else if ([attributeName isEqualToString:@"profileImagePath"]){
+            [theEntity setValue: self.profileImagePath  forKey:@"profileImagePath"];
+        }
+
         
         //[object valueForKey:@"name"];
         
@@ -544,7 +547,65 @@
     
 }
 
++ (NSArray*) bringAllAccount
+{
+    CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Account" inManagedObjectContext:context]];
+    
+    
+    // Sort first by iD, then by name.
+    NSSortDescriptor *idSort = [[NSSortDescriptor alloc] initWithKey:@"iD" ascending:YES];
+    NSSortDescriptor *nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObjects:idSort, nameSort, nil];
+    //request.sortDescriptors = [NSArray arrayWithObject:idSort];
 
+
+    
+    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
+    //[request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", self.iD]];
+    //NSManagedObject *theEntity = nil;
+    
+    NSError *error;
+    NSArray *chosenEntities = [context executeFetchRequest:request
+                                                     error:&error]; //only possible in NSArray?
+    
+    
+    return chosenEntities;
+    
+    
+    /*
+    theEntity = [chosenEntities firstObject];
+    
+    if (theEntity) {
+        
+        self.name = [theEntity valueForKey:@"name"];
+        self.phone = [theEntity valueForKey:@"phone"];
+        self.address = [theEntity valueForKey:@"address"];
+        self.email = [theEntity valueForKey:@"email"];
+        self.registerationDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"registerationDate"]];
+        self.dateOfBirthNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"dateOfBirth"]];
+        self.recentTestDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"recentTestDate"]];
+        self.payDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"payDate"]];
+        
+        self.profileImagePath = [theEntity valueForKey:@"profileImagePath"];
+        
+        [self loadAccountProfileImage];
+        
+        result = YES;
+        
+    }
+    else {
+        //error;
+    }
+     */
+    
+}
 
 - (BOOL) bringAllAccountInformationFromAccountID //in this code we are assuming that IDs can't be duplicated
 {
@@ -600,7 +661,13 @@
 
 -(void)saveAccountProfileImage
 {
-    NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+    //NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [documentsDirectory
+                               stringByAppendingPathComponent:self.profileImagePath];
     
     [UIImageJPEGRepresentation(self.profileImage, 1.0) writeToFile:imagePath atomically:YES];
     
@@ -609,7 +676,17 @@
 -(void)loadAccountProfileImage
 {
     
-    NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+    //NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [documentsDirectory
+                           stringByAppendingPathComponent:self.profileImagePath];
+
+    //Old version
+    if(![[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+        imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+    }
     
     self.profileImage = [UIImage imageWithContentsOfFile:imagePath];
     

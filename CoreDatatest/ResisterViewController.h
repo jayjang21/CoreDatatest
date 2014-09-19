@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Account.h"
+#import "Attendance.h"
 
 @interface ResisterViewController : UIViewController  <UIAlertViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
 
@@ -62,4 +63,6 @@
 - (IBAction)handleGenerateButtonPressed:(id)sender;
 
 -(IBAction)textFieldReturn:(id)sender;
+
+-(IBAction)backDatabase:(id)sender;
 @end

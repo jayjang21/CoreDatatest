@@ -12,6 +12,11 @@
 
 #import <MessageUI/MFMailComposeViewController.h>
 
+#import "GDataXMLNode.h"
+
+#import <DropboxSDK/DropboxSDK.h>
+
+
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
@@ -21,7 +26,7 @@ CGFloat animatedDistance;
 
 
 
-@interface ResisterViewController () <MFMailComposeViewControllerDelegate>
+@interface ResisterViewController () <MFMailComposeViewControllerDelegate, DBRestClientDelegate>
 
 
 //@property (strong, nonatomic) NSString *iD;
@@ -38,6 +43,8 @@ CGFloat animatedDistance;
 @property (strong, nonatomic) NSString *datePickingPickedDate;
 @property (strong, nonatomic) NSString *datePickingDateKind;
 @property (strong, nonatomic) id justTappedTextField;
+
+@property (nonatomic, strong) DBRestClient *restClient;
 
 @end
 
@@ -108,6 +115,9 @@ CGFloat animatedDistance;
     //made a NSString *currentDateInString and put the current date in string, using +date and -description method. Used *currentDateInString to set the labels in the four date text with the current date.
     
     //[self.datePickingDatePicker addTarget:self action:@selector(updateDateFromDatePicker:) forControlEvents:UIControlEventValueChanged];//perameter?
+    
+    self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    self.restClient.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -221,7 +231,7 @@ CGFloat animatedDistance;
     currentAccount.dateOfBirthNSString = self.dateOfBirthLabel.text;
     currentAccount.recentTestDateNSString = self.recentTestDateLabel.text;
     currentAccount.payDateNSString = self.payDateLabel.text;
-    currentAccount.profileImagePath = [NSString stringWithFormat: @"Documents/%@.jpg", currentAccount.iD];
+    currentAccount.profileImagePath = [NSString stringWithFormat: @"%@.jpg", currentAccount.iD];
     currentAccount.profileImage = self.profileImageView.image;
     
     BOOL result = [currentAccount updateAllAccountInformation];
@@ -285,7 +295,7 @@ CGFloat animatedDistance;
     currentAccount.dateOfBirthNSString = self.dateOfBirthLabel.text;
     currentAccount.recentTestDateNSString = self.recentTestDateLabel.text;
     currentAccount.payDateNSString = self.payDateLabel.text;
-    currentAccount.profileImagePath = [NSString stringWithFormat: @"Documents/%@.jpg", currentAccount.iD];
+    currentAccount.profileImagePath = [NSString stringWithFormat: @"%@.jpg", currentAccount.iD];
     currentAccount.profileImage = self.profileImageView.image;
     
     BOOL result = [currentAccount saveAllAccountInformation];
@@ -868,6 +878,331 @@ CGFloat animatedDistance;
 -(IBAction)textFieldReturn:(id)sender
 {
     [sender resignFirstResponder];
+}
+
+
+
+#pragma mark - XML backup
+
+-(IBAction)backDatabase:(id)sender
+{
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:self];
+    }
+    
+    [self backupDBtoXML];
+}
+
+- (NSString *)accountFilePath:(BOOL)forSave {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsPath = [documentsDirectory
+                               stringByAppendingPathComponent:@"Accounts.xml"];
+    if (forSave ||
+        [[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+        return documentsPath;
+    } else {
+        return [[NSBundle mainBundle] pathForResource:@"Accounts" ofType:@"xml"];
+    }
+    
+}
+
+- (NSString *)attendanceFilePath:(BOOL)forSave {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsPath = [documentsDirectory
+                               stringByAppendingPathComponent:@"Attencances.xml"];
+    if (forSave ||
+        [[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+        return documentsPath;
+    } else {
+        return [[NSBundle mainBundle] pathForResource:@"Attendances" ofType:@"xml"];
+    }
+    
+}
+
+/*
+-(BOOL) restoreDBfromXML
+{
+    {
+        NSString *filePath = [self accountFilePath:FALSE];
+        NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
+        NSError *error;
+        GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
+                                                               options:0 error:&error];
+        if (doc == nil) { return NO; }
+        
+        NSLog(@"%@", doc.rootElement);
+        
+        Party *party = [[[Party alloc] init] autorelease];
+        NSArray *partyMembers = [doc.rootElement elementsForName:@"Player"];
+        for (GDataXMLElement *partyMember in partyMembers) {
+            
+            // Let's fill these in!
+            NSString *name;
+            int level;
+            RPGClass rpgClass;
+            
+            // Name
+            NSArray *names = [partyMember elementsForName:@"Name"];
+            if (names.count > 0) {
+                GDataXMLElement *firstName = (GDataXMLElement *) [names objectAtIndex:0];
+                name = firstName.stringValue;
+            } else continue;
+        }
+    }
+}
+*/
+- (void)backupDBtoXML
+{
+    NSMutableArray *imageArray = [[NSMutableArray alloc] init];
+    NSMutableArray *idArray = [[NSMutableArray alloc] init];
+    
+    
+    //Save XML for Account Entity
+    {
+        NSArray *accountArray = [Account bringAllAccount];
+        
+        
+
+        
+        int numofaccount = [accountArray count];
+        
+        GDataXMLElement * accountArrayElement = [GDataXMLNode elementWithName:@"Accounts"];
+        
+        for(int a=0; a<numofaccount; a++) {
+            
+            //Load from Core Data
+            NSManagedObject *anAccount = [accountArray objectAtIndex:a];
+            
+            NSString *ID = [anAccount valueForKey:@"iD"];
+            NSString *name = [anAccount valueForKey:@"name"];
+            NSString *phone = [anAccount valueForKey:@"phone"];
+            NSString *address = [anAccount valueForKey:@"address"];
+            NSString *email = [anAccount valueForKey:@"email"];
+            NSString *registerationDateNSString = [Account convertedNSStringFromNSDate:[anAccount valueForKey:@"registerationDate"]];
+            NSString *dateOfBirthNSString = [Account convertedNSStringFromNSDate:[anAccount valueForKey:@"dateOfBirth"]];
+            NSString *recentTestDateNSString = [Account convertedNSStringFromNSDate:[anAccount valueForKey:@"recentTestDate"]];
+            NSString *payDateNSString = [Account convertedNSStringFromNSDate:[anAccount valueForKey:@"payDate"]];
+            
+            NSString *profileImagePath = [anAccount valueForKey:@"profileImagePath"];
+            
+            
+            //Make XML
+            GDataXMLElement * accountElement = [GDataXMLNode elementWithName:@"Account"];
+            
+            GDataXMLElement * idElement = [GDataXMLNode elementWithName:@"ID" stringValue:ID];
+            GDataXMLElement * nameElement = [GDataXMLNode elementWithName:@"name" stringValue:name];
+            GDataXMLElement * phoneElement = [GDataXMLNode elementWithName:@"phone" stringValue:phone];
+            GDataXMLElement * addressElement = [GDataXMLNode elementWithName:@"address" stringValue:address];
+            GDataXMLElement * emailElement = [GDataXMLNode elementWithName:@"email" stringValue:email];
+            GDataXMLElement * registerationDateElement = [GDataXMLNode elementWithName:@"registerationDate" stringValue:registerationDateNSString];
+            GDataXMLElement * dateOfBirthElement = [GDataXMLNode elementWithName:@"dateOfBirth" stringValue:dateOfBirthNSString];
+            GDataXMLElement * recentTestDateElement = [GDataXMLNode elementWithName:@"recentTestDate" stringValue:recentTestDateNSString];
+            GDataXMLElement * payDateElement = [GDataXMLNode elementWithName:@"payDate" stringValue:payDateNSString];
+            GDataXMLElement * profileImagePathElement = [GDataXMLNode elementWithName:@"profileImagePath" stringValue:profileImagePath];
+            
+            //Make One Account
+            [accountElement addChild:idElement];
+            [accountElement addChild:nameElement];
+            [accountElement addChild:phoneElement];
+            [accountElement addChild:addressElement];
+            [accountElement addChild:emailElement];
+            [accountElement addChild:registerationDateElement];
+            [accountElement addChild:dateOfBirthElement];
+            [accountElement addChild:recentTestDateElement];
+            [accountElement addChild:payDateElement];
+            [accountElement addChild:profileImagePathElement];
+            
+            //Add one Accout to Array
+            [accountArrayElement addChild:accountElement];
+            
+            [imageArray addObject:profileImagePath];
+            
+            [idArray addObject:ID];
+            
+        }
+        
+        GDataXMLDocument *document = [[GDataXMLDocument alloc] initWithRootElement:accountArrayElement] ;
+        NSData *xmlData = document.XMLData;
+        
+        NSString *filePath = [self accountFilePath:TRUE];
+        //NSLog(@"Saving xml account to %@...", filePath);
+        [xmlData writeToFile:filePath atomically:YES];
+        
+        NSString *xmlString = [[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding];
+        //NSLog(@"%@", xmlString);
+    }
+
+    //Save XML for Attendance
+    {
+        NSArray *attendanceArray = [Attendance bringAllAttendance];
+        
+        
+        int numofattendance = [attendanceArray count];
+        
+        GDataXMLElement * attencanceArrayElement = [GDataXMLNode elementWithName:@"Attendances"];
+        
+        for(int a=0; a<numofattendance; a++) {
+            
+            NSManagedObject *anAttendance = [attendanceArray objectAtIndex:a];
+            
+            NSString *ID = [anAttendance valueForKey:@"iD"];
+            //NSDate *eachDate = [anAttendance valueForKey:@"date"];
+            NSString *eachDate = [Account convertedNSStringFromNSDate:[anAttendance valueForKey:@"date"]];
+            NSString *eachTime = [anAttendance valueForKey:@"time"];
+            
+            
+            GDataXMLElement * attendanceElement = [GDataXMLNode elementWithName:@"Attendance"];
+            
+            GDataXMLElement * idElement = [GDataXMLNode elementWithName:@"ID" stringValue:ID];
+            GDataXMLElement * dateElement = [GDataXMLNode elementWithName:@"date" stringValue:eachDate];
+            GDataXMLElement * timeElement = [GDataXMLNode elementWithName:@"time" stringValue:eachTime];
+            
+            [attendanceElement addChild:idElement];
+            [attendanceElement addChild:dateElement];
+            [attendanceElement addChild:timeElement];
+            
+            [attencanceArrayElement addChild:attendanceElement];
+        }
+        
+        
+        GDataXMLDocument *document2 = [[GDataXMLDocument alloc] initWithRootElement:attencanceArrayElement] ;
+        NSData *xmlData2 = document2.XMLData;
+        
+        NSString *filePath2 = [self attendanceFilePath:TRUE];
+        //NSLog(@"Saving xml attencance to %@...", filePath2);
+        [xmlData2 writeToFile:filePath2 atomically:YES];
+        
+        NSString *xmlString2 = [[NSString alloc] initWithData:xmlData2 encoding:NSUTF8StringEncoding];
+        //NSLog(@"%@", xmlString2);
+    }
+    
+    
+    
+    
+    //[self sendEmailWithBackupFile:[self accountFilePath:NO] withAttendanceFile:[self attendanceFilePath:NO] ];
+    
+    
+    [self sendToDropboxWithBackupFile:[self accountFilePath:NO] withAttendanceFile:[self attendanceFilePath:NO] ];
+    
+    [self sendToDropboxWithImages:imageArray]; // withIDArray:idArray];
+
+}
+
+-(void)sendEmailWithBackupFile: (NSString*)accountFilePath withAttendanceFile:(NSString*)attendanceFilePath
+{
+    
+    if (![MFMailComposeViewController canSendMail])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Failed to Send Email. Register Email Address at Setting." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    
+    
+    picker.mailComposeDelegate = self;
+    
+    //NSString *subject = [NSString stringWithFormat:@"Member Card(QR Code) : %@", self.iDTextField.text];
+    NSString *subject = [NSString stringWithFormat:@"Database Backup"];
+    [picker setSubject:subject];
+    
+    // Set up recipients
+    NSArray *toRecipients = [NSArray arrayWithObject:@"kwonpyo@naver.com"];
+    // NSArray *ccRecipients = [NSArray arrayWithObjects:@"second@example.com", @"third@example.com", nil];
+    // NSArray *bccRecipients = [NSArray arrayWithObject:@"fourth@example.com"];
+    [picker setToRecipients:toRecipients];
+    // [picker setCcRecipients:ccRecipients];
+    // [picker setBccRecipients:bccRecipients];
+    
+    // Attach an image to the email
+    //UIImage *coolImage = image;
+    //NSData *myData = UIImagePNGRepresentation(coolImage);
+    //[picker addAttachmentData:myData mimeType:@"image/png" fileName:@"coolImage.png"];
+    
+    NSData *xmlData = [NSData dataWithContentsOfFile: accountFilePath ];
+    [picker addAttachmentData:xmlData mimeType:@"text/plain" fileName:@"Accounts.xml"];
+    
+    NSData *xmlData2 = [NSData dataWithContentsOfFile: attendanceFilePath ];
+    [picker addAttachmentData:xmlData2 mimeType:@"text/plain" fileName:@"Attendances.xml"];
+    
+    // Fill out the email body text
+    NSString *emailBody = @"";
+    [picker setMessageBody:emailBody isHTML:NO];
+    
+    [self presentViewController:picker animated:YES completion:nil];
+    
+    
+}
+
+
+-(void)sendToDropboxWithBackupFile: (NSString*)accountFilePath withAttendanceFile:(NSString*)attendanceFilePath
+{
+    {
+        // Write a file to the local documents directory
+        //NSString *text = @"Hello world.";
+        NSString *filename = @"Accounts.xml";
+        //NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+        NSString *localPath = accountFilePath; //[localDir stringByAppendingPathComponent:filename];
+        //[text writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        
+        // Upload file to Dropbox
+        NSString *destDir = @"/";
+        [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:localPath];
+    }
+    
+    {
+        // Write a file to the local documents directory
+        //NSString *text = @"Hello world.";
+        NSString *filename = @"Attendances.xml";
+        //NSString *localDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+        NSString *localPath = attendanceFilePath; //[localDir stringByAppendingPathComponent:filename];
+        //[text writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        
+        // Upload file to Dropbox
+        NSString *destDir = @"/";
+        [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:localPath];
+    }
+}
+
+-(void)sendToDropboxWithImages:(NSArray*)imageArray //withIDArray:(NSArray*)idArray
+{
+    
+    for(int i=0; i< [imageArray count]; i++) {
+ //   for (NSString *imageprofilepath in imageArray) {
+    
+        NSString *imageprofilepath = [imageArray objectAtIndex:i];
+        //NSString *ID = [idArray objectAtIndex:i];
+        
+        //NSString  *imageLocalPath = [NSHomeDirectory() stringByAppendingPathComponent:imageprofilepath];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *imageLocalPath = [documentsDirectory
+                               stringByAppendingPathComponent:imageprofilepath];
+
+        
+        
+        NSString *filename = imageprofilepath; //[NSString stringWithFormat:@"%@.jpg", ID ]; //imageprofilepath;
+        
+        // Upload file to Dropbox
+        NSString *destDir = @"/";
+        [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:imageLocalPath];
+    }
+}
+
+- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
+              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
+    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+}
+
+- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
+    NSLog(@"File upload failed with error: %@", error);
 }
 
 @end
