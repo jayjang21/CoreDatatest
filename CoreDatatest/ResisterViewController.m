@@ -313,6 +313,38 @@ CGFloat animatedDistance;
 
 
 
+- (IBAction)nextButtomTapped:(id)sender
+{
+
+    
+    // Sort first by iD, then by name.
+    NSSortDescriptor *iDSort = [[NSSortDescriptor alloc] initWithKey:@"iD" ascending:YES];
+
+    //request.sortDescriptors = [NSArray arrayWithObject:idSort];
+    
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(iD > %@)", self.iDTextField.text];
+    //[request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", self.iD]];
+    //NSManagedObject *theEntity = nil;
+
+    [self switchAccountWithIDSort:iDSort AndPredicate:pred];
+    
+    
+}
+
+- (IBAction)prevButtomTapped:(id)sender
+{
+    // Sort first by iD, then by name.
+    NSSortDescriptor *iDSort = [[NSSortDescriptor alloc] initWithKey:@"iD" ascending:NO];
+    
+    //request.sortDescriptors = [NSArray arrayWithObject:idSort];
+    
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(iD < %@)", self.iDTextField.text];
+    //[request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", self.iD]];
+    //NSManagedObject *theEntity = nil;
+    
+    [self switchAccountWithIDSort:iDSort AndPredicate:pred];
+}
+
 - (IBAction)registerationDateButtonTapped:(UIButton *)sender
 {
     self.datePickingDateKind = @"Registeration Date";
@@ -384,6 +416,53 @@ CGFloat animatedDistance;
     
     
 }*/
+
+- (void)switchAccountWithIDSort: (NSSortDescriptor *) iDSort AndPredicate: (NSPredicate *) pred
+{
+    CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Account" inManagedObjectContext:context]];
+    
+
+    request.sortDescriptors = [NSArray arrayWithObject:iDSort];
+    //request.sortDescriptors = [NSArray arrayWithObject:idSort];
+    [request setPredicate:pred];
+    //NSManagedObject *theEntity = nil;
+    
+    
+    NSError *error;
+    NSArray *chosenEntities = [context executeFetchRequest:request
+                                                     error:&error]; //only possible in NSArray?
+    
+    NSManagedObject *theEntity = [chosenEntities firstObject];
+
+    if (theEntity) {
+        
+        self.iDTextField.text = [theEntity valueForKey:@"iD"];
+        self.nameTextField.text = [theEntity valueForKey:@"name"];
+        self.phoneTextField.text = [theEntity valueForKey:@"phone"];
+        self.addressTextField.text = [theEntity valueForKey:@"address"];
+        self.emailTextField.text = [theEntity valueForKey:@"email"];
+        self.registerationDateLabel.text = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"registerationDate"]];
+        self.dateOfBirthLabel.text = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"dateOfBirth"]];
+        self.recentTestDateLabel.text = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"recentTestDate"]];
+        self.payDateLabel.text = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"payDate"]];
+        
+        NSString *profileImagePath = [theEntity valueForKey:@"profileImagePath"];
+        
+        self.profileImageView.image = [Account ProfileImageWithProfileImagePath:profileImagePath];
+        
+    }
+    else {
+        NSLog(@"no more available next ID!");
+    }
+}
+
 - (void) handleSingleTap:(UITapGestureRecognizer *)gr
 {
 
@@ -596,7 +675,8 @@ CGFloat animatedDistance;
     CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
     CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
     
-    CGFloat textFieldBottomLine = textFieldRect.origin.y + (textFieldRect.size.height + 10);
+    //CGFloat textFieldBottomLine = textFieldRect.origin.y + (textFieldRect.size.height + 10);
+    CGFloat textFieldBottomLine = 869;
     CGFloat keyboardBttomLine = viewRect.size.height - PORTRAIT_KEYBOARD_HEIGHT;
     
     
@@ -635,7 +715,7 @@ CGFloat animatedDistance;
         
     }
     
-    [textField setSelected:NO];
+
     return YES;
 }
 

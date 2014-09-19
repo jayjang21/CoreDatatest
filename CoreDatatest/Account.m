@@ -676,20 +676,29 @@
 -(void)loadAccountProfileImage
 {
     
+    [Account ProfileImageWithProfileImagePath:self.profileImagePath];
+    
+    self.profileImage = [Account ProfileImageWithProfileImagePath:self.profileImagePath];
+
+}
+
++(UIImage *)ProfileImageWithProfileImagePath: (NSString *)profileImagePath
+{
     //NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                          NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *imagePath = [documentsDirectory
-                           stringByAppendingPathComponent:self.profileImagePath];
-
+                           stringByAppendingPathComponent:profileImagePath];
+    
     //Old version
     if(![[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
-        imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+        imagePath = [NSHomeDirectory() stringByAppendingPathComponent:profileImagePath];
     }
     
-    self.profileImage = [UIImage imageWithContentsOfFile:imagePath];
+    UIImage *profileImage = [UIImage imageWithContentsOfFile:imagePath];
     
+    return profileImage;
 }
 @end
 

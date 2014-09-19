@@ -22,8 +22,7 @@
 
 @property (nonatomic, strong) UIPopoverController *popoverController;
 
-@property (strong, nonatomic) IBOutlet UIButton *nextButton;
-@property (strong, nonatomic) IBOutlet UIButton *prevButton;
+
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePickingDatePicker;
 
@@ -48,10 +47,16 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;// do we need this?
 
+
+- (IBAction)nextButtomTapped:(id)sender;
+- (IBAction)prevButtomTapped:(id)sender;
+
+
 - (IBAction)registerationDateButtonTapped:(id)sender;
 - (IBAction)payDateButtonTapped:(id)sender;
 - (IBAction)dateOfBirthButtonTapped:(id)sender;
 - (IBAction)recentTestDateButtonTapped:(id)sender;
+
 
 - (IBAction)resetAllInputs:(id)sender;
 - (IBAction)updateAccount:(id)sender;
@@ -65,4 +70,7 @@
 -(IBAction)textFieldReturn:(id)sender;
 
 -(IBAction)backDatabase:(id)sender;
+
+
+
 @end

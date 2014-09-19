@@ -33,6 +33,9 @@
 
 + (NSDate *) convertedNSDateFromDateString: (NSString *)dateString;
 + (NSString *) convertedNSStringFromNSDate: (NSDate *)date;
++(UIImage *)ProfileImageWithProfileImagePath: (NSString *)profileImagePath;
+
+
 
 - (BOOL) saveAllAccountInformation;
 - (BOOL) updateAccountInformationWithAttribute:(NSString *)attributeName;
