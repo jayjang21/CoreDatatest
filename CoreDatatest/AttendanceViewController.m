@@ -217,7 +217,7 @@ static NSString * BCP47LanguageCodeForString(NSString *string) {
 - (IBAction)startStopReadingButtonPressed:(id)sender
 {
     
-    //[self speakTTS:@"Hi May, nice to meet you"];
+    //[self speakTTS:@"안녕 민정"]; //@"Hi May, nice to meet you"];
     //return;
     
     if (isReading) {
@@ -523,11 +523,15 @@ static NSString * BCP47LanguageCodeForString(NSString *string) {
     //NSLog(@"BCP-47 Language Code: %@", BCP47LanguageCodeForString(utterance.speechString));
     
     //utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:BCP47LanguageCodeForString(utterance.speechString)];
-    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
+    if(BCP47LanguageCodeForString(utterance.speechString) == @"ko-KR")
+        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"ko-KR"];
+    else
+        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
     //utterance.pitchMultiplier = 0.5f;
     utterance.rate = AVSpeechUtteranceMaximumSpeechRate/5;//AVSpeechUtteranceDefaultSpeechRate;//AVSpeechUtteranceMinimumSpeechRate;
     utterance.preUtteranceDelay = 0.0f;
     utterance.postUtteranceDelay = 0.0f;
+    
     
     [synthesizer speakUtterance:utterance];
     

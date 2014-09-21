@@ -537,19 +537,22 @@ CGFloat animatedDistance;
     
     UIImage *faceImage = [self processProfileImage:image];
     
-    originalTakenImage = image;
-    faceTakenImage = faceImage;
-    
-    UIImage *smallface = [self resizeWithImage:faceImage scaledToSize:CGSizeMake(faceImage.size.width/2, faceImage.size.height/2)];
-    UIImageView *faceImageView =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, smallface.size.width, smallface.size.height)];
-    [faceImageView setImage:smallface];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Do you want the face image?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-    [alert setValue:faceImageView forKey:@"accessoryView"];
-    //[alert inputAccessoryView:faceImageView];
-    
-    [alert setTag:10];
-    [alert show];
+    if(faceImage) {
+        originalTakenImage = image;
+        faceTakenImage = faceImage;
+        
+        UIImage *smallface = [self resizeWithImage:faceImage scaledToSize:CGSizeMake(faceImage.size.width/2, faceImage.size.height/2)];
+        UIImageView *faceImageView =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, smallface.size.width, smallface.size.height)];
+        [faceImageView setImage:smallface];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Do you want the face image?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert setValue:faceImageView forKey:@"accessoryView"];
+        //[alert inputAccessoryView:faceImageView];
+        
+        [alert setTag:10];
+        [alert show];
+    }
+
 }
 
 - (void) datePickingShowAlertView
@@ -1634,13 +1637,19 @@ loadMetadataFailedWithError:(NSError *)error {
     
     
     
-    CGSize orgsize = faceImage.size;
+    UIImage *imageToProcess = nil;
+    if(faceImage)
+        imageToProcess = faceImage;
+    else
+        imageToProcess = fixedImage; //when no face
+    
+    CGSize orgsize = imageToProcess.size;
     float targetwidth = 500.0f;
     float ratio = (float)targetwidth / (float)orgsize.width;
     float targetheight = orgsize.height * ratio;
     CGSize targetsize = CGSizeMake(targetwidth, targetheight);
     
-    UIImage *resizedImage = [self resizeWithImage:faceImage scaledToSize:targetsize];
+    UIImage *resizedImage = [self resizeWithImage:imageToProcess scaledToSize:targetsize];
     
     
     return resizedImage;
