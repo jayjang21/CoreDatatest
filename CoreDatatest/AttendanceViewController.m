@@ -8,9 +8,102 @@
 
 #import "AttendanceViewController.h"
 
+@import AVFoundation;
+
+static NSString * BCP47LanguageCodeFromISO681LanguageCode(NSString *ISO681LanguageCode) {
+    if ([ISO681LanguageCode isEqualToString:@"ar"]) {
+        return @"ar-SA";
+    } else if ([ISO681LanguageCode hasPrefix:@"cs"]) {
+        return @"cs-CZ";
+    } else if ([ISO681LanguageCode hasPrefix:@"da"]) {
+        return @"da-DK";
+    } else if ([ISO681LanguageCode hasPrefix:@"de"]) {
+        return @"de-DE";
+    } else if ([ISO681LanguageCode hasPrefix:@"el"]) {
+        return @"el-GR";
+    } else if ([ISO681LanguageCode hasPrefix:@"en"]) {
+        return @"en-US"; // en-AU, en-GB, en-IE, en-ZA
+    } else if ([ISO681LanguageCode hasPrefix:@"es"]) {
+        return @"es-ES"; // es-MX
+    } else if ([ISO681LanguageCode hasPrefix:@"fi"]) {
+        return @"fi-FI";
+    } else if ([ISO681LanguageCode hasPrefix:@"fr"]) {
+        return @"fr-FR"; // fr-CA
+    } else if ([ISO681LanguageCode hasPrefix:@"hi"]) {
+        return @"hi-IN";
+    } else if ([ISO681LanguageCode hasPrefix:@"hu"]) {
+        return @"hu-HU";
+    } else if ([ISO681LanguageCode hasPrefix:@"id"]) {
+        return @"id-ID";
+    } else if ([ISO681LanguageCode hasPrefix:@"it"]) {
+        return @"it-IT";
+    } else if ([ISO681LanguageCode hasPrefix:@"ja"]) {
+        return @"ja-JP";
+    } else if ([ISO681LanguageCode hasPrefix:@"ko"]) {
+        return @"ko-KR";
+    } else if ([ISO681LanguageCode hasPrefix:@"nl"]) {
+        return @"nl-NL"; // nl-BE
+    } else if ([ISO681LanguageCode hasPrefix:@"no"]) {
+        return @"no-NO";
+    } else if ([ISO681LanguageCode hasPrefix:@"pl"]) {
+        return @"pl-PL";
+    } else if ([ISO681LanguageCode hasPrefix:@"pt"]) {
+        return @"pt-BR"; // pt-PT
+    } else if ([ISO681LanguageCode hasPrefix:@"ro"]) {
+        return @"ro-RO";
+    } else if ([ISO681LanguageCode hasPrefix:@"ru"]) {
+        return @"ru-RU";
+    } else if ([ISO681LanguageCode hasPrefix:@"sk"]) {
+        return @"sk-SK";
+    } else if ([ISO681LanguageCode hasPrefix:@"sv"]) {
+        return @"sv-SE";
+    } else if ([ISO681LanguageCode hasPrefix:@"th"]) {
+        return @"th-TH";
+    } else if ([ISO681LanguageCode hasPrefix:@"tr"]) {
+        return @"tr-TR";
+    } else if ([ISO681LanguageCode hasPrefix:@"zh"]) {
+        return @"zh-CN"; // zh-HK, zh-TW
+    } else {
+        return nil;
+    }
+}
+typedef NS_ENUM(NSInteger, SpeechUtteranceLanguage) {
+    Arabic,
+    Chinese,
+    Czech,
+    Danish,
+    Dutch,
+    German,
+    Greek,
+    English,
+    Finnish,
+    French,
+    Hindi,
+    Hungarian,
+    Indonesian,
+    Italian,
+    Japanese,
+    Korean,
+    Norwegian,
+    Polish,
+    Portuguese,
+    Romanian,
+    Russian,
+    Slovak,
+    Spanish,
+    Swedish,
+    Thai,
+    Turkish,
+};
+
+static NSString * BCP47LanguageCodeForString(NSString *string) {
+    NSString *ISO681LanguageCode = (__bridge NSString *)CFStringTokenizerCopyBestStringLanguage((__bridge CFStringRef)string, CFRangeMake(0, [string length]));
+    return BCP47LanguageCodeFromISO681LanguageCode(ISO681LanguageCode);
+}
 
 
-@interface AttendanceViewController ()
+
+@interface AttendanceViewController () <AVSpeechSynthesizerDelegate>
 {
     SCShapeView *_boundingBox;
     NSTimer *_boxHideTimer;
@@ -24,6 +117,9 @@
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *videoPreviewLayer;
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+
+//@property (readwrite, nonatomic, copy) NSString *utteranceString;
+//@property (readwrite, nonatomic, strong) AVSpeechSynthesizer *speechSynthesizer;
 
 - (BOOL) startReadingQRCode;
 - (BOOL) stopReadingQRCode;
@@ -120,6 +216,10 @@
 
 - (IBAction)startStopReadingButtonPressed:(id)sender
 {
+    
+    //[self speakTTS:@"Hi May, nice to meet you"];
+    //return;
+    
     if (isReading) {
         
         if ([self stopReadingQRCode]) {
@@ -332,7 +432,23 @@
     else {
         NSLog(@"Attendance Already Saved");
     }
+    
+    NSString *speechstr = @"Hi";
+    //if(result)
+    {
+        Account *currentAccount = [Account bringAccountWithID:currentAttendance.iD];
+        if(currentAccount) {
+            NSString *name = currentAccount.name;
+            speechstr = [NSString stringWithFormat:@"Hi %@", name];
+        }
+    }
+    //else {
+    //    speechstr = [NSString stringWithFormat:@"Already Attended"];
+    //}
+    [self speakTTS:speechstr];
+    
 }
+
 
 #pragma mark - Utility Methods
 
@@ -396,5 +512,33 @@
     return [translatedPoints copy];
 }
 
+
+- (void)speakTTS:(NSString*)text
+{
+    
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
+    synthesizer.delegate = self;
+    
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString:text];
+    //NSLog(@"BCP-47 Language Code: %@", BCP47LanguageCodeForString(utterance.speechString));
+    
+    //utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:BCP47LanguageCodeForString(utterance.speechString)];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
+    //utterance.pitchMultiplier = 0.5f;
+    utterance.rate = AVSpeechUtteranceMaximumSpeechRate/5;//AVSpeechUtteranceDefaultSpeechRate;//AVSpeechUtteranceMinimumSpeechRate;
+    utterance.preUtteranceDelay = 0.0f;
+    utterance.postUtteranceDelay = 0.0f;
+    
+    [synthesizer speakUtterance:utterance];
+    
+    
+    
+    
+    
+    //AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
+    //AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    //[utterance setRate:AVSpeechUtteranceMaximumSpeechRate/3.0f];
+    //[synthesizer speakUtterance:utterance];
+}
 
 @end

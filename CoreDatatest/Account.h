@@ -44,5 +44,6 @@
 
 + (BOOL) AccountAlreadyExists:(NSString*)inputID;
 + (NSArray*) bringAllAccount;
++ (Account*) bringAccountWithID:(NSString*)accountID;
 
 @end

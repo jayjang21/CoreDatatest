@@ -607,6 +607,52 @@
     
 }
 
++ (Account*) bringAccountWithID:(NSString*)accountID //in this code we are assuming that IDs can't be duplicated
+{
+    Account *theAccount = nil;
+    
+    
+    CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Account" inManagedObjectContext:context]];
+    
+    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", accountID]];
+    NSManagedObject *theEntity = nil;
+    
+    NSError *error;
+    NSArray *chosenEntities = [context executeFetchRequest:request
+                                                     error:&error]; //only possible in NSArray?
+    
+    theEntity = [chosenEntities firstObject];
+    
+    if (theEntity) {
+
+        theAccount = [[Account alloc] init];
+        
+        theAccount.iD = [theEntity valueForKey:@"iD"];
+        theAccount.name = [theEntity valueForKey:@"name"];
+        theAccount.phone = [theEntity valueForKey:@"phone"];
+        theAccount.address = [theEntity valueForKey:@"address"];
+        theAccount.email = [theEntity valueForKey:@"email"];
+        theAccount.registerationDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"registerationDate"]];
+        theAccount.dateOfBirthNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"dateOfBirth"]];
+        theAccount.recentTestDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"recentTestDate"]];
+        theAccount.payDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"payDate"]];
+        
+        theAccount.profileImagePath = [theEntity valueForKey:@"profileImagePath"];
+        
+        //[self loadAccountProfileImage];
+    }
+    
+    return theAccount;
+}
+
 - (BOOL) bringAllAccountInformationFromAccountID //in this code we are assuming that IDs can't be duplicated
 {
     

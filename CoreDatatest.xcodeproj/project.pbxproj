@@ -86,7 +86,6 @@
 		8E394BE519CB97C9005F8A22 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		8E394BE719CB9850005F8A22 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		8E394BE819CB9850005F8A22 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
-		8E394BEA19CBC380005F8A22 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = "../../iPhoneTest/dropbox-ios-sdk-1.3.13/DropboxSDK.framework"; sourceTree = "<group>"; };
 		8E394BEC19CBC3D2005F8A22 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		8E394BEE19CBC3DA005F8A22 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -152,7 +151,6 @@
 				8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */,
 				8E394BEE19CBC3DA005F8A22 /* Security.framework */,
 				8E394BEC19CBC3D2005F8A22 /* DropboxSDK.framework */,
-				8E394BEA19CBC380005F8A22 /* DropboxSDK.framework */,
 				8E394BE519CB97C9005F8A22 /* libxml2.dylib */,
 				766E2C6119A7288100B27131 /* Foundation.framework */,
 				766E2C6319A7288100B27131 /* CoreGraphics.framework */,

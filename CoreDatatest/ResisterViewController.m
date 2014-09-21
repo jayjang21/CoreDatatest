@@ -512,11 +512,14 @@ CGFloat animatedDistance;
         image = info[UIImagePickerControllerOriginalImage];
         //UIImage *image = info[UIImagePickerControllerEditedImage];
     }
+    
+    
+    
     if(picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
         [self.popoverController dismissPopoverAnimated:YES];
         self.popoverController = nil;
         
-        [self.profileImageView setImage: [self processProfileImage:image] ]; //dsjang2
+        //[self.profileImageView setImage: [self processProfileImage:image] ]; //dsjang2
         //[self.profileImageView setImage: image];
         //[photoImageView setImage:photoImage];
         //[self showViewController:nil];
@@ -525,12 +528,28 @@ CGFloat animatedDistance;
         //[picker dismissModalViewControllerAnimated:YES];
         [picker dismissViewControllerAnimated:YES completion:^{
             
-            [self.profileImageView setImage: [self processProfileImage:image] ]; //dsjang2
+            //[self.profileImageView setImage: [self processProfileImage:image] ]; //dsjang2
             //[self.profileImageView setImage:image];
             //[photoImageView setImage:photoImage];
             //[self showViewController:nil];
         }];
     }
+    
+    UIImage *faceImage = [self processProfileImage:image];
+    
+    originalTakenImage = image;
+    faceTakenImage = faceImage;
+    
+    UIImage *smallface = [self resizeWithImage:faceImage scaledToSize:CGSizeMake(faceImage.size.width/2, faceImage.size.height/2)];
+    UIImageView *faceImageView =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, smallface.size.width, smallface.size.height)];
+    [faceImageView setImage:smallface];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Do you want the face image?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    [alert setValue:faceImageView forKey:@"accessoryView"];
+    //[alert inputAccessoryView:faceImageView];
+    
+    [alert setTag:10];
+    [alert show];
 }
 
 - (void) datePickingShowAlertView
@@ -612,14 +631,28 @@ CGFloat animatedDistance;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     //whenever alert view's buttons are clicked, this function is called. for now I just disabled 'otherbutton' for the alert views that don't need to come into this if statement, but in the future I might need to make booleans to make sure.
-    if(buttonIndex == 1) {
-        
-        UIDatePicker *picker = [alertView valueForKey:@"accessoryView"];
-        
-        [self updateDateFromDatePicker:picker];
-        
-        
+
+    if(alertView.tag == 10)
+    {
+        if(buttonIndex == 1) {
+            [self.profileImageView setImage:faceTakenImage];
+        }
+        else {
+            [self.profileImageView setImage:originalTakenImage];
+        }
     }
+    else {
+        if(buttonIndex == 1) {
+            
+            UIDatePicker *picker = [alertView valueForKey:@"accessoryView"];
+            
+            [self updateDateFromDatePicker:picker];
+            
+            
+        }
+    }
+
+
     /*
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     
@@ -852,10 +885,10 @@ CGFloat animatedDistance;
           withAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:40], NSForegroundColorAttributeName:[UIColor blackColor] }];
     
     if(firstImage)
-        [firstImage drawInRect:CGRectMake(100, 50, 200, 210)];
+        [firstImage drawInRect:CGRectMake(30, 50, 340, 340)];// 100, 50, 200, 210)];
     
     if(secondImage)
-        [secondImage drawInRect:CGRectMake(30, 260, 340, 340)];
+        [secondImage drawInRect:CGRectMake(100, 390, 200, 200)]; //30, 260, 340, 340)];
     
     UIImage *mergedImage = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -1509,6 +1542,19 @@ CGFloat animatedDistance;
         NSString *xmlString = [[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding];
         NSLog(@"%@", xmlString);
     }
+    else {
+        
+        numberOfSentImage++;
+        if(numberOfImagesToSend > 0) {
+            float sentratio = (float)numberOfSentImage / (float)numberOfImagesToSend;
+            
+            [progressView setProgress:sentratio];
+        }
+        
+        if(numberOfSentImage == numberOfImagesToSend) {
+            [self hideProgressView];
+        }
+    }
 }
 
 - (void)restClient:(DBRestClient *)client loadFileFailedWithError:(NSError *)error {
@@ -1518,6 +1564,8 @@ CGFloat animatedDistance;
 //When file list downloaded
 - (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata {
     if (metadata.isDirectory) {
+        
+        
         //NSLog(@"Folder '%@' contains:", metadata.path);
         
         NSMutableArray* newPhotoPaths = [NSMutableArray new];
@@ -1540,6 +1588,10 @@ CGFloat animatedDistance;
             
         }
         
+        numberOfSentImage = 0;
+        numberOfImagesToSend = [newPhotoPaths count];
+        [self showProgressView];
+        
         for(int f=0; f< [newPhotoPaths count]; f++) {
             NSString *serverfilepath = [newPhotoPaths objectAtIndex:f];
             NSString *filename = [newPhotoNames objectAtIndex:f];
@@ -1552,6 +1604,8 @@ CGFloat animatedDistance;
             
             [self.restClient loadFile:serverfilepath intoPath:imagePath];
         }
+        
+
     }
 }
 

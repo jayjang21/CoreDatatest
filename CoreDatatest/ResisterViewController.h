@@ -21,6 +21,9 @@
     
     int numberOfImagesToSend;
     int numberOfSentImage;
+    
+    UIImage *originalTakenImage;
+    UIImage *faceTakenImage;
 
 }
 //@property (weak, nonatomic) IBOutlet UIView *datePickingContainerView;
