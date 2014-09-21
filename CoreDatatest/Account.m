@@ -669,7 +669,8 @@
     NSString *imagePath = [documentsDirectory
                                stringByAppendingPathComponent:self.profileImagePath];
     
-    [UIImageJPEGRepresentation(self.profileImage, 1.0) writeToFile:imagePath atomically:YES];
+    //dsjang2
+    [UIImageJPEGRepresentation(self.profileImage, 0.5) writeToFile:imagePath atomically:YES];
     
 }
 

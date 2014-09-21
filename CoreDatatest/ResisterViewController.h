@@ -10,11 +10,17 @@
 #import <UIKit/UIKit.h>
 #import "Account.h"
 #import "Attendance.h"
+#import "DDProgressView.h" //dsjang2
 
 @interface ResisterViewController : UIViewController  <UIAlertViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
 
 {
     UIPopoverController *popoverController;
+    
+    DDProgressView *progressView ; //dsjang2
+    
+    int numberOfImagesToSend;
+    int numberOfSentImage;
 
 }
 //@property (weak, nonatomic) IBOutlet UIView *datePickingContainerView;

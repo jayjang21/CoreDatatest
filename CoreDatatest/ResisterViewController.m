@@ -116,8 +116,11 @@ CGFloat animatedDistance;
     
     //[self.datePickingDatePicker addTarget:self action:@selector(updateDateFromDatePicker:) forControlEvents:UIControlEventValueChanged];//perameter?
     
-    self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
-    self.restClient.delegate = self;
+    //self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+    //self.restClient.delegate = self;
+    
+    numberOfImagesToSend = 0;
+    numberOfSentImage = 0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -512,14 +515,18 @@ CGFloat animatedDistance;
     if(picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
         [self.popoverController dismissPopoverAnimated:YES];
         self.popoverController = nil;
-        [self.profileImageView setImage: image];
+        
+        [self.profileImageView setImage: [self processProfileImage:image] ]; //dsjang2
+        //[self.profileImageView setImage: image];
         //[photoImageView setImage:photoImage];
         //[self showViewController:nil];
     }
     else {
         //[picker dismissModalViewControllerAnimated:YES];
         [picker dismissViewControllerAnimated:YES completion:^{
-            [self.profileImageView setImage:image];
+            
+            [self.profileImageView setImage: [self processProfileImage:image] ]; //dsjang2
+            //[self.profileImageView setImage:image];
             //[photoImageView setImage:photoImage];
             //[self showViewController:nil];
         }];
@@ -964,14 +971,6 @@ CGFloat animatedDistance;
 
 #pragma mark - XML backup
 
--(IBAction)backDatabase:(id)sender
-{
-    if (![[DBSession sharedSession] isLinked]) {
-        [[DBSession sharedSession] linkFromController:self];
-    }
-    
-    [self backupDBtoXML];
-}
 
 - (NSString *)accountFilePath:(BOOL)forSave {
     
@@ -1005,38 +1004,17 @@ CGFloat animatedDistance;
     
 }
 
-/*
--(BOOL) restoreDBfromXML
+
+-(IBAction)backDatabase:(id)sender
 {
-    {
-        NSString *filePath = [self accountFilePath:FALSE];
-        NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
-        NSError *error;
-        GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
-                                                               options:0 error:&error];
-        if (doc == nil) { return NO; }
-        
-        NSLog(@"%@", doc.rootElement);
-        
-        Party *party = [[[Party alloc] init] autorelease];
-        NSArray *partyMembers = [doc.rootElement elementsForName:@"Player"];
-        for (GDataXMLElement *partyMember in partyMembers) {
-            
-            // Let's fill these in!
-            NSString *name;
-            int level;
-            RPGClass rpgClass;
-            
-            // Name
-            NSArray *names = [partyMember elementsForName:@"Name"];
-            if (names.count > 0) {
-                GDataXMLElement *firstName = (GDataXMLElement *) [names objectAtIndex:0];
-                name = firstName.stringValue;
-            } else continue;
-        }
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:self];
     }
+    else
+        [self backupDBtoXML];
 }
-*/
+
+
 - (void)backupDBtoXML
 {
     NSMutableArray *imageArray = [[NSMutableArray alloc] init];
@@ -1048,7 +1026,7 @@ CGFloat animatedDistance;
         NSArray *accountArray = [Account bringAllAccount];
         
         
-
+        
         
         int numofaccount = [accountArray count];
         
@@ -1117,7 +1095,7 @@ CGFloat animatedDistance;
         NSString *xmlString = [[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding];
         //NSLog(@"%@", xmlString);
     }
-
+    
     //Save XML for Attendance
     {
         NSArray *attendanceArray = [Attendance bringAllAttendance];
@@ -1167,11 +1145,14 @@ CGFloat animatedDistance;
     
     //[self sendEmailWithBackupFile:[self accountFilePath:NO] withAttendanceFile:[self attendanceFilePath:NO] ];
     
+    numberOfSentImage = 0;
+    numberOfImagesToSend = [imageArray count];
+    [self showProgressView];
     
     [self sendToDropboxWithBackupFile:[self accountFilePath:NO] withAttendanceFile:[self attendanceFilePath:NO] ];
     
     [self sendToDropboxWithImages:imageArray]; // withIDArray:idArray];
-
+    
 }
 
 -(void)sendEmailWithBackupFile: (NSString*)accountFilePath withAttendanceFile:(NSString*)attendanceFilePath
@@ -1221,6 +1202,8 @@ CGFloat animatedDistance;
 }
 
 
+#pragma mark - XML backup - Dropbox
+
 -(void)sendToDropboxWithBackupFile: (NSString*)accountFilePath withAttendanceFile:(NSString*)attendanceFilePath
 {
     {
@@ -1253,9 +1236,11 @@ CGFloat animatedDistance;
 -(void)sendToDropboxWithImages:(NSArray*)imageArray //withIDArray:(NSArray*)idArray
 {
     
-    for(int i=0; i< [imageArray count]; i++) {
- //   for (NSString *imageprofilepath in imageArray) {
+
     
+    for(int i=0; i< [imageArray count]; i++) {
+        //   for (NSString *imageprofilepath in imageArray) {
+        
         NSString *imageprofilepath = [imageArray objectAtIndex:i];
         //NSString *ID = [idArray objectAtIndex:i];
         
@@ -1264,8 +1249,8 @@ CGFloat animatedDistance;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *imageLocalPath = [documentsDirectory
-                               stringByAppendingPathComponent:imageprofilepath];
-
+                                    stringByAppendingPathComponent:imageprofilepath];
+        
         
         
         NSString *filename = imageprofilepath; //[NSString stringWithFormat:@"%@.jpg", ID ]; //imageprofilepath;
@@ -1276,13 +1261,616 @@ CGFloat animatedDistance;
     }
 }
 
+
+
+-(BOOL) restoreDBfromXML
+{
+    {
+        NSString *filePath = [self accountFilePath:FALSE];
+        NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
+        NSError *error;
+        GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
+                                                               options:0 error:&error];
+        if (doc == nil) { return NO; }
+        
+        //NSLog(@"%@", doc.rootElement);
+        
+        NSArray *accountArray = [doc.rootElement elementsForName:@"Account"];
+        for (GDataXMLElement *anAccount in accountArray) {
+            
+            // Let's fill these in!
+            NSString *ID;
+            NSArray *ids = [anAccount elementsForName:@"ID"];
+            if (ids.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [ids objectAtIndex:0];
+                ID = Element.stringValue;
+            } else continue;
+            
+            NSString *name;
+            NSArray *names = [anAccount elementsForName:@"name"];
+            if (names.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [names objectAtIndex:0];
+                name = Element.stringValue;
+            } else continue;
+            
+            NSString *phone;
+            NSArray *phones = [anAccount elementsForName:@"phone"];
+            if (phones.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [phones objectAtIndex:0];
+                phone = Element.stringValue;
+            } else continue;
+            
+            NSString *address;
+            NSArray *addresses = [anAccount elementsForName:@"address"];
+            if (addresses.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [addresses objectAtIndex:0];
+                address = Element.stringValue;
+            } else continue;
+            
+            
+            NSString *email;
+            NSArray *emails = [anAccount elementsForName:@"email"];
+            if (emails.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [emails objectAtIndex:0];
+                email = Element.stringValue;
+            } else continue;
+            
+            NSString *registerationDateNSString;
+            NSArray *registerationDates = [anAccount elementsForName:@"registerationDate"];
+            if (registerationDates.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [registerationDates objectAtIndex:0];
+                registerationDateNSString = Element.stringValue;
+            } else continue;
+            
+            NSString *dateOfBirthNSString;
+            NSArray *dateOfBirths = [anAccount elementsForName:@"dateOfBirth"];
+            if (dateOfBirths.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [dateOfBirths objectAtIndex:0];
+                dateOfBirthNSString = Element.stringValue;
+            } else continue;
+            
+            NSString *recentTestDateNSString;
+            NSArray *recentTestDates = [anAccount elementsForName:@"recentTestDate"];
+            if (recentTestDates.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [recentTestDates objectAtIndex:0];
+                recentTestDateNSString = Element.stringValue;
+            } else continue;
+            
+            NSString *payDateNSString;
+            NSArray *payDates = [anAccount elementsForName:@"payDate"];
+            if (payDates.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [payDates objectAtIndex:0];
+                payDateNSString = Element.stringValue;
+            } else continue;
+            
+            NSString *profileImagePath;
+            NSArray *profileImagePaths = [anAccount elementsForName:@"profileImagePath"];
+            if (profileImagePaths.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [profileImagePaths objectAtIndex:0];
+                profileImagePath = Element.stringValue;
+            } else continue;
+            
+            
+            
+            ///NSLog(@"%@ - %@", ID, name);
+            //continue;
+            
+            Account *currentAccount = [[Account alloc] init];
+            
+            currentAccount.iD = ID;
+            currentAccount.name = name;
+            currentAccount.phone = phone;
+            currentAccount.address = address;
+            currentAccount.email = email;
+            currentAccount.registerationDateNSString = registerationDateNSString;
+            currentAccount.dateOfBirthNSString = dateOfBirthNSString;
+            currentAccount.recentTestDateNSString = recentTestDateNSString;
+            currentAccount.payDateNSString = payDateNSString;
+            currentAccount.profileImagePath = profileImagePath;
+            //currentAccount.profileImage = self.profileImageView.image;
+            
+            BOOL result = [currentAccount saveAllAccountInformation];
+            
+        }//for account
+        
+    }
+    
+    
+    {
+        NSString *filePath = [self attendanceFilePath:FALSE];
+        NSData *xmlData = [[NSMutableData alloc] initWithContentsOfFile:filePath];
+        NSError *error;
+        GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData
+                                                               options:0 error:&error];
+        if (doc == nil) { return NO; }
+        
+        //NSLog(@"%@", doc.rootElement);
+        
+        NSArray *accountArray = [doc.rootElement elementsForName:@"Attendance"];
+        for (GDataXMLElement *anAccount in accountArray) {
+            
+            // Let's fill these in!
+            NSString *ID;
+            NSArray *ids = [anAccount elementsForName:@"ID"];
+            if (ids.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [ids objectAtIndex:0];
+                ID = Element.stringValue;
+            } else continue;
+            
+            NSString *date;
+            NSArray *dates = [anAccount elementsForName:@"date"];
+            if (dates.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [dates objectAtIndex:0];
+                date = Element.stringValue;
+            } else continue;
+            
+            
+            NSString *time;
+            NSArray *times = [anAccount elementsForName:@"time"];
+            if (times.count > 0) {
+                GDataXMLElement *Element = (GDataXMLElement *) [times objectAtIndex:0];
+                time = Element.stringValue;
+            } else continue;
+            
+            //NSLog(@"%@ - %@ - %@", ID, date, time);
+            //continue;
+            
+            Attendance *currentAttendance = [[Attendance alloc] init];
+            
+            currentAttendance.iD = ID;
+            currentAttendance.dateNSString = date;
+            currentAttendance.time = time;
+            
+            BOOL result = [currentAttendance saveAttendanceInformation];
+            
+        }
+    }
+    
+    return YES;
+}
+
+-(IBAction)restoreDatabase:(id)sender
+{
+    //[self downloadFromDropboxWithBackupFile];
+    
+    //[self downloadFromDropboxWithImages];
+    
+    [self restoreDBfromXML];
+    
+}
+
+-(void)downloadFromDropboxWithBackupFile
+{
+    
+    {
+        NSString* accountLocalFilePath = [self accountFilePath:TRUE];
+        NSString *filename = @"/Accounts.xml";
+        
+        //NSString *destDir = @"/";
+        [self.restClient loadFile:filename intoPath:accountLocalFilePath];
+        
+        
+    }
+    
+    {
+        NSString* attendanceLocalFilePath = [self attendanceFilePath:TRUE];
+        NSString *filename = @"/Attendances.xml";
+        
+        //NSString *destDir = @"/";
+        [self.restClient loadFile:filename intoPath:attendanceLocalFilePath];
+    }
+    
+    //(NSString*)attendanceLocalFilePath = [self attendanceFilePath:TRUE];
+    
+    
+}
+
+-(void)downloadFromDropboxWithImages
+{
+    NSString *photosRoot = @"/";
+    [self.restClient loadMetadata:photosRoot];
+}
+
+
+
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
               from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
     NSLog(@"File uploaded successfully to path: %@", metadata.path);
+    
+    numberOfSentImage++;
+    if(numberOfImagesToSend > 0) {
+        float sentratio = (float)numberOfSentImage / (float)numberOfImagesToSend;
+        
+        [progressView setProgress:sentratio];
+    }
+    
+    if(numberOfSentImage == numberOfImagesToSend) {
+        [self hideProgressView];
+    }
+    
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
     NSLog(@"File upload failed with error: %@", error);
+}
+
+
+//When Files were downloaded
+- (void)restClient:(DBRestClient *)client loadedFile:(NSString *)localPath
+       contentType:(NSString *)contentType metadata:(DBMetadata *)metadata {
+    NSLog(@"File loaded into path: %@", localPath);
+    
+    NSArray* validExtensions = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];
+    NSString* extension = [[localPath pathExtension] lowercaseString];
+    
+    //If not image
+    if ([validExtensions indexOfObject:extension] == NSNotFound) {
+        NSData *xmlData = [NSData dataWithContentsOfFile: localPath ];
+        NSString *xmlString = [[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", xmlString);
+    }
+}
+
+- (void)restClient:(DBRestClient *)client loadFileFailedWithError:(NSError *)error {
+    NSLog(@"There was an error loading the file: %@", error);
+}
+
+//When file list downloaded
+- (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata {
+    if (metadata.isDirectory) {
+        //NSLog(@"Folder '%@' contains:", metadata.path);
+        
+        NSMutableArray* newPhotoPaths = [NSMutableArray new];
+        NSMutableArray* newPhotoNames = [NSMutableArray new];
+        
+        //Collect Filenames and paths
+        NSArray* validExtensions = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];
+        for (DBMetadata *file in metadata.contents) {
+            
+            NSString* extension = [[file.path pathExtension] lowercaseString];
+            //If image file
+            if (!file.isDirectory && [validExtensions indexOfObject:extension] != NSNotFound) {
+                
+                //NSLog(@"	%@", file.path);
+                //NSLog(@"	%@", file.filename);
+                
+                [newPhotoPaths addObject:file.path];
+                [newPhotoNames addObject:file.filename];
+            }
+            
+        }
+        
+        for(int f=0; f< [newPhotoPaths count]; f++) {
+            NSString *serverfilepath = [newPhotoPaths objectAtIndex:f];
+            NSString *filename = [newPhotoNames objectAtIndex:f];
+            
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                 NSUserDomainMask, YES);
+            NSString *documentsDirectory = [paths objectAtIndex:0];
+            NSString *imagePath = [documentsDirectory
+                                   stringByAppendingPathComponent:filename];
+            
+            [self.restClient loadFile:serverfilepath intoPath:imagePath];
+        }
+    }
+}
+
+- (void)restClient:(DBRestClient *)client
+loadMetadataFailedWithError:(NSError *)error {
+    NSLog(@"Error loading metadata: %@", error);
+}
+
+- (DBRestClient*)restClient {
+    if (_restClient == nil) {
+        _restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
+        _restClient.delegate = self;
+    }
+    return _restClient;
+}
+
+- (UIImage *)processProfileImage:(UIImage*)image
+{
+    if(!image)
+        return nil;
+    
+    UIImage *fixedImage = [self fixOrientation:image];
+    
+    
+    UIImage *faceImage = [self detectForFaces:fixedImage.CGImage orientation:fixedImage.imageOrientation];
+    
+    
+    
+    CGSize orgsize = faceImage.size;
+    float targetwidth = 500.0f;
+    float ratio = (float)targetwidth / (float)orgsize.width;
+    float targetheight = orgsize.height * ratio;
+    CGSize targetsize = CGSizeMake(targetwidth, targetheight);
+    
+    UIImage *resizedImage = [self resizeWithImage:faceImage scaledToSize:targetsize];
+    
+    
+    return resizedImage;
+    
+}
+
+- (UIImage *)resizeWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    
+    //UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    //[image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    //UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    //UIGraphicsEndImageContext();
+    //return newImage;
+    
+    
+    if (CGSizeEqualToSize(image.size, newSize))
+    {
+        return image;
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 1.0f);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+- (UIImage *) detectForFaces:(CGImageRef)facePicture orientation:(UIImageOrientation)orientation {
+    
+    
+    CIImage* image = [CIImage imageWithCGImage:facePicture];
+    
+    CIContext *context = [CIContext contextWithOptions:nil];                    // 1
+    NSDictionary *opts = @{ CIDetectorAccuracy : CIDetectorAccuracyLow };      // 2
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace
+                                              context:context
+                                              options:opts];                    // 3
+    
+    int exifOrientation;
+    switch (orientation) {
+        case UIImageOrientationUp:
+            exifOrientation = 1;
+            break;
+        case UIImageOrientationDown:
+            exifOrientation = 3;
+            break;
+        case UIImageOrientationLeft:
+            exifOrientation = 8;
+            break;
+        case UIImageOrientationRight:
+            exifOrientation = 6;
+            break;
+        case UIImageOrientationUpMirrored:
+            exifOrientation = 2;
+            break;
+        case UIImageOrientationDownMirrored:
+            exifOrientation = 4;
+            break;
+        case UIImageOrientationLeftMirrored:
+            exifOrientation = 5;
+            break;
+        case UIImageOrientationRightMirrored:
+            exifOrientation = 7;
+            break;
+        default:
+            break;
+    }
+    
+    
+    opts = @{ CIDetectorImageOrientation :[NSNumber numberWithInt:exifOrientation
+                                           ] };
+    
+    NSArray *features = [detector featuresInImage:image options:opts];
+    
+    int maxidx = -1;
+    float maxarea = 0.0f;
+    CGRect maxRect;
+    for(int i=0; i< [features count]; i++) {
+        CIFaceFeature *face = [features objectAtIndex:i];
+        CGRect facerect = face.bounds;
+        
+        if(facerect.size.width * facerect.size.height > maxarea) {
+            maxidx = i;
+            maxarea = facerect.size.width * facerect.size.height;
+            maxRect = facerect;
+        }
+    }
+    
+    UIImage *faceImage;
+    
+    if(maxidx >=0) {
+        
+        //UIImage *uiImage = [[UIImage alloc] initWithCIImage:image];
+        
+        
+        
+        UIImage *uiImage = [UIImage imageWithCGImage:facePicture];
+        
+        float extratio = 6.0f;
+        CGRect facerect = maxRect;
+        facerect.origin.x = facerect.origin.x - facerect.size.width / extratio;
+        facerect.origin.y = facerect.origin.y - facerect.size.height / extratio;
+        facerect.size.width = facerect.size.width + facerect.size.width * 2.0f / extratio;
+        facerect.size.height = facerect.size.height + facerect.size.height * 2.0f / extratio;
+        
+        faceImage = [self cropImage:uiImage withRect:facerect];
+        
+        return faceImage;
+    }
+    else
+        return nil;
+    
+    //if ([features count] > 0) {
+    //    CIFaceFeature *face = [features lastObject];
+    //    NSLog(@"%@", NSStringFromCGRect(face.bounds));
+    //}
+    
+    //return features;
+}
+
+- (UIImage *)cropImage:(UIImage*)image withRect:(CGRect)rect {
+    
+    //CGSize orgsize = image.size;
+    CGRect orgrect = CGRectMake(0, 0, image.size.width, image.size.height);
+    rect = CGRectMake(rect.origin.x*image.scale,rect.origin.y*image.scale,rect.size.width*image.scale,rect.size.height*image.scale);
+    
+    if(rect.origin.x < 0)
+        rect.origin.x = 0;
+    if(rect.origin.y < 0)
+        rect.origin.y = 0;
+    if(rect.origin.x + rect.size.width >= orgrect.size.width) {
+        rect.size.width = orgrect.size.width - rect.origin.x;
+    }
+    if(rect.origin.y + rect.size.height >= orgrect.size.height) {
+        rect.size.height = orgrect.size.height - rect.origin.y;
+    }
+    /*
+     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
+     UIImage *result = [UIImage imageWithCGImage:imageRef
+     scale:image.scale
+     orientation:image.imageOrientation];
+     CGImageRelease(imageRef);
+     */
+    
+    //UIImage *result = (__bridge UIImage *)(CGImageCreateWithImageInRect((__bridge CGImageRef)(image), rect));
+    
+    //CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
+    //UIImage *croppedImage = [UIImage imageWithCGImage:imageRef];
+    //CGImageRelease(imageRef);
+    //CGImageRef imageRef = CGImageCreateWithImageInRect([originalImage CGImage], cropRect);
+    
+    //rect.size.width = 50;
+    //rect.size.height = 50;
+    
+    //keep orientation if landscape
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
+    
+    UIImage *newImage;
+    
+    if (image.size.width > image.size.height || image.size.width == image.size.height) {
+        newImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:image.imageOrientation];
+    }
+    else
+    {
+        newImage = [UIImage imageWithCGImage:imageRef];
+    }
+    
+    CGImageRelease(imageRef);
+    
+    
+    return newImage;
+}
+
+- (UIImage *)fixOrientation : (UIImage*) image{
+    
+    // No-op if the orientation is already correct
+    if (image.imageOrientation == UIImageOrientationUp) return image;
+    
+    // We need to calculate the proper transformation to make the image upright.
+    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    switch (image.imageOrientation) {
+        case UIImageOrientationDown:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, image.size.width, image.size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+            
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, image.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+            
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, image.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationUpMirrored:
+            break;
+    }
+    
+    switch (image.imageOrientation) {
+        case UIImageOrientationUpMirrored:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, image.size.width, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+            
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, image.size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        case UIImageOrientationUp:
+        case UIImageOrientationDown:
+        case UIImageOrientationLeft:
+        case UIImageOrientationRight:
+            break;
+    }
+    
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    CGContextRef ctx = CGBitmapContextCreate(NULL, image.size.width, image.size.height,
+                                             CGImageGetBitsPerComponent(image.CGImage), 0,
+                                             CGImageGetColorSpace(image.CGImage),
+                                             CGImageGetBitmapInfo(image.CGImage));
+    CGContextConcatCTM(ctx, transform);
+    switch (image.imageOrientation) {
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            // Grr...
+            CGContextDrawImage(ctx, CGRectMake(0,0,image.size.height,image.size.width), image.CGImage);
+            break;
+            
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0,0,image.size.width,image.size.height), image.CGImage);
+            break;
+    }
+    
+    // And now we just create a new UIImage from the drawing context
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+    UIImage *img = [UIImage imageWithCGImage:cgimg];
+    CGContextRelease(ctx);
+    CGImageRelease(cgimg);
+    return img;
+}
+
+
+-(void)showProgressView
+{
+    if(!progressView) {
+        progressView = [[DDProgressView alloc] initWithFrame: CGRectMake(20.0f, 60.0f, self.view.bounds.size.width-40.0f, 0.0f)] ;
+        [progressView setOuterColor: [UIColor grayColor]] ;
+        [progressView setInnerColor: [UIColor lightGrayColor]] ;
+        progressView.alpha = 1.0;
+        
+        [self.view addSubview: progressView] ;
+ 
+    }
+
+    progressView.hidden = NO;
+    //progressView.alpha = 1.0;
+}
+
+-(void)hideProgressView
+{
+    progressView.hidden = YES;
+    //progressView.alpha = 0.0;
+    [progressView setProgress:0.0];
+}
+
+-(void)setProgressView:(float)val
+{
+    [progressView setProgress:val];
 }
 
 @end

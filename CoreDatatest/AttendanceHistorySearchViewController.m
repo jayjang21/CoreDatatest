@@ -10,8 +10,8 @@
 
 @interface AttendanceHistorySearchViewController ()
 
-@property (strong, nonatomic) NSMutableArray *list1;
-@property (strong, nonatomic) NSMutableArray *list2;
+@property (strong, nonatomic) NSMutableArray *yearList;
+@property (strong, nonatomic) NSMutableArray *monthList;
 
 @property (strong, nonatomic) NSDate *currentDate;
 
@@ -33,20 +33,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.yearList = [[NSMutableArray alloc] init];
+    self.monthList = [[NSMutableArray alloc] init];
+    
     NSDateFormatter *dateFormatterYear = [[NSDateFormatter alloc]init];
     [dateFormatterYear setDateFormat:@"yyyy"];
-    
+    NSDateFormatter *dateFormatterMonth = [[NSDateFormatter alloc]init];
+    [dateFormatterMonth setDateFormat:@"MM"];
     
     NSInteger currentYear = [[dateFormatterYear stringFromDate:self.currentDate] integerValue];
+    NSInteger currentMonth = [[dateFormatterMonth stringFromDate:self.currentDate] integerValue];
 
+
+    
     NSInteger i;
-    for (i = 2014; i > currentYear; i ++) {
+    int startYear = 2012;
+    for (i = startYear; i <= currentYear; i ++) {
 
-        [self.list1 addObject:[NSString stringWithFormat: @"%d", currentYear]];
+        [self.yearList addObject:[NSString stringWithFormat: @"%d", i]];
     }
 
-    for (i = 1; i > 12; i ++) {
-        [self.list2 addObject:[NSString stringWithFormat: @"%d", i]];
+    for (i = 1; i <= 12; i ++) {
+        [self.monthList addObject:[NSString stringWithFormat: @"%d", i]];
     }
     
     
@@ -54,11 +62,12 @@
     // Init the data array.
 
 
-    //[self.yearPickerView setDataSource: self];
-    [self.yearPickerView setDelegate: self];
-    self.yearPickerView.showsSelectionIndicator = YES;
+    [self.yearMonthPickerView setDataSource: self];
+    [self.yearMonthPickerView setDelegate: self];
+    self.yearMonthPickerView.showsSelectionIndicator = YES;
 
-
+    [self.yearMonthPickerView selectRow:currentMonth - 1 inComponent:1 animated:YES];
+    [self.yearMonthPickerView selectRow:currentYear - startYear inComponent:0 animated:YES];
 
 
 }
@@ -87,18 +96,19 @@
     return _currentDate;
 }
 
+/*
 - (NSMutableArray *) list1
 {
-    _list1 = [[NSMutableArray alloc] init];
+
     return _list1;
 }
 
 - (NSMutableArray *) list2
 {
-    _list2 = [[NSMutableArray alloc] init];
+
     return _list2;
 }
-
+*/
 - (void)pickerView:(UIPickerView *)pV didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     //if(component == 1)
@@ -116,19 +126,19 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    if(component == 1)
-        return [self.list1 count];
+    if(component == 0)
+        return [self.yearList count];
     else {
-        return [self.list2 count];
+        return [self.monthList count];
     }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    if(component == 1)
-        return [self.list1 objectAtIndex:row];
+    if(component == 0)
+        return [self.yearList objectAtIndex:row];
     else {
-        return [self.list2 objectAtIndex:row];
+        return [self.monthList objectAtIndex:row];
     }
 
 }

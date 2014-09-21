@@ -35,6 +35,7 @@
 		8E394BED19CBC3D2005F8A22 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BEC19CBC3D2005F8A22 /* DropboxSDK.framework */; };
 		8E394BEF19CBC3DA005F8A22 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BEE19CBC3DA005F8A22 /* Security.framework */; };
 		8E394BF119CBC3E2005F8A22 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */; };
+		8E394BF719CEA222005F8A22 /* DDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BF619CEA222005F8A22 /* DDProgressView.m */; };
 		8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8E42CF1519C23DE100D34E07 /* beep.mp3 */; };
 		8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42CF1819C2442400D34E07 /* SCShapeView.m */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,8 @@
 		8E394BEC19CBC3D2005F8A22 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		8E394BEE19CBC3DA005F8A22 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8E394BF519CEA222005F8A22 /* DDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDProgressView.h; sourceTree = "<group>"; };
+		8E394BF619CEA222005F8A22 /* DDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDProgressView.m; sourceTree = "<group>"; };
 		8E42CF1519C23DE100D34E07 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		8E42CF1719C2442400D34E07 /* SCShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCShapeView.h; sourceTree = "<group>"; };
 		8E42CF1819C2442400D34E07 /* SCShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCShapeView.m; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 		766E2C6919A7288100B27131 /* CoreDatatest */ = {
 			isa = PBXGroup;
 			children = (
+				8E394BF519CEA222005F8A22 /* DDProgressView.h */,
+				8E394BF619CEA222005F8A22 /* DDProgressView.m */,
 				766E2C7219A7288100B27131 /* CoreDatatestAppDelegate.h */,
 				766E2C7319A7288100B27131 /* CoreDatatestAppDelegate.m */,
 				8E394BE719CB9850005F8A22 /* GDataXMLNode.m */,
@@ -335,6 +340,7 @@
 				8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */,
 				766E2CA219A9DDBD00B27131 /* Account.m in Sources */,
 				8E394BE919CB9850005F8A22 /* GDataXMLNode.m in Sources */,
+				8E394BF719CEA222005F8A22 /* DDProgressView.m in Sources */,
 				766E2C7719A7288100B27131 /* CoreDatatest.xcdatamodeld in Sources */,
 				764418E019C3BCEE00C8E0E5 /* Attendance.m in Sources */,
 				76E27B0019C122A300C66A1C /* AttendanceViewController.m in Sources */,

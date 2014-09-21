@@ -11,8 +11,8 @@
 @interface AttendanceHistorySearchViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UITextField *iDTextField;
-@property (strong, nonatomic) IBOutlet UIPickerView *yearPickerView;
-@property (strong, nonatomic) IBOutlet UIPickerView *monthPickerView;
+@property (strong, nonatomic) IBOutlet UIPickerView *yearMonthPickerView;
+//@property (strong, nonatomic) IBOutlet UIPickerView *monthPickerView;
 
 
 

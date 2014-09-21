@@ -161,6 +161,10 @@
         if ([[DBSession sharedSession] isLinked]) {
             NSLog(@"App linked successfully!");
             // At this point you can start making API calls
+            //dsjang2
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Dropbox is liked successfully.\nPlease push the backup button again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+
         }
         return YES;
     }
