@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		69B24B6A19CD941C00F2C93F /* AttendanceHistorySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */; };
 		764418E019C3BCEE00C8E0E5 /* Attendance.m in Sources */ = {isa = PBXBuildFile; fileRef = 764418DF19C3BCEE00C8E0E5 /* Attendance.m */; };
 		766E2C6219A7288100B27131 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766E2C6119A7288100B27131 /* Foundation.framework */; };
 		766E2C6419A7288100B27131 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766E2C6319A7288100B27131 /* CoreGraphics.framework */; };
@@ -49,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		69B24B6819CD941C00F2C93F /* AttendanceHistorySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceHistorySearchViewController.h; sourceTree = "<group>"; };
+		69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceHistorySearchViewController.m; sourceTree = "<group>"; };
 		764418DE19C3BCEE00C8E0E5 /* Attendance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attendance.h; sourceTree = "<group>"; };
 		764418DF19C3BCEE00C8E0E5 /* Attendance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attendance.m; sourceTree = "<group>"; };
 		766E2C5E19A7288100B27131 /* CoreDatatest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDatatest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +169,8 @@
 				8E394BE819CB9850005F8A22 /* GDataXMLNode.h */,
 				76E27AFD19C035D500C66A1C /* CoreDatatest.entitlements */,
 				766E2C9B19A8718400B27131 /* Storyboard.storyboard */,
+				69B24B6819CD941C00F2C93F /* AttendanceHistorySearchViewController.h */,
+				69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */,
 				8E42CF1719C2442400D34E07 /* SCShapeView.h */,
 				8E42CF1819C2442400D34E07 /* SCShapeView.m */,
 				76E27AFE19C122A300C66A1C /* AttendanceViewController.h */,
@@ -323,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B24B6A19CD941C00F2C93F /* AttendanceHistorySearchViewController.m in Sources */,
 				766E2C7019A7288100B27131 /* main.m in Sources */,
 				766E2C7419A7288100B27131 /* CoreDatatestAppDelegate.m in Sources */,
 				766E2C9F19A8720F00B27131 /* ResisterViewController.m in Sources */,
