@@ -46,4 +46,6 @@
 + (NSArray*) bringAllAccount;
 + (Account*) bringAccountWithID:(NSString*)accountID;
 
++(void)saveProfileImage:(UIImage*) profileImage withPath:(NSString*)localImagePath;
+
 @end

@@ -720,6 +720,21 @@
     
 }
 
++(void)saveProfileImage:(UIImage*) profileImage withPath:(NSString*)localImagePath
+{
+    //NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+    
+    //NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+    //                                                     NSUserDomainMask, YES);
+    //NSString *documentsDirectory = [paths objectAtIndex:0];
+    //NSString *imagePath = [documentsDirectory
+    //                       stringByAppendingPathComponent:localImagePath];
+    
+    //dsjang2
+    [UIImageJPEGRepresentation(profileImage, 0.5) writeToFile:localImagePath atomically:YES];
+    
+}
+
 -(void)loadAccountProfileImage
 {
     
@@ -729,21 +744,25 @@
 
 }
 
-+(UIImage *)ProfileImageWithProfileImagePath: (NSString *)profileImagePath
+
++(UIImage *)ProfileImageWithProfileImagePath: (NSString *)originalProfileImageName
 {
-    //NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+    
+    NSString *profileImageName = [originalProfileImageName lastPathComponent];
+    
+    //NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:profileImagePath];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
                                                          NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *imagePath = [documentsDirectory
-                           stringByAppendingPathComponent:profileImagePath];
-    
+    NSString *imageFullPath = [documentsDirectory
+                           stringByAppendingPathComponent:profileImageName];
+
     //Old version
-    if(![[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
-        imagePath = [NSHomeDirectory() stringByAppendingPathComponent:profileImagePath];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:imageFullPath]) {
+        imageFullPath = [NSHomeDirectory() stringByAppendingPathComponent:profileImageName];
     }
     
-    UIImage *profileImage = [UIImage imageWithContentsOfFile:imagePath];
+    UIImage *profileImage = [UIImage imageWithContentsOfFile:imageFullPath];
     
     return profileImage;
 }
