@@ -23,6 +23,7 @@
 
 + (BOOL) saveAttendanceInformation:(NSString*)inputID withDate:(NSString*)inputDate withTime:(NSString*)inputTime;
 
-+ (BOOL) bringAllDateTimeFromAttendance:(NSString*)inputID withYear:(NSString *) inputYear withMonth: (NSString *) inputMonth;
+//+ (BOOL) bringAllDateTimeFromAttendance:(NSString*)inputID withYear:(NSString *) inputYear withMonth: (NSString *) inputMonth;
++ (BOOL) bringAllDateTimeFromAttendance:(NSString*)inputID withYear:(NSString *) inputYear withMonth: (NSString *) inputMonth dateArray:(NSMutableArray **)dArray timeArray:(NSMutableArray**)tArray;
 + (NSArray*) bringAllAttendance;
 @end

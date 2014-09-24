@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "766E2C5D19A7288100B27131"
                BuildableName = "CoreDatatest.app"
-               BlueprintName = "CoreDatatest"
-               ReferencedContainer = "container:CoreDatatest.xcodeproj">
+               BlueprintName = "HongHapkido"
+               ReferencedContainer = "container:HongHapkido.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "766E2C7D19A7288100B27131"
                BuildableName = "CoreDatatestTests.xctest"
-               BlueprintName = "CoreDatatestTests"
-               ReferencedContainer = "container:CoreDatatest.xcodeproj">
+               BlueprintName = "HongHapkidoTests"
+               ReferencedContainer = "container:HongHapkido.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "766E2C5D19A7288100B27131"
             BuildableName = "CoreDatatest.app"
-            BlueprintName = "CoreDatatest"
-            ReferencedContainer = "container:CoreDatatest.xcodeproj">
+            BlueprintName = "HongHapkido"
+            ReferencedContainer = "container:HongHapkido.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "766E2C5D19A7288100B27131"
             BuildableName = "CoreDatatest.app"
-            BlueprintName = "CoreDatatest"
-            ReferencedContainer = "container:CoreDatatest.xcodeproj">
+            BlueprintName = "HongHapkido"
+            ReferencedContainer = "container:HongHapkido.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "766E2C5D19A7288100B27131"
             BuildableName = "CoreDatatest.app"
-            BlueprintName = "CoreDatatest"
-            ReferencedContainer = "container:CoreDatatest.xcodeproj">
+            BlueprintName = "HongHapkido"
+            ReferencedContainer = "container:HongHapkido.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -36,6 +36,8 @@
 		8E394BEF19CBC3DA005F8A22 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BEE19CBC3DA005F8A22 /* Security.framework */; };
 		8E394BF119CBC3E2005F8A22 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */; };
 		8E394BF719CEA222005F8A22 /* DDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BF619CEA222005F8A22 /* DDProgressView.m */; };
+		8E394BFC19D13C01005F8A22 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BFB19D13C01005F8A22 /* SettingsViewController.m */; };
+		8E394BFF19D1F82C005F8A22 /* PayDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BFE19D1F82C005F8A22 /* PayDateViewController.m */; };
 		8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8E42CF1519C23DE100D34E07 /* beep.mp3 */; };
 		8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42CF1819C2442400D34E07 /* SCShapeView.m */; };
 /* End PBXBuildFile section */
@@ -55,22 +57,22 @@
 		69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceHistorySearchViewController.m; sourceTree = "<group>"; };
 		764418DE19C3BCEE00C8E0E5 /* Attendance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attendance.h; sourceTree = "<group>"; };
 		764418DF19C3BCEE00C8E0E5 /* Attendance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attendance.m; sourceTree = "<group>"; };
-		766E2C5E19A7288100B27131 /* CoreDatatest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDatatest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		766E2C5E19A7288100B27131 /* HongHapkido.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HongHapkido.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		766E2C6119A7288100B27131 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		766E2C6319A7288100B27131 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		766E2C6519A7288100B27131 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		766E2C6719A7288100B27131 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		766E2C6B19A7288100B27131 /* CoreDatatest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreDatatest-Info.plist"; sourceTree = "<group>"; };
+		766E2C6B19A7288100B27131 /* HongHapkido-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HongHapkido-Info.plist"; sourceTree = "<group>"; };
 		766E2C6D19A7288100B27131 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		766E2C6F19A7288100B27131 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		766E2C7119A7288100B27131 /* CoreDatatest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CoreDatatest-Prefix.pch"; sourceTree = "<group>"; };
+		766E2C7119A7288100B27131 /* HongHapkido-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HongHapkido-Prefix.pch"; sourceTree = "<group>"; };
 		766E2C7219A7288100B27131 /* CoreDatatestAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDatatestAppDelegate.h; sourceTree = "<group>"; };
 		766E2C7319A7288100B27131 /* CoreDatatestAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDatatestAppDelegate.m; sourceTree = "<group>"; };
 		766E2C7619A7288100B27131 /* CoreDatatest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDatatest.xcdatamodel; sourceTree = "<group>"; };
 		766E2C7819A7288100B27131 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		766E2C7E19A7288100B27131 /* CoreDatatestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDatatestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		766E2C7E19A7288100B27131 /* HongHapkidoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HongHapkidoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		766E2C7F19A7288100B27131 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		766E2C8819A7288100B27131 /* CoreDatatestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CoreDatatestTests-Info.plist"; sourceTree = "<group>"; };
+		766E2C8819A7288100B27131 /* HongHapkidoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HongHapkidoTests-Info.plist"; sourceTree = "<group>"; };
 		766E2C8A19A7288100B27131 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		766E2C8C19A7288100B27131 /* CoreDatatestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDatatestTests.m; sourceTree = "<group>"; };
 		766E2C9B19A8718400B27131 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard.storyboard; path = ../Storyboard.storyboard; sourceTree = "<group>"; };
@@ -91,6 +93,10 @@
 		8E394BF019CBC3E2005F8A22 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8E394BF519CEA222005F8A22 /* DDProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDProgressView.h; sourceTree = "<group>"; };
 		8E394BF619CEA222005F8A22 /* DDProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDProgressView.m; sourceTree = "<group>"; };
+		8E394BFA19D13C01005F8A22 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		8E394BFB19D13C01005F8A22 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		8E394BFD19D1F82C005F8A22 /* PayDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayDateViewController.h; sourceTree = "<group>"; };
+		8E394BFE19D1F82C005F8A22 /* PayDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayDateViewController.m; sourceTree = "<group>"; };
 		8E42CF1519C23DE100D34E07 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		8E42CF1719C2442400D34E07 /* SCShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCShapeView.h; sourceTree = "<group>"; };
 		8E42CF1819C2442400D34E07 /* SCShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCShapeView.m; sourceTree = "<group>"; };
@@ -139,8 +145,8 @@
 		766E2C5F19A7288100B27131 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				766E2C5E19A7288100B27131 /* CoreDatatest.app */,
-				766E2C7E19A7288100B27131 /* CoreDatatestTests.xctest */,
+				766E2C5E19A7288100B27131 /* HongHapkido.app */,
+				766E2C7E19A7288100B27131 /* HongHapkidoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,26 +170,22 @@
 		766E2C6919A7288100B27131 /* CoreDatatest */ = {
 			isa = PBXGroup;
 			children = (
-				8E394BF519CEA222005F8A22 /* DDProgressView.h */,
-				8E394BF619CEA222005F8A22 /* DDProgressView.m */,
+				8E394BF919D13BBB005F8A22 /* CoreData */,
+				8E394BF819D13B87005F8A22 /* 3rd party */,
 				766E2C7219A7288100B27131 /* CoreDatatestAppDelegate.h */,
 				766E2C7319A7288100B27131 /* CoreDatatestAppDelegate.m */,
-				8E394BE719CB9850005F8A22 /* GDataXMLNode.m */,
-				8E394BE819CB9850005F8A22 /* GDataXMLNode.h */,
 				76E27AFD19C035D500C66A1C /* CoreDatatest.entitlements */,
 				766E2C9B19A8718400B27131 /* Storyboard.storyboard */,
+				8E394BFA19D13C01005F8A22 /* SettingsViewController.h */,
+				8E394BFB19D13C01005F8A22 /* SettingsViewController.m */,
+				8E394BFD19D1F82C005F8A22 /* PayDateViewController.h */,
+				8E394BFE19D1F82C005F8A22 /* PayDateViewController.m */,
 				69B24B6819CD941C00F2C93F /* AttendanceHistorySearchViewController.h */,
 				69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */,
-				8E42CF1719C2442400D34E07 /* SCShapeView.h */,
-				8E42CF1819C2442400D34E07 /* SCShapeView.m */,
 				76E27AFE19C122A300C66A1C /* AttendanceViewController.h */,
 				76E27AFF19C122A300C66A1C /* AttendanceViewController.m */,
 				766E2C9D19A8720F00B27131 /* ResisterViewController.h */,
 				766E2C9E19A8720F00B27131 /* ResisterViewController.m */,
-				766E2CA019A9DDBD00B27131 /* Account.h */,
-				766E2CA119A9DDBD00B27131 /* Account.m */,
-				764418DE19C3BCEE00C8E0E5 /* Attendance.h */,
-				764418DF19C3BCEE00C8E0E5 /* Attendance.m */,
 				766E2C7819A7288100B27131 /* Images.xcassets */,
 				766E2C7519A7288100B27131 /* CoreDatatest.xcdatamodeld */,
 				766E2C6A19A7288100B27131 /* Supporting Files */,
@@ -197,10 +199,10 @@
 				8E394B5619C6E548005F8A22 /* attendance.png */,
 				8E394B5419C6E436005F8A22 /* register.png */,
 				8E42CF1519C23DE100D34E07 /* beep.mp3 */,
-				766E2C6B19A7288100B27131 /* CoreDatatest-Info.plist */,
+				766E2C6B19A7288100B27131 /* HongHapkido-Info.plist */,
 				766E2C6C19A7288100B27131 /* InfoPlist.strings */,
 				766E2C6F19A7288100B27131 /* main.m */,
-				766E2C7119A7288100B27131 /* CoreDatatest-Prefix.pch */,
+				766E2C7119A7288100B27131 /* HongHapkido-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -217,18 +219,42 @@
 		766E2C8719A7288100B27131 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				766E2C8819A7288100B27131 /* CoreDatatestTests-Info.plist */,
+				766E2C8819A7288100B27131 /* HongHapkidoTests-Info.plist */,
 				766E2C8919A7288100B27131 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8E394BF819D13B87005F8A22 /* 3rd party */ = {
+			isa = PBXGroup;
+			children = (
+				8E42CF1719C2442400D34E07 /* SCShapeView.h */,
+				8E42CF1819C2442400D34E07 /* SCShapeView.m */,
+				8E394BE719CB9850005F8A22 /* GDataXMLNode.m */,
+				8E394BE819CB9850005F8A22 /* GDataXMLNode.h */,
+				8E394BF519CEA222005F8A22 /* DDProgressView.h */,
+				8E394BF619CEA222005F8A22 /* DDProgressView.m */,
+			);
+			name = "3rd party";
+			sourceTree = "<group>";
+		};
+		8E394BF919D13BBB005F8A22 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				766E2CA019A9DDBD00B27131 /* Account.h */,
+				766E2CA119A9DDBD00B27131 /* Account.m */,
+				764418DE19C3BCEE00C8E0E5 /* Attendance.h */,
+				764418DF19C3BCEE00C8E0E5 /* Attendance.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		766E2C5D19A7288100B27131 /* CoreDatatest */ = {
+		766E2C5D19A7288100B27131 /* HongHapkido */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 766E2C9019A7288100B27131 /* Build configuration list for PBXNativeTarget "CoreDatatest" */;
+			buildConfigurationList = 766E2C9019A7288100B27131 /* Build configuration list for PBXNativeTarget "HongHapkido" */;
 			buildPhases = (
 				766E2C5A19A7288100B27131 /* Sources */,
 				766E2C5B19A7288100B27131 /* Frameworks */,
@@ -238,14 +264,14 @@
 			);
 			dependencies = (
 			);
-			name = CoreDatatest;
+			name = HongHapkido;
 			productName = CoreDatatest;
-			productReference = 766E2C5E19A7288100B27131 /* CoreDatatest.app */;
+			productReference = 766E2C5E19A7288100B27131 /* HongHapkido.app */;
 			productType = "com.apple.product-type.application";
 		};
-		766E2C7D19A7288100B27131 /* CoreDatatestTests */ = {
+		766E2C7D19A7288100B27131 /* HongHapkidoTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 766E2C9319A7288100B27131 /* Build configuration list for PBXNativeTarget "CoreDatatestTests" */;
+			buildConfigurationList = 766E2C9319A7288100B27131 /* Build configuration list for PBXNativeTarget "HongHapkidoTests" */;
 			buildPhases = (
 				766E2C7A19A7288100B27131 /* Sources */,
 				766E2C7B19A7288100B27131 /* Frameworks */,
@@ -256,9 +282,9 @@
 			dependencies = (
 				766E2C8519A7288100B27131 /* PBXTargetDependency */,
 			);
-			name = CoreDatatestTests;
+			name = HongHapkidoTests;
 			productName = CoreDatatestTests;
-			productReference = 766E2C7E19A7288100B27131 /* CoreDatatestTests.xctest */;
+			productReference = 766E2C7E19A7288100B27131 /* HongHapkidoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -284,7 +310,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 766E2C5919A7288100B27131 /* Build configuration list for PBXProject "CoreDatatest" */;
+			buildConfigurationList = 766E2C5919A7288100B27131 /* Build configuration list for PBXProject "HongHapkido" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -296,8 +322,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				766E2C5D19A7288100B27131 /* CoreDatatest */,
-				766E2C7D19A7288100B27131 /* CoreDatatestTests */,
+				766E2C5D19A7288100B27131 /* HongHapkido */,
+				766E2C7D19A7288100B27131 /* HongHapkidoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -334,7 +360,9 @@
 				69B24B6A19CD941C00F2C93F /* AttendanceHistorySearchViewController.m in Sources */,
 				766E2C7019A7288100B27131 /* main.m in Sources */,
 				766E2C7419A7288100B27131 /* CoreDatatestAppDelegate.m in Sources */,
+				8E394BFC19D13C01005F8A22 /* SettingsViewController.m in Sources */,
 				766E2C9F19A8720F00B27131 /* ResisterViewController.m in Sources */,
+				8E394BFF19D1F82C005F8A22 /* PayDateViewController.m in Sources */,
 				8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */,
 				766E2CA219A9DDBD00B27131 /* Account.m in Sources */,
 				8E394BE919CB9850005F8A22 /* GDataXMLNode.m in Sources */,
@@ -358,7 +386,7 @@
 /* Begin PBXTargetDependency section */
 		766E2C8519A7288100B27131 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 766E2C5D19A7288100B27131 /* CoreDatatest */;
+			target = 766E2C5D19A7288100B27131 /* HongHapkido */;
 			targetProxy = 766E2C8419A7288100B27131 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -469,16 +497,16 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CoreDatatest/CoreDatatest-Prefix.pch";
+				GCC_PREFIX_HEADER = "CoreDatatest/HongHapkido-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/include/libxml2,
 				);
-				INFOPLIST_FILE = "CoreDatatest/CoreDatatest-Info.plist";
+				INFOPLIST_FILE = "CoreDatatest/HongHapkido-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HongHapkido;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
@@ -499,16 +527,16 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CoreDatatest/CoreDatatest-Prefix.pch";
+				GCC_PREFIX_HEADER = "CoreDatatest/HongHapkido-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/include/libxml2,
 				);
-				INFOPLIST_FILE = "CoreDatatest/CoreDatatest-Info.plist";
+				INFOPLIST_FILE = "CoreDatatest/HongHapkido-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HongHapkido;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
@@ -530,8 +558,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "CoreDatatestTests/CoreDatatestTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CoreDatatestTests/HongHapkidoTests-Info.plist";
+				PRODUCT_NAME = HongHapkidoTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -548,8 +576,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CoreDatatest/CoreDatatest-Prefix.pch";
-				INFOPLIST_FILE = "CoreDatatestTests/CoreDatatestTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "CoreDatatestTests/HongHapkidoTests-Info.plist";
+				PRODUCT_NAME = HongHapkidoTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -558,7 +586,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		766E2C5919A7288100B27131 /* Build configuration list for PBXProject "CoreDatatest" */ = {
+		766E2C5919A7288100B27131 /* Build configuration list for PBXProject "HongHapkido" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				766E2C8E19A7288100B27131 /* Debug */,
@@ -567,7 +595,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		766E2C9019A7288100B27131 /* Build configuration list for PBXNativeTarget "CoreDatatest" */ = {
+		766E2C9019A7288100B27131 /* Build configuration list for PBXNativeTarget "HongHapkido" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				766E2C9119A7288100B27131 /* Debug */,
@@ -576,7 +604,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		766E2C9319A7288100B27131 /* Build configuration list for PBXNativeTarget "CoreDatatestTests" */ = {
+		766E2C9319A7288100B27131 /* Build configuration list for PBXNativeTarget "HongHapkidoTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				766E2C9419A7288100B27131 /* Debug */,

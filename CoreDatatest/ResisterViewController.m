@@ -7,6 +7,7 @@
 //
 
 #import "ResisterViewController.h"
+#import "AttendanceHistorySearchViewController.h"
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
@@ -26,7 +27,7 @@ CGFloat animatedDistance;
 
 
 
-@interface ResisterViewController () <MFMailComposeViewControllerDelegate, DBRestClientDelegate>
+@interface ResisterViewController () //<MFMailComposeViewControllerDelegate, DBRestClientDelegate>
 
 
 //@property (strong, nonatomic) NSString *iD;
@@ -44,7 +45,7 @@ CGFloat animatedDistance;
 @property (strong, nonatomic) NSString *datePickingDateKind;
 @property (strong, nonatomic) id justTappedTextField;
 
-@property (nonatomic, strong) DBRestClient *restClient;
+//@property (nonatomic, strong) DBRestClient *restClient;
 
 @end
 
@@ -62,7 +63,7 @@ CGFloat animatedDistance;
 
 - (void)viewDidLoad
 {
-
+    
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -119,8 +120,10 @@ CGFloat animatedDistance;
     //self.restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
     //self.restClient.delegate = self;
     
-    numberOfImagesToSend = 0;
-    numberOfSentImage = 0;
+    //numberOfImagesToSend = 0;
+    //numberOfSentImage = 0;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -626,7 +629,7 @@ CGFloat animatedDistance;
         faceTakenImage = faceImage;
         
         //UIImage *smallface = [self resizeWithImage:faceImage scaledToSize:CGSizeMake(faceImage.size.width/2, faceImage.size.height/2)];
-        UIImage *smallface = [self resizeImage:faceImage withWidth:200.0f withHeight:200.0f];
+        UIImage *smallface = [ResisterViewController resizeImage:faceImage withWidth:200.0f withHeight:200.0f];
         UIImageView *faceImageView =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, smallface.size.width, smallface.size.height)];
         [faceImageView setImage:smallface];
         
@@ -889,7 +892,7 @@ CGFloat animatedDistance;
 
 #pragma mark - QR Code Generation
 
-- (IBAction)handleGenerateButtonPressed:(id)sender {
+- (IBAction)generateQRCodeBtn:(id)sender {
     // Disable the UI
     //[self setUIElementsAsEnabled:NO];
     //[self.stringTextField resignFirstResponder];
@@ -1094,7 +1097,7 @@ CGFloat animatedDistance;
 
 
 
-
+/*
 #pragma mark - XML backup
 
 
@@ -1120,7 +1123,7 @@ CGFloat animatedDistance;
                                                          NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *documentsPath = [documentsDirectory
-                               stringByAppendingPathComponent:@"Attencances.xml"];
+                               stringByAppendingPathComponent:@"Attendances.xml"];
     if (forSave ||
         [[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
         return documentsPath;
@@ -1278,7 +1281,7 @@ CGFloat animatedDistance;
     [self sendToDropboxWithImages:imageArray]; // withIDArray:idArray];
     
 }
-/*
+
 -(void)sendEmailWithBackupFile: (NSString*)accountFilePath withAttendanceFile:(NSString*)attendanceFilePath
 {
     
@@ -1324,7 +1327,7 @@ CGFloat animatedDistance;
     
     
 }
-*/
+
 
 #pragma mark - XML backup - Dropbox
 
@@ -1398,17 +1401,17 @@ CGFloat animatedDistance;
         UIImage *profileImage =  [UIImage imageWithContentsOfFile:imageLocalPath]; //  [Account ProfileImageWithProfileImagePath:imageLocalPath];
         if(profileImage) {
             
-            UIImage *resizedImage = [self resizeProfileImage:profileImage];
-            /*
-            CGSize orgsize = profileImage.size;
-            float targetwidth = 500.0f;
-            float ratio = (float)targetwidth / (float)orgsize.width;
-            float targetheight = orgsize.height * ratio;
-            CGSize targetsize = CGSizeMake(targetwidth, targetheight);
-            UIImage *resizedImage = [self resizeWithImage:profileImage scaledToSize:targetsize];
+            UIImage *resizedImage = [ResisterViewController resizeProfileImage:profileImage];
+            
+            //CGSize orgsize = profileImage.size;
+            //float targetwidth = 500.0f;
+            //float ratio = (float)targetwidth / (float)orgsize.width;
+            //float targetheight = orgsize.height * ratio;
+            //CGSize targetsize = CGSizeMake(targetwidth, targetheight);
+            //UIImage *resizedImage = [self resizeWithImage:profileImage scaledToSize:targetsize];
             //NSString *tempLocalPath = [documentsDirectory
             //                           stringByAppendingPathComponent:@"temp.jpg"];
-            */
+            
             if(resizedImage) {
                 [Account saveProfileImage:resizedImage withPath:tempLocalPath];
                 
@@ -1444,21 +1447,21 @@ CGFloat animatedDistance;
         //NSString *filename = imageprofilepath; //[NSString stringWithFormat:@"%@.jpg", ID ]; //imageprofilepath;
         
         
-        /*
-         UIImage *resizedImage = [self resizeProfileImage:profileImage];
+        
+        //UIImage *resizedImage = [self resizeProfileImage:profileImage];
         //resize image if > 500
-        UIImage *profileImage = [Account ProfileImageWithProfileImagePath:imageLocalPath];
-        CGSize orgsize = profileImage.size;
-        float targetwidth = 500.0f;
-        float ratio = (float)targetwidth / (float)orgsize.width;
-        float targetheight = orgsize.height * ratio;
-        CGSize targetsize = CGSizeMake(targetwidth, targetheight);
-        UIImage *resizedImage = [self resizeWithImage:profileImage scaledToSize:targetsize];
-        NSString *tempLocalPath = [documentsDirectory
-                                    stringByAppendingPathComponent:@"temp.jpg"];
+        //UIImage *profileImage = [Account ProfileImageWithProfileImagePath:imageLocalPath];
+        //CGSize orgsize = profileImage.size;
+        //float targetwidth = 500.0f;
+        //float ratio = (float)targetwidth / (float)orgsize.width;
+        //float targetheight = orgsize.height * ratio;
+        //CGSize targetsize = CGSizeMake(targetwidth, targetheight);
+        //UIImage *resizedImage = [self resizeWithImage:profileImage scaledToSize:targetsize];
+        //NSString *tempLocalPath = [documentsDirectory
+        //                            stringByAppendingPathComponent:@"temp.jpg"];
          
-        [Account saveProfileImage:resizedImage withPath:tempLocalPath];
-        */
+        //[Account saveProfileImage:resizedImage withPath:tempLocalPath];
+        
         // Upload file to Dropbox
         NSString *destDir = @"/";
         [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:imageLocalPath] ; //]imageLocalPath];
@@ -1816,6 +1819,7 @@ loadMetadataFailedWithError:(NSError *)error {
     }
     return _restClient;
 }
+*/
 
 #pragma mark - Image Processing
 
@@ -1827,19 +1831,24 @@ loadMetadataFailedWithError:(NSError *)error {
     UIImage *fixedImage = [self fixOrientation:image];
     
     
+    //UIImage *faceImage = [self detectForFaces:image.CGImage orientation:image.imageOrientation];
     UIImage *faceImage = [self detectForFaces:fixedImage.CGImage orientation:fixedImage.imageOrientation];
-    
-    
+    //
+    //CGSize originalsize = fixedImage.size;
+    //CGRect cropRect = CGRectMake(originalsize.width/4, 9, originalsize.width/2, originalsize.height/2);
+    //UIImage *cropImage = [self cropImage:fixedImage withRect:cropRect];
+    //UIImage *faceImage = [self detectForFaces:cropImage.CGImage orientation:cropImage.imageOrientation];
     
     UIImage *imageToProcess = nil;
     if(faceImage)
         imageToProcess = faceImage;
     else {
+
         return nil;
         //imageToProcess = fixedImage; //when no face
     }
     
-    UIImage *resizedImage = [self resizeProfileImage:imageToProcess];
+    UIImage *resizedImage = [ResisterViewController resizeProfileImage:imageToProcess];
 
     /*
     CGSize orgsize = imageToProcess.size;
@@ -1855,7 +1864,7 @@ loadMetadataFailedWithError:(NSError *)error {
     
 }
 
-- (UIImage *)resizeProfileImage:(UIImage *)image
++ (UIImage *)resizeProfileImage:(UIImage *)image
 {
     /*
     CGSize orgsize = image.size;
@@ -1870,7 +1879,7 @@ loadMetadataFailedWithError:(NSError *)error {
     return resizedImage;
 }
 
-- (UIImage *)resizeImage:(UIImage *)image withWidth:(float)targetwidth
++ (UIImage *)resizeImage:(UIImage *)image withWidth:(float)targetwidth
 {
     CGSize orgsize = image.size;
     //float targetwidth = 500.0f;
@@ -1883,7 +1892,7 @@ loadMetadataFailedWithError:(NSError *)error {
     return resizedImage;
 }
 
-- (UIImage *)resizeImage:(UIImage *)image withWidth:(float)targetwidth withHeight:(float)targetheight
++ (UIImage *)resizeImage:(UIImage *)image withWidth:(float)targetwidth withHeight:(float)targetheight
 {
     CGSize targetsize = CGSizeMake(targetwidth, targetheight);
     
@@ -1892,7 +1901,7 @@ loadMetadataFailedWithError:(NSError *)error {
     return resizedImage;
 }
 
-- (UIImage *)resizeWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
++ (UIImage *)resizeWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
     //UIGraphicsBeginImageContext(newSize);
     // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
     // Pass 1.0 to force exact pixel size.
@@ -1999,7 +2008,7 @@ loadMetadataFailedWithError:(NSError *)error {
         facerect.size.width = facerect.size.width + facerect.size.width * 2.0f / extratio;
         facerect.size.height = facerect.size.height + facerect.size.height * 2.0f / extratio;
         
-        faceImage = [self cropImage:uiImage withRect:facerect];
+        faceImage = [self cropImage:uiImage withRect:facerect] ; //]facerect];
         
         return faceImage;
     }
@@ -2144,9 +2153,35 @@ loadMetadataFailedWithError:(NSError *)error {
     UIImage *img = [UIImage imageWithCGImage:cgimg];
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
+    
+    
     return img;
 }
+- (IBAction)showAttendance:(id)sender {
+    
+    //UIViewController *attendanceViewController = [self.tabBarController.viewControllers objectAtIndex:2];
+    
+    
+    //for(UIViewController *viewController in self.tabBarController.viewControllers)
+    for(int v=0; v< [self.tabBarController.viewControllers count]; v++)
+    {
+        UIViewController *viewController = [self.tabBarController.viewControllers objectAtIndex:v];
+        if([viewController.title isEqualToString:@"AttendanceSearch"])
+        //if( ![viewController isKindOfClass:[AttendanceHistorySearchViewController class]] )
+        {
 
+            if([viewController respondsToSelector:@selector(findAttendanceWithID:)]) {
+
+                [viewController performSelector:@selector(findAttendanceWithID:) withObject:self.iDTextField.text afterDelay:0];
+                
+                [self.tabBarController setSelectedIndex:v];
+                break;
+            }
+        }
+    }
+}
+
+/*
 #pragma mark - ProgressView
 
 -(void)showProgressView
@@ -2176,7 +2211,7 @@ loadMetadataFailedWithError:(NSError *)error {
 {
     [progressView setProgress:val];
 }
-
+*/
 @end
 
 

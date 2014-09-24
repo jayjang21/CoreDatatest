@@ -7,13 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AttendanceHistorySearchViewController : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource>
+#import "Account.h"
+#import "Attendance.h"
+@interface AttendanceHistorySearchViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITextField *iDTextField;
 @property (strong, nonatomic) IBOutlet UIPickerView *yearMonthPickerView;
 //@property (strong, nonatomic) IBOutlet UIPickerView *monthPickerView;
 
+@property (strong, nonatomic) IBOutlet UITableView *dateTimeTableView;
 
+
+
+-(IBAction)findAttendance:(id)sender;
+-(void) findAttendanceWithID:(NSString*)accountID;
 
 @end

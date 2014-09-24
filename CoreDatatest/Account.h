@@ -45,6 +45,7 @@
 + (BOOL) AccountAlreadyExists:(NSString*)inputID;
 + (NSArray*) bringAllAccount;
 + (Account*) bringAccountWithID:(NSString*)accountID;
++ (NSArray*) bringAccountsWithPayDate:(NSString *)inputYear withMonth: (NSString *)inputMonth;
 
 +(void)saveProfileImage:(UIImage*) profileImage withPath:(NSString*)localImagePath;
 

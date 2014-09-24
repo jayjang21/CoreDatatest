@@ -24,8 +24,8 @@
     //[self.window makeKeyAndVisible];
     
     DBSession *dbSession = [[DBSession alloc]
-                            initWithAppKey:@"khl441vznoimiti"
-                            appSecret:@"pe5c5wvgzgxxq8q"
+                            initWithAppKey:@"9m9uts0mgalzsz7"
+                            appSecret:@"p1ki5714ef393kn"
                             root:kDBRootAppFolder]; // either kDBRootAppFolder or kDBRootDropbox
     [DBSession setSharedSession:dbSession];
     

@@ -17,10 +17,10 @@
 {
     UIPopoverController *popoverController;
     
-    DDProgressView *progressView ; //dsjang2
+    //DDProgressView *progressView ; //dsjang2
     
-    int numberOfImagesToSend;
-    int numberOfSentImage;
+    //int numberOfImagesToSend;
+    //int numberOfSentImage;
     
     UIImage *originalTakenImage;
     UIImage *faceTakenImage;
@@ -74,12 +74,15 @@
 //- (IBAction)returnToMainView:(id)sender;
 
 
-- (IBAction)handleGenerateButtonPressed:(id)sender;
+- (IBAction)generateQRCodeBtn:(id)sender;
 
 -(IBAction)textFieldReturn:(id)sender;
 
--(IBAction)backDatabase:(id)sender;
+//-(IBAction)backDatabase:(id)sender;
 
-
++ (UIImage *)resizeProfileImage:(UIImage *)image;
++ (UIImage *)resizeImage:(UIImage *)image withWidth:(float)targetwidth;
++ (UIImage *)resizeImage:(UIImage *)image withWidth:(float)targetwidth withHeight:(float)targetheight;
++ (UIImage *)resizeWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
 @end

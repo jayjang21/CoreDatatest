@@ -333,10 +333,31 @@
         NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"(iD = %@)", inputID];
         
         
-        NSDate *startOfDay = [Account convertedNSDateFromDateString:[NSString stringWithFormat:(@"%@-%@-01"), inputYear, inputMonth]];
-        NSDate *endOfDay = [Account convertedNSDateFromDateString:[NSString stringWithFormat:(@"%@-%@-31"), inputYear, inputMonth]];
+        //NSDate *startOfDay = [Account convertedNSDateFromDateString:[NSString stringWithFormat:(@"%@-%@-01"), inputYear, inputMonth]];
+        //NSDate *endOfDay = [Account convertedNSDateFromDateString:[NSString stringWithFormat:(@"%@-%@-31"), inputYear, inputMonth]];
         
-        NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"date BETWEEN %@", [NSArray arrayWithObjects:startOfDay, endOfDay, nil]];
+        
+        
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        
+        NSDateComponents *components = [[NSDateComponents alloc] init];
+        
+        [components setDay:1];
+        [components setMonth:inputMonth.intValue];
+        [components setYear:inputYear.intValue];
+        NSDate *startDate = [gregorian dateFromComponents:components];
+
+        NSRange daysRange = [gregorian rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:startDate];
+
+        
+        [components setDay:daysRange.length];
+        [components setMonth:inputMonth.intValue];
+        [components setYear:inputYear.intValue];
+        NSDate *endDate = [gregorian dateFromComponents:components];
+        
+        
+        NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(date >= %@) && (date <= %@)", startDate, endDate];
+        //NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"date BETWEEN %@", [NSArray arrayWithObjects:startOfDay, endOfDay, nil]];
         
         
         NSArray *predicates12 = @[predicate1, predicate2];
@@ -364,7 +385,7 @@
         
         //Load date and time, add them to array
         NSManagedObject *theEntity = nil;
-        for (int i = 0; i <= [chosenEntities count]; i ++) {
+        for (int i = 0; i < [chosenEntities count]; i ++) {
             theEntity = [chosenEntities objectAtIndex:i];
             
             if (theEntity) {
@@ -372,7 +393,7 @@
                 NSDate *eachDate = [theEntity valueForKey:@"date"];
                 NSString *eachTime = [theEntity valueForKey:@"time"];
                 
-                [(*dArray) addObject:eachDate];
+                [(*dArray) addObject:[Account convertedNSStringFromNSDate:eachDate]];
                 [(*tArray) addObject:eachTime];
                 //[dateTime addObject:eachDate];
                 //[dateTime addObject:eachTime];

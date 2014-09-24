@@ -607,6 +607,70 @@
     
 }
 
++ (NSArray*) bringAccountsWithPayDate:(NSString *)inputYear withMonth: (NSString *)inputMonth//in this code we are assuming that IDs can't be duplicated
+{
+    //NSDate *startOfDay = [Account convertedNSDateFromDateString:[NSString stringWithFormat:(@"%@-%@-01"), inputYear, inputMonth]];
+    //NSDate *endOfDay = [Account convertedNSDateFromDateString:[NSString stringWithFormat:(@"%@-%@-31"), inputYear, inputMonth]];
+
+    
+    CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"Account" inManagedObjectContext:context]];
+    
+    
+    // Sort first by iD, then by name.
+    NSSortDescriptor *idSort = [[NSSortDescriptor alloc] initWithKey:@"iD" ascending:YES selector:@selector(localizedStandardCompare:)];
+    //NSSortDescriptor *nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)];
+    NSSortDescriptor *paydateSort = [[NSSortDescriptor alloc] initWithKey:@"payDate" ascending:NO selector:@selector(localizedStandardCompare:)];
+    request.sortDescriptors = [NSArray arrayWithObjects:paydateSort, idSort, nil];
+    //request.sortDescriptors = [NSArray arrayWithObject:idSort];
+    
+    
+    //NSDate *searchPayDate  = [Account convertedNSDateFromDateString:payDate];
+    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
+    //[request setPredicate:[NSPredicate predicateWithFormat:@"(payDate = %@)", searchPayDate]];
+    //NSManagedObject *theEntity = nil;
+   
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    
+    [components setDay:1];
+    [components setMonth:inputMonth.intValue];
+    [components setYear:inputYear.intValue];
+    NSDate *startDate = [gregorian dateFromComponents:components];
+    
+    NSRange daysRange = [gregorian rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:startDate];
+    
+    [components setDay:daysRange.length];
+    [components setMonth:inputMonth.intValue];
+    [components setYear:inputYear.intValue];
+    NSDate *endDate = [gregorian dateFromComponents:components];
+    
+    
+
+    
+    
+    
+    
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(payDate >= %@) && (payDate <= %@)", startDate, endDate];
+
+    [request setPredicate:predicate2];
+    
+    NSError *error;
+    NSArray *chosenEntities = [context executeFetchRequest:request
+                                                     error:&error]; //only possible in NSArray?
+    
+    
+    return chosenEntities;
+}
+
+
 + (Account*) bringAccountWithID:(NSString*)accountID //in this code we are assuming that IDs can't be duplicated
 {
     Account *theAccount = nil;
