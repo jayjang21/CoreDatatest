@@ -232,34 +232,7 @@
 
 }
 
-+ (BOOL) AccountAlreadyExists:(NSString*)inputID
-{
-    CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    
-    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    
-    [request setEntity:[NSEntityDescription entityForName:@"Account" inManagedObjectContext:context]];
-    
-    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
-    
-    [request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", inputID]];
-    
-    //NSManagedObject *matches = nil;
-    
-    NSError *error;
-    NSArray *chosenEntities = [context executeFetchRequest:request error:&error];//where does NSError *error go?
-    
-    if ([chosenEntities count] > 0) {
-        return YES;
-    }
-    
-    return NO;
-    
-}
+
 
 - (BOOL) iDAndNameInputsAreSuitable
 {
@@ -315,25 +288,7 @@
     
 }
 
-+ (NSDate *) convertedNSDateFromDateString: (NSString *)dateString
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    
-    NSDate *convertedDate = [dateFormatter dateFromString:dateString];
-    
-    return convertedDate;
-}
 
-+ (NSString *) convertedNSStringFromNSDate: (NSDate *)date
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-    
-    NSString *convertedString = [dateFormatter stringFromDate:date];
-    
-    return convertedString;
-}
 
 
 - (BOOL) saveAllAccountInformation
@@ -547,6 +502,116 @@
     
 }
 
+
+
+
+
+- (BOOL) bringAllAccountInformationFromAccountID //in this code we are assuming that IDs can't be duplicated
+{
+    
+    bool result = NO;
+    //if ([self AccountIDAlreadyExists])
+    {
+        Account *anAccount = [Account bringAccountWithID:self.iD];
+        
+        self.iD = anAccount.iD;
+        self.name = anAccount.name;
+        self.phone = anAccount.phone;
+        self.address = anAccount.address;
+        self.email = anAccount.email;
+        self.registerationDateNSString = anAccount.registerationDateNSString;
+        self.dateOfBirthNSString = anAccount.dateOfBirthNSString;
+        self.recentTestDateNSString = anAccount.recentTestDateNSString;
+        self.payDateNSString = anAccount.payDateNSString;
+        self.profileImagePath = anAccount.profileImagePath;
+        
+        [self loadAccountProfileImage];
+        
+    }
+
+    return result;
+}
+
+-(void)saveAccountProfileImage
+{
+    //NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *imagePath = [documentsDirectory
+                               stringByAppendingPathComponent:self.profileImagePath];
+    
+    //dsjang2
+    [UIImageJPEGRepresentation(self.profileImage, 0.5) writeToFile:imagePath atomically:YES];
+    
+}
+
+
+
+-(void)loadAccountProfileImage
+{
+    
+    [Account ProfileImageWithProfileImagePath:self.profileImagePath];
+    
+    self.profileImage = [Account ProfileImageWithProfileImagePath:self.profileImagePath];
+
+}
+
+
+
+
+# pragma mark - Class Methods
+
++ (BOOL) AccountAlreadyExists:(NSString*)inputID
+{
+    CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    [request setEntity:[NSEntityDescription entityForName:@"Account" inManagedObjectContext:context]];
+    
+    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
+    
+    [request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", inputID]];
+    
+    //NSManagedObject *matches = nil;
+    
+    NSError *error;
+    NSArray *chosenEntities = [context executeFetchRequest:request error:&error];//where does NSError *error go?
+    
+    if ([chosenEntities count] > 0) {
+        return YES;
+    }
+    
+    return NO;
+    
+}
+
++ (NSDate *) convertedNSDateFromDateString: (NSString *)dateString
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDate *convertedDate = [dateFormatter dateFromString:dateString];
+    
+    return convertedDate;
+}
+
++ (NSString *) convertedNSStringFromNSDate: (NSDate *)date
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSString *convertedString = [dateFormatter stringFromDate:date];
+    
+    return convertedString;
+}
+
 + (NSArray*) bringAllAccount
 {
     CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -564,8 +629,8 @@
     NSSortDescriptor *nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObjects:idSort, nameSort, nil];
     //request.sortDescriptors = [NSArray arrayWithObject:idSort];
-
-
+    
+    
     
     //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
     //[request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", self.iD]];
@@ -580,38 +645,39 @@
     
     
     /*
-    theEntity = [chosenEntities firstObject];
-    
-    if (theEntity) {
-        
-        self.name = [theEntity valueForKey:@"name"];
-        self.phone = [theEntity valueForKey:@"phone"];
-        self.address = [theEntity valueForKey:@"address"];
-        self.email = [theEntity valueForKey:@"email"];
-        self.registerationDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"registerationDate"]];
-        self.dateOfBirthNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"dateOfBirth"]];
-        self.recentTestDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"recentTestDate"]];
-        self.payDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"payDate"]];
-        
-        self.profileImagePath = [theEntity valueForKey:@"profileImagePath"];
-        
-        [self loadAccountProfileImage];
-        
-        result = YES;
-        
-    }
-    else {
-        //error;
-    }
+     theEntity = [chosenEntities firstObject];
+     
+     if (theEntity) {
+     
+     self.name = [theEntity valueForKey:@"name"];
+     self.phone = [theEntity valueForKey:@"phone"];
+     self.address = [theEntity valueForKey:@"address"];
+     self.email = [theEntity valueForKey:@"email"];
+     self.registerationDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"registerationDate"]];
+     self.dateOfBirthNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"dateOfBirth"]];
+     self.recentTestDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"recentTestDate"]];
+     self.payDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"payDate"]];
+     
+     self.profileImagePath = [theEntity valueForKey:@"profileImagePath"];
+     
+     [self loadAccountProfileImage];
+     
+     result = YES;
+     
+     }
+     else {
+     //error;
+     }
      */
     
 }
+
 
 + (NSArray*) bringAccountsWithPayDate:(NSString *)inputYear withMonth: (NSString *)inputMonth//in this code we are assuming that IDs can't be duplicated
 {
     //NSDate *startOfDay = [Account convertedNSDateFromDateString:[NSString stringWithFormat:(@"%@-%@-01"), inputYear, inputMonth]];
     //NSDate *endOfDay = [Account convertedNSDateFromDateString:[NSString stringWithFormat:(@"%@-%@-31"), inputYear, inputMonth]];
-
+    
     
     CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     
@@ -635,7 +701,7 @@
     //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
     //[request setPredicate:[NSPredicate predicateWithFormat:@"(payDate = %@)", searchPayDate]];
     //NSManagedObject *theEntity = nil;
-   
+    
     
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
@@ -653,13 +719,13 @@
     NSDate *endDate = [gregorian dateFromComponents:components];
     
     
-
+    
     
     
     
     
     NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"(payDate >= %@) && (payDate <= %@)", startDate, endDate];
-
+    
     [request setPredicate:predicate2];
     
     NSError *error;
@@ -696,7 +762,7 @@
     theEntity = [chosenEntities firstObject];
     
     if (theEntity) {
-
+        
         theAccount = [[Account alloc] init];
         
         theAccount.iD = [theEntity valueForKey:@"iD"];
@@ -712,77 +778,14 @@
         theAccount.profileImagePath = [theEntity valueForKey:@"profileImagePath"];
         
         //[self loadAccountProfileImage];
+    } else {
+        NSLog(@"This ID doesn't exist");
+        
     }
     
     return theAccount;
 }
 
-- (BOOL) bringAllAccountInformationFromAccountID //in this code we are assuming that IDs can't be duplicated
-{
-    
-    bool result = NO;
-    //if ([self AccountIDAlreadyExists])
-    {
-        CoreDatatestAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    
-        NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    
-    //NSEntityDescription *entityDesc = [NSEntityDescription entityForName:@"Account" inManagedObjectContext:context];
-    
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:[NSEntityDescription entityForName:@"Account" inManagedObjectContext:context]];
-    
-    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(ID = %@)", self.iD];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"(iD = %@)", self.iD]];
-        NSManagedObject *theEntity = nil;
-    
-        NSError *error;
-        NSArray *chosenEntities = [context executeFetchRequest:request
-                                              error:&error]; //only possible in NSArray?
-    
-        theEntity = [chosenEntities firstObject];
-        
-        if (theEntity) {
-        
-            self.name = [theEntity valueForKey:@"name"];
-            self.phone = [theEntity valueForKey:@"phone"];
-            self.address = [theEntity valueForKey:@"address"];
-            self.email = [theEntity valueForKey:@"email"];
-            self.registerationDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"registerationDate"]];
-            self.dateOfBirthNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"dateOfBirth"]];
-            self.recentTestDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"recentTestDate"]];
-            self.payDateNSString = [Account convertedNSStringFromNSDate:[theEntity valueForKey:@"payDate"]];
-        
-            self.profileImagePath = [theEntity valueForKey:@"profileImagePath"];
-            
-            [self loadAccountProfileImage];
-            
-            result = YES;
-  
-        }
-        else {
-            //error;
-        }
-        
-    }
-
-    return result;
-}
-
--(void)saveAccountProfileImage
-{
-    //NSString  *imagePath = [NSHomeDirectory() stringByAppendingPathComponent:self.profileImagePath];
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                         NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *imagePath = [documentsDirectory
-                               stringByAppendingPathComponent:self.profileImagePath];
-    
-    //dsjang2
-    [UIImageJPEGRepresentation(self.profileImage, 0.5) writeToFile:imagePath atomically:YES];
-    
-}
 
 +(void)saveProfileImage:(UIImage*) profileImage withPath:(NSString*)localImagePath
 {
@@ -799,16 +802,6 @@
     
 }
 
--(void)loadAccountProfileImage
-{
-    
-    [Account ProfileImageWithProfileImagePath:self.profileImagePath];
-    
-    self.profileImage = [Account ProfileImageWithProfileImagePath:self.profileImagePath];
-
-}
-
-
 +(UIImage *)ProfileImageWithProfileImagePath: (NSString *)originalProfileImageName
 {
     
@@ -819,8 +812,8 @@
                                                          NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *imageFullPath = [documentsDirectory
-                           stringByAppendingPathComponent:profileImageName];
-
+                               stringByAppendingPathComponent:profileImageName];
+    
     //Old version
     if(![[NSFileManager defaultManager] fileExistsAtPath:imageFullPath]) {
         imageFullPath = [NSHomeDirectory() stringByAppendingPathComponent:profileImageName];
@@ -830,6 +823,7 @@
     
     return profileImage;
 }
+
 @end
 
 

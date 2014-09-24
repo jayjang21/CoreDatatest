@@ -17,6 +17,9 @@
 
 @property (strong, nonatomic) NSMutableArray *dateList;
 @property (strong, nonatomic) NSMutableArray *timeList;
+
+@property (strong, nonatomic) NSString *currentAccountName;
+
 @end
 
 @implementation AttendanceHistorySearchViewController
@@ -108,11 +111,25 @@
     
     self.iDTextField.text = accountID;
     NSString *ID = accountID;
+    
+    Account *anAccount = [Account bringAccountWithID:ID];
+    self.currentAccountName = anAccount.name;
+    
+    if (anAccount == nil) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"No such ID found" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+        return;
+    }
+    
+    
     NSMutableArray *dateArray = [[NSMutableArray alloc] init];
     NSMutableArray *timeArray = [[NSMutableArray alloc] init];
     
     [self.dateList removeAllObjects];
     [self.timeList removeAllObjects];
+    
+    
     
     int yearrow = [self.yearMonthPickerView selectedRowInComponent:0];
     NSString *yearString = [self.yearList objectAtIndex:yearrow];
@@ -138,6 +155,7 @@
     //currentAttendance.iD = ID;
     //currentAttendance.dateNSString = date;
     //currentAttendance.time = time;
+    
     
     [self.dateTimeTableView reloadData];
 }
@@ -235,7 +253,13 @@
     //else if(section == 1)
     //    return @"Time";
     //else
+    if (self.currentAccountName != nil) {
+        NSString *title = [NSString stringWithFormat:@"%@'s history", self.currentAccountName ];
+        return title;
+    }else {
+  
         return @"";
+    }
     //return [animalSectionTitles objectAtIndex:section];
 }
 
