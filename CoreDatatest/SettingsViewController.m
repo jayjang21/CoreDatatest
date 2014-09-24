@@ -610,12 +610,17 @@
 
 -(IBAction)restoreDatabase:(id)sender
 {
-    [self downloadFromDropboxWithBackupFile];
     
-    [self downloadFromDropboxWithImages];
-    
-    //[self restoreDBfromXML];
-    
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:self];
+    }
+    else {
+        [self downloadFromDropboxWithBackupFile];
+        
+        [self downloadFromDropboxWithImages];
+        
+        //[self restoreDBfromXML];
+    }
 }
 
 -(void)downloadFromDropboxWithBackupFile

@@ -38,6 +38,7 @@
 		8E394BF719CEA222005F8A22 /* DDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BF619CEA222005F8A22 /* DDProgressView.m */; };
 		8E394BFC19D13C01005F8A22 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BFB19D13C01005F8A22 /* SettingsViewController.m */; };
 		8E394BFF19D1F82C005F8A22 /* PayDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BFE19D1F82C005F8A22 /* PayDateViewController.m */; };
+		8E394C0119D28D89005F8A22 /* Jay2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8E394C0019D28D89005F8A22 /* Jay2.jpg */; };
 		8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8E42CF1519C23DE100D34E07 /* beep.mp3 */; };
 		8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42CF1819C2442400D34E07 /* SCShapeView.m */; };
 /* End PBXBuildFile section */
@@ -97,6 +98,7 @@
 		8E394BFB19D13C01005F8A22 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		8E394BFD19D1F82C005F8A22 /* PayDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayDateViewController.h; sourceTree = "<group>"; };
 		8E394BFE19D1F82C005F8A22 /* PayDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayDateViewController.m; sourceTree = "<group>"; };
+		8E394C0019D28D89005F8A22 /* Jay2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Jay2.jpg; sourceTree = "<group>"; };
 		8E42CF1519C23DE100D34E07 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		8E42CF1719C2442400D34E07 /* SCShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCShapeView.h; sourceTree = "<group>"; };
 		8E42CF1819C2442400D34E07 /* SCShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCShapeView.m; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 		766E2C6A19A7288100B27131 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8E394C0019D28D89005F8A22 /* Jay2.jpg */,
 				8E394B5619C6E548005F8A22 /* attendance.png */,
 				8E394B5419C6E436005F8A22 /* register.png */,
 				8E42CF1519C23DE100D34E07 /* beep.mp3 */,
@@ -339,6 +342,7 @@
 				8E394B5519C6E436005F8A22 /* register.png in Resources */,
 				8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */,
 				766E2C9C19A8718400B27131 /* Storyboard.storyboard in Resources */,
+				8E394C0119D28D89005F8A22 /* Jay2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

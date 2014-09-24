@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "766E2C5D19A7288100B27131"
-               BuildableName = "CoreDatatest.app"
+               BuildableName = "HongHapkido.app"
                BlueprintName = "HongHapkido"
                ReferencedContainer = "container:HongHapkido.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "766E2C7D19A7288100B27131"
-               BuildableName = "CoreDatatestTests.xctest"
+               BuildableName = "HongHapkidoTests.xctest"
                BlueprintName = "HongHapkidoTests"
                ReferencedContainer = "container:HongHapkido.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "766E2C5D19A7288100B27131"
-            BuildableName = "CoreDatatest.app"
+            BuildableName = "HongHapkido.app"
             BlueprintName = "HongHapkido"
             ReferencedContainer = "container:HongHapkido.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "766E2C5D19A7288100B27131"
-            BuildableName = "CoreDatatest.app"
+            BuildableName = "HongHapkido.app"
             BlueprintName = "HongHapkido"
             ReferencedContainer = "container:HongHapkido.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "766E2C5D19A7288100B27131"
-            BuildableName = "CoreDatatest.app"
+            BuildableName = "HongHapkido.app"
             BlueprintName = "HongHapkido"
             ReferencedContainer = "container:HongHapkido.xcodeproj">
          </BuildableReference>
