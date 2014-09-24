@@ -1975,6 +1975,12 @@ loadMetadataFailedWithError:(NSError *)error {
     opts = @{ CIDetectorImageOrientation :[NSNumber numberWithInt:exifOrientation
                                            ] };
     
+    
+    
+
+
+    
+    
     NSArray *features = [detector featuresInImage:image options:opts];
     
     int maxidx = -1;
@@ -2001,8 +2007,19 @@ loadMetadataFailedWithError:(NSError *)error {
         
         UIImage *uiImage = [UIImage imageWithCGImage:facePicture];
         
+        // CoreImage coordinate system origin is at the bottom left corner
+        // and UIKit is at the top left corner. So we need to translate
+        // features positions before drawing them to screen. In order to do
+        // so we make an affine transform
+        CGAffineTransform transform = CGAffineTransformMakeScale(1, -1);
+        transform = CGAffineTransformTranslate(transform,
+                                               0, -uiImage.size.height);
+        
+        // Get the face rect: Convert CoreImage to UIKit coordinates
+        const CGRect faceRect = CGRectApplyAffineTransform(maxRect, transform);
+        
         float extratio = 6.0f;
-        CGRect facerect = maxRect;
+        CGRect facerect = faceRect;
         facerect.origin.x = facerect.origin.x - facerect.size.width / extratio;
         facerect.origin.y = facerect.origin.y - facerect.size.height / extratio;
         facerect.size.width = facerect.size.width + facerect.size.width * 2.0f / extratio;
