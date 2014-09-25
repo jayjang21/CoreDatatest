@@ -17,5 +17,8 @@
     
     int numberOfImagesToSend;
     int numberOfSentImage;
+    
+    BOOL _isBackupDropbox;
+    
 }
 @end

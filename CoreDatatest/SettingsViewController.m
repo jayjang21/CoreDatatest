@@ -21,6 +21,8 @@
 @interface SettingsViewController () <UIAlertViewDelegate, MFMailComposeViewControllerDelegate, DBRestClientDelegate>
 
 @property (nonatomic, strong) DBRestClient *restClient;
+@property (nonatomic, strong) NSString *dropBoxDataPath;
+
 -(IBAction)backDatabase:(id)sender;
 @end
 
@@ -42,6 +44,8 @@
     
     numberOfImagesToSend = 0;
     numberOfSentImage = 0;
+    
+    _isBackupDropbox = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -245,6 +249,31 @@
     [self sendToDropboxWithImages:imageArray]; // withIDArray:idArray];
     
 }
+
+- (IBAction)prepareBackupPressed:(id)sender {
+    //Check "data" folder first, if it does not exist, don't remove "backup" folder
+    NSString *photosRoot =  @"/";
+    [self.restClient loadMetadata:photosRoot];
+    
+    //[self backupPrevDropboxData];
+    
+}
+-(void) backupPrevDropboxData
+{
+
+    NSString *destDir = @"/";
+    
+    NSString *fromFile = [NSString stringWithFormat:@"%@%@",destDir, @"data"];
+    NSString *toFile = [NSString stringWithFormat:@"%@%@",destDir, @"backup"];
+    
+    //[self.restClient deletePath:toFile];
+    
+    [self.restClient moveFrom:fromFile toPath:toFile];
+    
+    //_isBackupDropbox = YES;
+    ///NSString *photosRoot = @"/";
+    //[self.restClient loadMetadata:photosRoot];
+}
 /*
  -(void)sendEmailWithBackupFile: (NSString*)accountFilePath withAttendanceFile:(NSString*)attendanceFilePath
  {
@@ -306,7 +335,7 @@
         //[text writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
         
         // Upload file to Dropbox
-        NSString *destDir = @"/";
+        NSString *destDir = self.dropBoxDataPath; //@"/data/";
         [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:localPath];
     }
     
@@ -319,7 +348,7 @@
         //[text writeToFile:localPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
         
         // Upload file to Dropbox
-        NSString *destDir = @"/";
+        NSString *destDir = self.dropBoxDataPath; //@"/data/";
         [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:localPath];
     }
 }
@@ -427,7 +456,7 @@
          [Account saveProfileImage:resizedImage withPath:tempLocalPath];
          */
         // Upload file to Dropbox
-        NSString *destDir = @"/";
+        NSString *destDir = self.dropBoxDataPath; //@"/data/";
         [self.restClient uploadFile:filename toPath:destDir withParentRev:nil fromPath:imageLocalPath] ; //]imageLocalPath];
     }
 }
@@ -626,9 +655,11 @@
 -(void)downloadFromDropboxWithBackupFile
 {
     
+    NSString *destDir = self.dropBoxDataPath; //@"/data/";
+    
     {
         NSString* accountLocalFilePath = [self accountFilePath:TRUE];
-        NSString *filename = @"/Accounts.xml";
+        NSString *filename = [NSString stringWithFormat:@"%@%@", destDir, @"Accounts.xml"];//@"/data/Accounts.xml";
         
         //NSString *destDir = @"/";
         [self.restClient loadFile:filename intoPath:accountLocalFilePath];
@@ -638,7 +669,7 @@
     
     {
         NSString* attendanceLocalFilePath = [self attendanceFilePath:TRUE];
-        NSString *filename = @"/Attendances.xml";
+        NSString *filename = [NSString stringWithFormat:@"%@%@", destDir, @"Attendances.xml"];//@"/data/Attendances.xml";
         
         //NSString *destDir = @"/";
         [self.restClient loadFile:filename intoPath:attendanceLocalFilePath];
@@ -651,7 +682,7 @@
 
 -(void)downloadFromDropboxWithImages
 {
-    NSString *photosRoot = @"/";
+    NSString *photosRoot = self.dropBoxDataPath;// @"/data/";
     [self.restClient loadMetadata:photosRoot];
 }
 
@@ -752,8 +783,18 @@
                 [newPhotoPaths addObject:file.path];
                 [newPhotoNames addObject:file.filename];
             }
+            else if(file.isDirectory) {
+                NSLog(@"Folder '%@' : %@", file.path, file.filename);
+                //If data folder exist, then remove backup folder and move data
+                if([file.filename isEqualToString:@"data"]) {
+                    [self backupPrevDropboxData];
+                }
+            }
             
         }
+        
+        if([newPhotoPaths count] <=0)
+            return;
         
         numberOfSentImage = 0;
         numberOfImagesToSend = [newPhotoPaths count];
@@ -774,12 +815,44 @@
         
         
     }
+
 }
+
+
 
 - (void)restClient:(DBRestClient *)client
 loadMetadataFailedWithError:(NSError *)error {
     NSLog(@"Error loading metadata: %@", error);
 }
+
+- (void)restClient:(DBRestClient*)client deletedPath:(NSString *)path {
+    NSLog(@"PASSED: deleted path %@", path);
+    
+    NSString *destDir = @"/";
+    
+    NSString *fromFile = [NSString stringWithFormat:@"%@%@",destDir, @"data"];
+    NSString *toFile = [NSString stringWithFormat:@"%@%@",destDir, @"backup"];
+    
+    [self.restClient moveFrom:fromFile toPath:toFile];
+}
+
+- (void)restClient:(DBRestClient*)client movedPath:(NSString *)from_path toPath:(NSString *)to_path
+{
+    NSLog(@"PASSED: moved path %@ to %@", from_path, to_path);
+}
+
+- (void)restClient:(DBRestClient*)client movePathFailedWithError:(NSError*)error
+{
+    NSLog(@"Error moving path");
+    
+    NSString *destDir = @"/";
+    
+    NSString *fromFile = [NSString stringWithFormat:@"%@%@",destDir, @"data"];
+    NSString *toFile = [NSString stringWithFormat:@"%@%@",destDir, @"backup"];
+    
+    [self.restClient deletePath:toFile];
+}
+
 
 - (DBRestClient*)restClient {
     if (_restClient == nil) {
@@ -787,6 +860,10 @@ loadMetadataFailedWithError:(NSError *)error {
         _restClient.delegate = self;
     }
     return _restClient;
+}
+
+-(NSString*)dropBoxDataPath {
+    return @"/data/";
 }
 
 
@@ -818,6 +895,16 @@ loadMetadataFailedWithError:(NSError *)error {
 -(void)setProgressView:(float)val
 {
     [progressView setProgress:val];
+}
+- (IBAction)testButton:(id)sender {
+    
+    //[self backupPrevDropboxData];
+    
+    //NSString *destDir = @"/";
+    
+    //NSString *fromFile = [NSString stringWithFormat:@"%@%@",destDir, @"1-2.jpg"];
+    //NSString *toFile = [NSString stringWithFormat:@"%@%@",destDir, @"1.jpg"];
+    //[self.restClient moveFrom:fromFile toPath:toFile];
 }
 
 @end
