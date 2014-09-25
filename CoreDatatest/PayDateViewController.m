@@ -63,7 +63,7 @@
     
     NSInteger i;
     int startYear = 2012;
-    for (i = startYear; i <= currentYear; i ++) {
+    for (i = startYear; i <= currentYear+1; i ++) {
         
         [self.yearList addObject:[NSString stringWithFormat: @"%d", i]];
     }

@@ -690,6 +690,17 @@
     NSString *photosRoot = self.dropBoxDataPath;// @"/data/";
     [self.restClient loadMetadata:photosRoot];
 }
+- (IBAction)restoreAttendancePressed:(id)sender {
+    NSString *destDir = self.dropBoxDataPath;
+    
+        NSString* attendanceLocalFilePath = [self attendanceFilePath:TRUE];
+        NSString *filename = [NSString stringWithFormat:@"%@%@", destDir, @"Attendances.xml"];//@"/data/Attendances.xml";
+        
+        //NSString *destDir = @"/";
+        [self.restClient loadFile:filename intoPath:attendanceLocalFilePath];
+    
+
+}
 
 #pragma mark - XML backup - Dropbox Delegate
 

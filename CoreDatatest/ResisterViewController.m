@@ -982,7 +982,7 @@ CGFloat animatedDistance;
     NSString *title = [NSString stringWithFormat: @"%@ : %@",self.iDTextField.text, self.nameTextField.text];
     //[title drawAtPoint:CGPointMake(10,5) withAttributes:nil];
     [title drawAtPoint:CGPointMake(10, 5)
-          withAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:40], NSForegroundColorAttributeName:[UIColor blackColor] }];
+          withAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:20], NSForegroundColorAttributeName:[UIColor blackColor] }];
     
     if(firstImage)
         [firstImage drawInRect:CGRectMake(30, 50, 340, 340)];// 100, 50, 200, 210)];

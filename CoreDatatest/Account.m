@@ -527,6 +527,7 @@
         
         [self loadAccountProfileImage];
         
+        result = YES;
     }
 
     return result;
