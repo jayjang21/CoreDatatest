@@ -258,6 +258,11 @@
     //[self backupPrevDropboxData];
     
 }
+- (IBAction)cancelDropBoxPressed:(id)sender {
+    [self.restClient cancelAllRequests];
+    [progressView setProgress:0.0f];
+    progressView.hidden = YES;
+}
 -(void) backupPrevDropboxData
 {
 
