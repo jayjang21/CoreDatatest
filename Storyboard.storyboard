@@ -487,7 +487,7 @@
             </objects>
             <point key="canvasLocation" x="2492" y="-629"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Settings View Controller - Settings-->
         <scene sceneID="sTy-EJ-6hS">
             <objects>
                 <viewController id="Fey-0p-wVC" customClass="SettingsViewController" sceneMemberID="viewController">
@@ -602,7 +602,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="4f8-U2-shv"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings-25.png" id="4f8-U2-shv"/>
                     <connections>
                         <outlet property="linkButton" destination="aE3-2e-MzB" id="or8-aQ-bgj"/>
                     </connections>
@@ -708,6 +708,7 @@
         <image name="Jay2.jpg" width="458" height="561"/>
         <image name="attendance.png" width="52" height="52"/>
         <image name="register.png" width="51" height="52"/>
+        <image name="settings-25.png" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		69B24B6A19CD941C00F2C93F /* AttendanceHistorySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */; };
+		69E5077C19D5FC7900C720E8 /* settings-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E5077B19D5FC7900C720E8 /* settings-25.png */; };
 		764418E019C3BCEE00C8E0E5 /* Attendance.m in Sources */ = {isa = PBXBuildFile; fileRef = 764418DF19C3BCEE00C8E0E5 /* Attendance.m */; };
 		766E2C6219A7288100B27131 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766E2C6119A7288100B27131 /* Foundation.framework */; };
 		766E2C6419A7288100B27131 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766E2C6319A7288100B27131 /* CoreGraphics.framework */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		69B24B6819CD941C00F2C93F /* AttendanceHistorySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceHistorySearchViewController.h; sourceTree = "<group>"; };
 		69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceHistorySearchViewController.m; sourceTree = "<group>"; };
+		69E5077B19D5FC7900C720E8 /* settings-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settings-25.png"; path = "../../../../Downloads/icons8_lightbox/25/settings-25.png"; sourceTree = "<group>"; };
 		764418DE19C3BCEE00C8E0E5 /* Attendance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attendance.h; sourceTree = "<group>"; };
 		764418DF19C3BCEE00C8E0E5 /* Attendance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attendance.m; sourceTree = "<group>"; };
 		766E2C5E19A7288100B27131 /* HongHapkido.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HongHapkido.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +200,7 @@
 		766E2C6A19A7288100B27131 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				69E5077B19D5FC7900C720E8 /* settings-25.png */,
 				8E394C0019D28D89005F8A22 /* Jay2.jpg */,
 				8E394B5619C6E548005F8A22 /* attendance.png */,
 				8E394B5419C6E436005F8A22 /* register.png */,
@@ -343,6 +346,7 @@
 				8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */,
 				766E2C9C19A8718400B27131 /* Storyboard.storyboard in Resources */,
 				8E394C0119D28D89005F8A22 /* Jay2.jpg in Resources */,
+				69E5077C19D5FC7900C720E8 /* settings-25.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
