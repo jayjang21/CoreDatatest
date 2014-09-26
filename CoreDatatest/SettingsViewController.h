@@ -21,4 +21,6 @@
     BOOL _isBackupDropbox;
     
 }
+
+@property (nonatomic, retain) IBOutlet UIButton* linkButton;
 @end

@@ -579,10 +579,33 @@
                                     <action selector="restoreAttendancePressed:" destination="Fey-0p-wVC" eventType="touchUpInside" id="ZsK-Wd-tNb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aE3-2e-MzB">
+                                <rect key="frame" x="321" y="104" width="107" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Unlink Dropbox">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="unlikDropboxPressed:" destination="Fey-0p-wVC" eventType="touchUpInside" id="bUa-Tq-Kfp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Zs-37-T4J">
+                                <rect key="frame" x="141" y="104" width="92" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Link Dropbox">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="linkDropboxPressed:" destination="Fey-0p-wVC" eventType="touchUpInside" id="prx-8E-9Kg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="more" id="4f8-U2-shv"/>
+                    <connections>
+                        <outlet property="linkButton" destination="aE3-2e-MzB" id="or8-aQ-bgj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TtZ-vG-Qou" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

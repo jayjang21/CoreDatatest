@@ -27,7 +27,7 @@
 @end
 
 @implementation SettingsViewController
-
+@synthesize linkButton;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,6 +46,8 @@
     numberOfSentImage = 0;
     
     _isBackupDropbox = NO;
+    
+    //[self updateButtons];
 }
 
 - (void)didReceiveMemoryWarning
@@ -279,6 +281,41 @@
     ///NSString *photosRoot = @"/";
     //[self.restClient loadMetadata:photosRoot];
 }
+- (IBAction)linkDropboxPressed:(id)sender {
+    if (![[DBSession sharedSession] isLinked]) {
+		[[DBSession sharedSession] linkFromController:self];
+    }
+}
+
+- (IBAction)unlikDropboxPressed:(id)sender {
+    
+    if ([[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] unlinkAll];
+    }
+    //if (![[DBSession sharedSession] isLinked]) {
+	//	[[DBSession sharedSession] linkFromController:self];
+    //} else {
+    //    [[DBSession sharedSession] unlinkAll];
+    //}
+    
+    //[self updateButtons];
+}
+
+- (void)updateButtons {
+    NSString* title = [[DBSession sharedSession] isLinked] ? @"Unlink Dropbox" : @"Link Dropbox";
+    [self.linkButton setTitle:title forState:UIControlStateNormal];
+    
+    //self.navigationItem.rightBarButtonItem.enabled = [[DBSession sharedSession] isLinked];
+}
+/*
+- (void)dropboxLogout {
+    //self.isLogingOut = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [[self.restClient linkedAccount] unlink];
+        self.isLogingOut = NO;
+    });
+}
+ */
 /*
  -(void)sendEmailWithBackupFile: (NSString*)accountFilePath withAttendanceFile:(NSString*)attendanceFilePath
  {
@@ -750,10 +787,18 @@
         NSLog(@"%@", xmlString);
         
         if([[[localPath lastPathComponent] stringByDeletingPathExtension] isEqualToString:@"Accounts"]) {
-            [self restoreDBfromXMLAccount];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [self restoreDBfromXMLAccount];
+            });
+            
+            //[self restoreDBfromXMLAccount];
         }
         else if([[[localPath lastPathComponent] stringByDeletingPathExtension] isEqualToString:@"Attendances"]) {
-            [self restoreDBfromXMLAttendance];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [self restoreDBfromXMLAttendance];
+            });
+            //[self restoreDBfromXMLAttendance];
         }
     }
     else {
