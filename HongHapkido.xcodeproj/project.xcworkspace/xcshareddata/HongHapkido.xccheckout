@@ -10,29 +10,29 @@
 	<string>HongHapkido</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3B710EF7-81DD-4F4D-975F-8EABB11ED45C</key>
+		<key>38542A79BA83CCCE9AB5E30E88A9474B615F1270</key>
 		<string>https://github.com/jayjang21/CoreDatatest.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>HongHapkido.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3B710EF7-81DD-4F4D-975F-8EABB11ED45C</key>
+		<key>38542A79BA83CCCE9AB5E30E88A9474B615F1270</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/jayjang21/CoreDatatest.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3B710EF7-81DD-4F4D-975F-8EABB11ED45C</string>
+	<string>38542A79BA83CCCE9AB5E30E88A9474B615F1270</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3B710EF7-81DD-4F4D-975F-8EABB11ED45C</string>
+			<string>38542A79BA83CCCE9AB5E30E88A9474B615F1270</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CoreDatatest</string>
 		</dict>

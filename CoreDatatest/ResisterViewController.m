@@ -648,12 +648,85 @@ CGFloat animatedDistance;
 
 - (void) datePickingShowAlertView
 {
+    /*
+    PickerAlertView *pickerAlertView = [[PickerAlertView alloc] initWithTitle:@" " message:@" " delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+
+    
+    //[pickerAlertView setFrame:CGRectMake(0,0, 300, 300)];
+    
+    pickerAlertView.datePickerView.datePickerMode = UIDatePickerModeDate;
+    
+    
+    if (self.registerationDateLabel.text == nil  || self.payDateLabel.text == nil|| self.dateOfBirthLabel.text ==nil || self.recentTestDateLabel.text == nil) {
+        
+        pickerAlertView.datePickerView.date = [Account convertedNSDateFromDateString:self.currentDateInString];
+        
+    }
+    else {
+        if ([self.datePickingDateKind isEqualToString:@"Registeration Date"]) {
+            pickerAlertView.datePickerView.date = [Account convertedNSDateFromDateString: self.registerationDateLabel.text];
+        }
+        else if ([self.datePickingDateKind isEqualToString:@"Pay Date"]) {
+            pickerAlertView.datePickerView.date = [Account convertedNSDateFromDateString: self.payDateLabel.text];
+        }
+        else if ([self.datePickingDateKind isEqualToString:@"Date Of Birth"]) {
+            pickerAlertView.datePickerView.date = [Account convertedNSDateFromDateString: self.dateOfBirthLabel.text];
+        }
+        else if ([self.datePickingDateKind isEqualToString:@"Recent Test Date"]) {
+            pickerAlertView.datePickerView.date = [Account convertedNSDateFromDateString: self.recentTestDateLabel.text];
+        }
+    }
+    
+    
+    [pickerAlertView show];
+    
+    
+    return;
+     */
+
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Date" message:@"\r\r\r\r\r\r\r\r\r\r\r" preferredStyle:UIAlertControllerStyleAlert] ;//]  UIAlertControllerStyleAlert];
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              //  [action doSomething];
+                                                              
+                                                              for(int s=0; s<[alert.view.subviews count]; s++) {
+                                                                  if([[alert.view.subviews objectAtIndex:s] isKindOfClass:[UIDatePicker class]]) {
+                                                                      [self updateDateFromDatePicker:[alert.view.subviews objectAtIndex:s]];
+                                                                  }
+                                                              }
+                                                          }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       [alert dismissViewControllerAnimated:YES completion:nil];
+                                                   }];
+    
+    [alert addAction:defaultAction];
+    [alert addAction:cancel];
+    //[alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    //    textField.placeholder = @"Your username here";
+    //}];
+    //[alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    //    textField.placeholder = @"Your Email here";
+    //}];
+    
+    //[alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    //    textField.placeholder = @"Your Password here";
+    //}];
+    
+
+
+    
+    
+    
     // Create alert
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     // Show alert (required for sizes to be available)
     
     // Create date picker (could / should be an ivar)
-    UIDatePicker *picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(10, alert.bounds.size.height, 260, 260)];
+    UIDatePicker *picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(10, 30, 260, 260)];
+    //UIDatePicker *picker = [[UIDatePicker alloc] initWithFrame:CGRectMake(10, alert.bounds.size.height, 260, 260)];
     picker.datePickerMode = UIDatePickerModeDate;
     
     if (self.registerationDateLabel.text == nil  || self.payDateLabel.text == nil|| self.dateOfBirthLabel.text ==nil || self.recentTestDateLabel.text == nil) {
@@ -676,15 +749,23 @@ CGFloat animatedDistance;
         }
     }
     
+    /*
     // Add picker to alert
     //alert.alertViewStyle = UIAlertViewStyleDefault;
     //[alert addSubview:picker];
-    
+
+    //[alert addSubview:picker];
     [alert setValue:picker forKey:@"accessoryView"];
     // Adjust the alerts bounds
     //alert.bounds = CGRectMake(0, 0, 320 + 20, alert.bounds.size.height + 216 + 20);
+    //alert.frame = CGRectMake(0, 0, 320 + 20, alert.bounds.size.height + 216 + 20);
     
     [alert show];
+    */
+    
+    
+    [alert.view addSubview:picker];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 - (void) updateDateFromDatePicker: (UIDatePicker *) datePicker
 {
@@ -737,7 +818,7 @@ CGFloat animatedDistance;
     }
     else {
         if(buttonIndex == 1) {
-            
+
             UIDatePicker *picker = [alertView valueForKey:@"accessoryView"];
             
             [self updateDateFromDatePicker:picker];
