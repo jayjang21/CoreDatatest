@@ -12,6 +12,9 @@
 #import "Attendance.h"
 #import "DDProgressView.h" //dsjang2
 
+//#define isIOS7 floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1
+//#define isIOS8 floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1
+
 @interface ResisterViewController : UIViewController  <UIAlertViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
 
 {
