@@ -718,8 +718,18 @@ CGFloat animatedDistance;
     return;
      */
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+
     
+    NSString *ver = [[UIDevice currentDevice] systemVersion];
+    int ver_int = [ver intValue];
+    float ver_float = [ver floatValue];
+    
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+ //if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 )
+    
+    //if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(  @"8.0"))
+    //if(ver_float >= 8.0f)
     //if(bUseAlertController)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Date" message:@"\r\r\r\r\r\r\r\r\r\r\r" preferredStyle:UIAlertControllerStyleAlert] ;//]  UIAlertControllerStyleAlert];
@@ -758,7 +768,7 @@ CGFloat animatedDistance;
     }
 #else
     
-    //else
+//    else
     {
         // Create alert
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];

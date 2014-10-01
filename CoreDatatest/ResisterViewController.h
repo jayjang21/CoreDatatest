@@ -12,8 +12,10 @@
 #import "Attendance.h"
 #import "DDProgressView.h" //dsjang2
 
-//#define isIOS7 floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1
-//#define isIOS8 floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1
+#define isIOS7 floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1
+#define isIOS8 floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1
+
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:(v) options:NSNumericSearch] != NSOrderedAscending)
 
 @interface ResisterViewController : UIViewController  <UIAlertViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate, UITextFieldDelegate>
 
