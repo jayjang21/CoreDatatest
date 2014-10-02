@@ -721,7 +721,7 @@ CGFloat animatedDistance;
 
     
     NSString *ver = [[UIDevice currentDevice] systemVersion];
-    int ver_int = [ver intValue];
+    //int ver_int = [ver intValue];
     float ver_float = [ver floatValue];
     
     #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
@@ -729,7 +729,7 @@ CGFloat animatedDistance;
  //if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 )
     
     //if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(  @"8.0"))
-    //if(ver_float >= 8.0f)
+    if(ver_float >= 8.0f)
     //if(bUseAlertController)
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Date" message:@"\r\r\r\r\r\r\r\r\r\r\r" preferredStyle:UIAlertControllerStyleAlert] ;//]  UIAlertControllerStyleAlert];
@@ -740,13 +740,14 @@ CGFloat animatedDistance;
                                                                   for(int s=0; s<[alert.view.subviews count]; s++) {
                                                                       if([[alert.view.subviews objectAtIndex:s] isKindOfClass:[UIDatePicker class]]) {
                                                                           [self updateDateFromDatePicker:[alert.view.subviews objectAtIndex:s]];
+                                                                          break;
                                                                       }
                                                                   }
                                                               }];
         
         UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * action) {
-                                                           [alert dismissViewControllerAnimated:YES completion:nil];
+                                                           //[alert dismissViewControllerAnimated:YES completion:nil];
                                                        }];
         
         [alert addAction:defaultAction];
@@ -765,6 +766,24 @@ CGFloat animatedDistance;
         [alert.view addSubview:picker];
         [self presentViewController:alert animated:YES completion:nil];
         
+    }
+    else
+    {
+        // Create alert
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        // Show alert (required for sizes to be available)
+        
+        // Add picker to alert
+        //alert.alertViewStyle = UIAlertViewStyleDefault;
+        //[alert addSubview:picker];
+        
+        //[alert addSubview:picker];
+        [alert setValue:picker forKey:@"accessoryView"];
+        // Adjust the alerts bounds
+        //alert.bounds = CGRectMake(0, 0, 320 + 20, alert.bounds.size.height + 216 + 20);
+        //alert.frame = CGRectMake(0, 0, 320 + 20, alert.bounds.size.height + 216 + 20);
+        
+        [alert show];
     }
 #else
     
