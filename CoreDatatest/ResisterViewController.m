@@ -929,21 +929,22 @@ CGFloat animatedDistance;
     [UIView commitAnimations];
     
     //begining to calculate the animation
-    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    //CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+    //CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
     
     //CGFloat textFieldBottomLine = textFieldRect.origin.y + (textFieldRect.size.height + 10);
-    CGFloat textFieldBottomLine = 869;
-    CGFloat keyboardBttomLine = viewRect.size.height - PORTRAIT_KEYBOARD_HEIGHT;
+    //CGFloat textFieldBottomLine = 869;
+    //CGFloat keyboardBttomLine = viewRect.size.height - PORTRAIT_KEYBOARD_HEIGHT;
     
     
-    if (textFieldBottomLine >= keyboardBttomLine) {
+    //if (textFieldBottomLine >= keyboardBttomLine) {
         
-        animatedDistance = textFieldBottomLine - keyboardBttomLine;
+        //animatedDistance = textFieldBottomLine - keyboardBttomLine;
+        animatedDistance = PORTRAIT_KEYBOARD_HEIGHT;
         
-    } else {
-        animatedDistance = 0;
-    }
+    //} else {
+       // animatedDistance = 0;
+    //}
     
     viewFrame.origin.y -= animatedDistance;
     

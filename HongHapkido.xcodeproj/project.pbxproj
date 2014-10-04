@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		69B24B6A19CD941C00F2C93F /* AttendanceHistorySearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */; };
+		69C55AAC19DDCA940063347D /* 2014-10-02 11.01.23 am.png in Resources */ = {isa = PBXBuildFile; fileRef = 69C55AAB19DDCA940063347D /* 2014-10-02 11.01.23 am.png */; };
 		764418E019C3BCEE00C8E0E5 /* Attendance.m in Sources */ = {isa = PBXBuildFile; fileRef = 764418DF19C3BCEE00C8E0E5 /* Attendance.m */; };
 		766E2C6219A7288100B27131 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766E2C6119A7288100B27131 /* Foundation.framework */; };
 		766E2C6419A7288100B27131 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766E2C6319A7288100B27131 /* CoreGraphics.framework */; };
@@ -38,7 +39,6 @@
 		8E394BF719CEA222005F8A22 /* DDProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BF619CEA222005F8A22 /* DDProgressView.m */; };
 		8E394BFC19D13C01005F8A22 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BFB19D13C01005F8A22 /* SettingsViewController.m */; };
 		8E394BFF19D1F82C005F8A22 /* PayDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E394BFE19D1F82C005F8A22 /* PayDateViewController.m */; };
-		8E394C0119D28D89005F8A22 /* Jay2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8E394C0019D28D89005F8A22 /* Jay2.jpg */; };
 		8E394C0519D7DFFC005F8A22 /* settings-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E394C0419D7DFFC005F8A22 /* settings-25.png */; };
 		8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8E42CF1519C23DE100D34E07 /* beep.mp3 */; };
 		8E42CF1919C2442400D34E07 /* SCShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E42CF1819C2442400D34E07 /* SCShapeView.m */; };
@@ -59,6 +59,7 @@
 /* Begin PBXFileReference section */
 		69B24B6819CD941C00F2C93F /* AttendanceHistorySearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendanceHistorySearchViewController.h; sourceTree = "<group>"; };
 		69B24B6919CD941C00F2C93F /* AttendanceHistorySearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendanceHistorySearchViewController.m; sourceTree = "<group>"; };
+		69C55AAB19DDCA940063347D /* 2014-10-02 11.01.23 am.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2014-10-02 11.01.23 am.png"; sourceTree = "<group>"; };
 		764418DE19C3BCEE00C8E0E5 /* Attendance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attendance.h; sourceTree = "<group>"; };
 		764418DF19C3BCEE00C8E0E5 /* Attendance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attendance.m; sourceTree = "<group>"; };
 		766E2C5E19A7288100B27131 /* HongHapkido.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HongHapkido.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +102,6 @@
 		8E394BFB19D13C01005F8A22 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		8E394BFD19D1F82C005F8A22 /* PayDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayDateViewController.h; sourceTree = "<group>"; };
 		8E394BFE19D1F82C005F8A22 /* PayDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayDateViewController.m; sourceTree = "<group>"; };
-		8E394C0019D28D89005F8A22 /* Jay2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Jay2.jpg; sourceTree = "<group>"; };
 		8E394C0419D7DFFC005F8A22 /* settings-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-25.png"; sourceTree = "<group>"; };
 		8E42CF1519C23DE100D34E07 /* beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep.mp3; sourceTree = "<group>"; };
 		8E42CF1719C2442400D34E07 /* SCShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCShapeView.h; sourceTree = "<group>"; };
@@ -204,10 +204,10 @@
 		766E2C6A19A7288100B27131 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				69C55AAB19DDCA940063347D /* 2014-10-02 11.01.23 am.png */,
 				8EC1F5C819DA108700F6B7EB /* attendance2.png */,
 				8EC1F5C619DA107B00F6B7EB /* register2.png */,
 				8E394C0419D7DFFC005F8A22 /* settings-25.png */,
-				8E394C0019D28D89005F8A22 /* Jay2.jpg */,
 				8E394B5619C6E548005F8A22 /* attendance.png */,
 				8E394B5419C6E436005F8A22 /* register.png */,
 				8E42CF1519C23DE100D34E07 /* beep.mp3 */,
@@ -349,9 +349,9 @@
 				766E2C7919A7288100B27131 /* Images.xcassets in Resources */,
 				8E394B5719C6E548005F8A22 /* attendance.png in Resources */,
 				8E394B5519C6E436005F8A22 /* register.png in Resources */,
+				69C55AAC19DDCA940063347D /* 2014-10-02 11.01.23 am.png in Resources */,
 				8E42CF1619C23DE100D34E07 /* beep.mp3 in Resources */,
 				766E2C9C19A8718400B27131 /* Storyboard.storyboard in Resources */,
-				8E394C0119D28D89005F8A22 /* Jay2.jpg in Resources */,
 				8EC1F5C719DA107B00F6B7EB /* register2.png in Resources */,
 				8E394C0519D7DFFC005F8A22 /* settings-25.png in Resources */,
 				8EC1F5C919DA108700F6B7EB /* attendance2.png in Resources */,

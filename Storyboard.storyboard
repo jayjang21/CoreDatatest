@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="mE2-eC-boU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13F34" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="mE2-eC-boU">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--AttendanceSearch-->
+        <!--Attendance History Search View Controller - AttendanceSearch-->
         <scene sceneID="5Xq-tg-fin">
             <objects>
                 <viewController title="AttendanceSearch" id="8V7-bg-spm" customClass="AttendanceHistorySearchViewController" sceneMemberID="viewController">
@@ -107,7 +107,7 @@
             </objects>
             <point key="canvasLocation" x="1576" y="-629"/>
         </scene>
-        <!--Title-->
+        <!--Resister View Controller - Title-->
         <scene sceneID="lKj-RB-G1w">
             <objects>
                 <viewController id="Qjb-O7-rrr" customClass="ResisterViewController" sceneMemberID="viewController">
@@ -160,7 +160,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5b7-Vh-c4a">
-                                <rect key="frame" x="346" y="902" width="57" height="30"/>
+                                <rect key="frame" x="448" y="902" width="57" height="30"/>
                                 <state key="normal" title="Register">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -259,7 +259,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wjb-GL-mJu">
-                                <rect key="frame" x="446" y="902" width="30" height="30"/>
+                                <rect key="frame" x="585" y="902" width="30" height="30"/>
                                 <state key="normal" title="Find">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -268,7 +268,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofO-GF-jeu">
-                                <rect key="frame" x="249" y="902" width="51" height="30"/>
+                                <rect key="frame" x="314" y="902" width="51" height="30"/>
                                 <state key="normal" title="Update">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -277,7 +277,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTs-2m-LYE">
-                                <rect key="frame" x="520" y="902" width="102" height="30"/>
+                                <rect key="frame" x="268" y="472" width="102" height="30"/>
                                 <state key="normal" title="Make QR Card">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -289,7 +289,7 @@
                                 <rect key="frame" x="700" y="462" width="398" height="557"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VnK-2K-hKM">
-                                <rect key="frame" x="146" y="902" width="58" height="30"/>
+                                <rect key="frame" x="170" y="902" width="58" height="30"/>
                                 <state key="normal" title="Clear All">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -314,7 +314,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0C-im-wKp">
-                                <rect key="frame" x="73" y="472" width="79" height="30"/>
+                                <rect key="frame" x="120" y="472" width="79" height="30"/>
                                 <state key="normal" title="Attendance">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -356,7 +356,7 @@
             </objects>
             <point key="canvasLocation" x="1576" y="559"/>
         </scene>
-        <!--PayDateSearch-->
+        <!--Pay Date View Controller - PayDateSearch-->
         <scene sceneID="7D1-3C-xbz">
             <objects>
                 <viewController title="PayDateSearch" id="cbA-Hr-RTv" customClass="PayDateViewController" sceneMemberID="viewController">
@@ -445,7 +445,7 @@
             </objects>
             <point key="canvasLocation" x="2492" y="-629"/>
         </scene>
-        <!--Settings-->
+        <!--Settings View Controller - Settings-->
         <scene sceneID="sTy-EJ-6hS">
             <objects>
                 <viewController id="Fey-0p-wVC" customClass="SettingsViewController" sceneMemberID="viewController">
@@ -481,7 +481,7 @@
                                     <navigationItem title="Settings" id="5gt-40-E8Y"/>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Jay2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="K6V-za-ONp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="2014-10-02 11.01.23 am.png" translatesAutoresizingMaskIntoConstraints="NO" id="K6V-za-ONp">
                                 <rect key="frame" x="227" y="354" width="314" height="390"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Developer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJ9-Ir-Sn6">
@@ -557,7 +557,7 @@
             </objects>
             <point key="canvasLocation" x="630" y="1929"/>
         </scene>
-        <!--Attendance-->
+        <!--Attendance View Controller - Attendance-->
         <scene sceneID="lky-sL-lWW">
             <objects>
                 <viewController id="27m-J0-JFA" customClass="AttendanceViewController" sceneMemberID="viewController">
@@ -643,7 +643,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Jay2.jpg" width="458" height="561"/>
+        <image name="2014-10-02 11.01.23 am.png" width="161" height="174"/>
         <image name="attendance2.png" width="25" height="25"/>
         <image name="register2.png" width="25" height="25"/>
         <image name="settings-25.png" width="25" height="25"/>
