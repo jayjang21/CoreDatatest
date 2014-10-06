@@ -253,6 +253,7 @@ CGFloat animatedDistance;
         [alert show];
     }
 
+    [self resignKeyboard];
 }
 
 - (IBAction)findAcocuntWithID:(id)sender
@@ -287,6 +288,7 @@ CGFloat animatedDistance;
     
     self.qrImageView.hidden = YES;
     
+    [self resignKeyboard];
 
 }
 
@@ -316,6 +318,8 @@ CGFloat animatedDistance;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Failed to Register" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
+    
+    [self resignKeyboard];
     
 }
 
@@ -946,6 +950,25 @@ CGFloat animatedDistance;
        // animatedDistance = 0;
     //}
     
+    
+    [self showKeyboard];
+    
+    //viewFrame.origin.y -= animatedDistance;
+    //[UIView beginAnimations:nil context:NULL];
+    //[UIView setAnimationBeginsFromCurrentState:YES];
+    //[UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    //[self.view setFrame:viewFrame];
+    //[UIView commitAnimations];
+
+    self.justTappedTextField = textField.copy;
+    return YES;
+
+}
+
+-(void) showKeyboard
+{
+    CGRect viewFrame = self.view.frame;
+    
     viewFrame.origin.y -= animatedDistance;
     
     [UIView beginAnimations:nil context:NULL];
@@ -954,22 +977,35 @@ CGFloat animatedDistance;
     [self.view setFrame:viewFrame];
     [UIView commitAnimations];
 
-    self.justTappedTextField = textField.copy;
-    return YES;
+}
 
+-(void) resignKeyboard
+{
+    //CGRect viewFrame = self.view.frame;
+    //viewFrame.origin.y = 0;
+    //[UIView beginAnimations:nil context:NULL];
+    //[UIView setAnimationBeginsFromCurrentState:YES];
+    //[UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    //[self.view setFrame:viewFrame];
+    //[UIView commitAnimations];
+    
+    [self.view endEditing:YES];
 }
 
 - (BOOL) textFieldShouldEndEditing:(UITextField*)textField
 {
     
     if ([textField.copy isEqual:self.justTappedTextField]) {
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y = 0;
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    [self.view setFrame:viewFrame];
-    [UIView commitAnimations];
+        
+        //[self resignKeyboard];
+        
+        CGRect viewFrame = self.view.frame;
+        viewFrame.origin.y = 0;
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+        [self.view setFrame:viewFrame];
+        [UIView commitAnimations];
         
     }
     
